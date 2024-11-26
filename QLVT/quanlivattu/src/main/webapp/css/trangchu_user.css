@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.main-content{
+    margin-left: 255px;
+    margin-right: 7px;
+    transition: margin-left 0.5s ease-in-out;
+}
+.header{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 5px 5px rgb(190, 188, 188);
+    display: flex;
+}
+.toggle button{
+    font-size: 30px;
+    align-items: center;
+    border: none;
+    background-color: #F6F9FF;
+    align-items: center;
+    padding: 10px;
+}
+.toggle:hover button{
+    background-color: rgb(224, 227, 232);
+    transition: 0.3s;
+}
+.search-bar{
+    display: flex;
+    align-items: center;
+}
+.hello{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+#name{
+    padding-left: 25px;
+    padding-right: 5px;
+}
+.hello img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.search-bar input{
+    width: 300px;
+}
+.search-bar button{
+    margin-left: 10px;
+    width: 100px;
+}
+.sidebar{
+    width: 250px;
+    height: 100vh;
+    background-color: #A5F3FC;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: transform 0.3s ease-in-out;
+}
+.logo{
+    font-size: 20px;
+    font-weight: bold;
+}
+.logo span{
+    text-shadow: 0 5px 2px red;
+    color: white;
+}
+.logo i{
+    color: red;
+}
+.dashboard li{
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom: 4px solid;
+    margin-bottom: 20px;
+}
+.dashboard a{
+    font-size: 16px;
+    color: rgb(101, 101, 103);
+}
+.dashboard i{
+    font-size: 25px;
+}
+.dashboard li:hover{
+    background-color: #4070F4;
+    transition: 0.4s;
+}
+.dashboard li:hover a{
+    color: white;
+}
+.log-out a{
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    color: rgb(231, 26, 26);
+    margin-top: 50%;
+    border-bottom: 1px solid;
+    border-radius: 20px;
+}
+.log-out i{
+    font-size: 25px;
+    margin-left: 10px;
+}
+.log-out a:hover{
+    color: red;
+    text-shadow: 3px 3px 3px rgb(195, 122, 38);
+    border-bottom: 3px red solid;
+    transition: 0.2s;
+}
+.carousel-indicators [data-bs-target] {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+#main-content.hidden {
+    margin-left: 0;
+}
+.banner{
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+.carousel-inner img {
+
+    height: 550px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+body.fade-out {
+    transition: 0.4s;
+    opacity: 0.6; /* Làm mờ màn hình */
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}

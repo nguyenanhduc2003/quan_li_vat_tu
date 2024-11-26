@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;ads.Persistent&apos; to &apos;ConnectionPoolImpl&apos;&#x0D;&#x0A;- Original project: &apos;20241it6080001&apos;&#x0D;&#x0A;- Original element: &apos;ads.Persistent&apos;&#x0D;&#x0A;- Renamed element: &apos;ads.ConnectionPoolImpl&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Persistent&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java&lt;ads{Persistent.java[Persistent" matchStrategy="1" name="ConnectionPoolImpl" qualified="false" references="true" similarDeclarations="false" stamp="1729586856075" textual="false" version="1.0"/>
+</session>
