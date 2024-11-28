@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>trang chủ admin</title>
+    <title>trang chủ người dùng</title>
     <!--css-->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/trangchu_admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/trangchu_user.css">
     <!--boostrap-->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/bootstrap.min.css">
     <!--icon-->
@@ -27,7 +27,7 @@
         <div class="m-3 mt-3">
 
             <div class="logo d-flex align-items-center">
-                <a class="nav-link fade-link" href="${pageContext.request.contextPath}/html/trangchu_admin.jsp">
+                <a class="nav-link fade-link" href="${pageContext.request.contextPath}/trangchu_user.jsp">
                     <i class="bi bi-heart-pulse-fill"></i>
                     <span class="ms-2">VẬT TƯ Y TẾ</span>
                 </a> 
@@ -39,40 +39,34 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/taikhoan_admin.jsp">
-                        <i class="bi bi-person-circle me-2"></i>
-                        Quản lí tài khoản
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_user.jsp">
+                        <i class="bi bi-database-fill me-2"></i>
+                        Vật tư & thiết bị
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/vattu_admin.jsp">
-                        <i class="bi bi-layers-fill me-2"></i>
-                        Quản lí vật tư
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/yeucau_user.jsp">
+                        <i class="bi bi-hand-index-fill me-2"></i>
+                        Yêu cầu vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/kho_admin.jsp">
-                        <i class="bi bi-archive-fill me-2"></i>
-                        Quản lí kho
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/lichsu_user.jsp">
+                        <i class="bi bi-clock-history me-2"></i>
+                        Lịch sử yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/duyet_admin.jsp">
-                        <i class="bi bi-bookmark-fill me-2"></i>
-                        Duyệt yêu cầu
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/cungcap_admin.jsp">
-                        <i class="bi bi-briefcase-fill me-2"></i>
-                        Quản lí nhà cung cấp
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/nhan_user.jsp">
+                        <i class="bi bi-inboxes-fill me-2"></i>
+                        Nhận vật tư
                     </a>
                 </li>
             </ul>
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/html/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -163,6 +157,6 @@
 
     </main>
     <!--end main content-->
-    <script src="${pageContext.request.contextPath}/js/trangchu_admin.js"></script>
+    <script src="${pageContext.request.contextPath}/js/trangchu_user.js"></script>
 </body>
 </html>

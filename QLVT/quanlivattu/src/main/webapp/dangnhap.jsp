@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,16 +24,16 @@
 
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="register" method="post">
+		<form action="RegisterServlet" method="post">
 			<h1 class="pb-5">Tạo tài khoản mới</h1>
 			<input name="email" class="form-control mb-2" type="email" placeholder="Email" required/>
 			<input name="password" class="form-control mb-2" type="password" placeholder="Mật khẩu" required/>
-			<input class="form-control mb-2" type="password" placeholder="Xác nhận mật khẩu" required/>
+			<input name="confirmPassword" class="form-control mb-2" type="password" placeholder="Xác nhận mật khẩu" required/>
 			<button type="submit" class="btn btn-primary">Đăng ký</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="login" method="post">
+		<form action="LoginServlet" method="post">
 			<h1 class="pb-5">Đăng nhập</h1>
 			<input name="email" class="form-control mb-2" type="email" placeholder="Email" required/>
 			<input name="password" class="form-control" type="password" placeholder="Mật khẩu" required/>
@@ -56,7 +57,7 @@
 	</div>
 </div>
 <div class="container-fluid text-center">
-    <a class="nav-link back" href="${pageContext.request.contextPath}/html/index.jsp">Quay lại trang chủ</a>
+    <a class="nav-link back" href="${pageContext.request.contextPath}/index.jsp">Quay lại trang chủ</a>
 </div>
 
 <script src="${pageContext.request.contextPath}/js/dangnhap.js"></script>

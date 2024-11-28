@@ -22,7 +22,7 @@
    <nav class="navbar navbar-expand-sm container-fluid" style="background-color: #3c8de4;">
         <!--logo và tên-->
         <div class="justify-content-start container">
-            <a href="/html/index.jsp" class="nav-link">
+            <a href="/index.jsp" class="nav-link">
                 <ul class="navbar-nav d-flex">
                     <li class="nav-item container d-flex">
                         <i class="bi bi-heart-pulse-fill text-danger" style="font-size: 29px;"></i>
@@ -45,7 +45,7 @@
         <div class="justify-content-end container">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                   <a class="nav-link dangnhap" href="${pageContext.request.contextPath}/html/dangnhap.jsp" style="color: white;">Đăng nhập</a>
+                   <a class="nav-link dangnhap" href="${pageContext.request.contextPath}/dangnhap.jsp" style="color: white;">Đăng nhập</a>
                 </li>
                  <li class="nav-iem">
                     <a class="nav-link dangnhap" href="#gioithieu" style="color: white;">Giới thiệu</a>
@@ -200,7 +200,7 @@
      <!--đầu trang-->
      <div class="container-fluid">
         <div class="text-center" style="margin-left: 35%; margin-right: 35%;">
-          <span><a class="nav-link" href="${pageContext.request.contextPath}/html/index.jsp">Quay lại đầu trang</a></span>
+          <span><a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">Quay lại đầu trang</a></span>
         </div>
      </div>
      <!--end đầu trang-->

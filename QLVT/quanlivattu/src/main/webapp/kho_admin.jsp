@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duyệt yêu cầu</title>
+    <title>Quản lí kho</title>
     <!--css-->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/duyet_admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/kho_admin.css">
     <!--boostrap-->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/bootstrap.min.css">
     <!--icon-->
@@ -32,7 +32,7 @@
         <div class="m-3 mt-3">
 
             <div class="logo d-flex align-items-center">
-                <a class="nav-link fade-link" href="${pageContext.request.contextPath}/html/trangchu_user.jsp">
+                <a class="nav-link fade-link" href="${pageContext.request.contextPath}/trangchu_user.jsp">
                     <i class="bi bi-heart-pulse-fill"></i>
                     <span class="ms-2">VẬT TƯ Y TẾ</span>
                 </a>               
@@ -44,31 +44,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/taikhoan_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/taikhoan_admin.jsp">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/vattu_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_admin.jsp">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/kho_admin.jsp">
+                <li id="checked" class="nav-item">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/kho_admin.jsp">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
-                <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/duyet_admin.jsp">
+                <li class="nav-item">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/duyet_admin.jsp">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/html/cungcap_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/cungcap_admin.jsp">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -77,7 +77,7 @@
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/html/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -111,47 +111,42 @@
         </div>
 
         <div class="content-here">
-            <div class="btn-file mt-4">
+            <div class="btn-file">
+                <button class="btn btn-primary mb-3 mt-3" onclick="handleAddNew()">Thêm vật tư mới</button>
                 <button class="btn btn-success" onclick="exportToExcel()">
                     Tải xuống
                     <i class="bi bi-box-arrow-in-down ms-2"></i>
                 </button>
             </div>
-            <div class="table-content mt-4">
-                <table id="myTable" class="table table-bordered table-striped">
+            <div class="table-content">
+                <table id="myTable" class="table table-bordered table-striped table-hover">
                     <thead class="table-dark">
-                    <tr>
-                        <th>Họ và Tên</th>
-                        <th>Email</th>
-                        <th>Số Điện Thoại</th>
-                        <th>Ngày Yêu Cầu</th>
-                        <th>Tên Vật Tư</th>
-                        <th>Số Lượng</th>
-                        <th>Lý Do</th>
-                        <th>Ghi Chú</th>
-                        <th>Trạng Thái</th>
-                        <th>Thao Tác</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="request" items="${requests}">
                         <tr>
-                            <td>${request_name}</td>
-                            <td>${request_email}</td>
-                            <td>${request_phone}</td>
-                            <td>${request_date}</td>
-                            <td>${request_material_name}</td>
-                            <td>${request_quantity}</td>
-                            <td>${request_reason}</td>
-                            <td>${request_note}</td>
-                            <td>${request_status}</td>
-                            <td class="action-cell">
-                                <button class="btn btn-primary btn-sm btn-approve">Duyệt</button>
-                                <button class="btn btn-danger btn-sm btn-reject">Từ Chối</button>
+                            <th>Mã vật tư</th>
+                            <th>Tên vật tư</th>
+                            <th>Nhà cung cấp</th>
+                            <th>Số lượng</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>             
+                        <c:forEach var="warehouse" items="${warehouses}">
+                        <tr>
+                            <td>${material_id}</td>
+                            <td>${warehouse_name}</td>
+                            <td>${warehouse_supplier}</td>
+                            <td>${warehouse_quantity}</td>
+                            <td class="${warehouse_quantity < 10 ? 'textdanger' : 'text-success'}">
+                            	${warehouse_quantity < 10 ? 'Cần bổ sung' : 'Bình thường'}
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" onclick="handleNhap(this)">Nhập</button>
+                                <button class="btn btn-success" onclick="handleXuat(this)">Xuất</button>
+                                <button class="btn btn-danger">Xóa</button>
                             </td>
                         </tr>
-                    </c:forEach>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -159,6 +154,6 @@
 
     </main>
     <!--end main content-->
-    <script src="${pageContext.request.contextPath}/js/duyet_admin.js"></script>
+    <script src="${pageContext.request.contextPath}/js/kho_admin.js"></script>
 </body>
 </html>
