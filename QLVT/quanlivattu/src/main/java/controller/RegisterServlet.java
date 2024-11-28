@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,8 +44,10 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 request.setCharacterEncoding("UTF-8");
 		
 		 // Lấy dữ liệu từ form
+		String fullname = request.getParameter("fullname");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
@@ -61,9 +65,16 @@ public class RegisterServlet extends HttpServlet {
         
         
         ConnectionPool connectionPool = ConnectionPoolImpl.getInstance();
+        
        
         try {
             conn = connectionPool.getConnection("RegisterServlet");
+            
+            if (conn != null) {
+                System.out.println("Kết nối đến cơ sở dữ liệu thành công!");
+            } else {
+                System.out.println("Không thể kết nối đến cơ sở dữ liệu.");
+            }
 
             // Kiểm tra email đã tồn tại chưa
             String checkEmailSql = "SELECT account_email FROM tblaccount WHERE account_email = ?";
@@ -77,13 +88,18 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
             
+         // Định dạng ngày giờ tạo tài khoản
+            String accountCreatedDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date()); // Sử dụng định dạng 'dd-MM-yyyy'
+            
 
             // Lưu tài khoản mới vào cơ sở dữ liệu
-            String sql = "INSERT INTO tblaccount (account_email, account_pass, account_role) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO tblaccount (account_name, account_email, account_pass, account_role, account_created_date) VALUES (?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, email);
-            pstmt.setString(2, password);
-            pstmt.setString(3, "user"); // Vai trò mặc định là 'user'
+            pstmt.setString(1, fullname);
+            pstmt.setString(2, email);
+            pstmt.setString(3, password);
+            pstmt.setString(4, "user"); // Vai trò mặc định là 'user'
+            pstmt.setString(5, accountCreatedDate);
 
             int rowsAffected = pstmt.executeUpdate();
 

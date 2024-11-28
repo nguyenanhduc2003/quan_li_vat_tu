@@ -26,6 +26,7 @@
 	<div class="form-container sign-up-container">
 		<form action="RegisterServlet" method="post">
 			<h1 class="pb-5">Tạo tài khoản mới</h1>
+			<input name="fullname" class="form-control mb-2" type="text" placeholder="Họ và tên" required/>
 			<input name="email" class="form-control mb-2" type="email" placeholder="Email" required/>
 			<input name="password" class="form-control mb-2" type="password" placeholder="Mật khẩu" required/>
 			<input name="confirmPassword" class="form-control mb-2" type="password" placeholder="Xác nhận mật khẩu" required/>
