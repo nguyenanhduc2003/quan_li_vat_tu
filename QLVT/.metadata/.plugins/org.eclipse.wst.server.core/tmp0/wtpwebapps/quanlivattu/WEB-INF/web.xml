@@ -9,4 +9,15 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>AccountListServlet</servlet-name>
+    <servlet-class>controller.AccountListServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>AccountListServlet</servlet-name>
+    <url-pattern>/accountList</url-pattern>
+</servlet-mapping>
+
 </web-app>

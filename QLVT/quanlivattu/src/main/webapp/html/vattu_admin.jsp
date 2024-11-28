@@ -234,8 +234,11 @@
                             <td>${material_value}</td>
                             <td>${material_image}</td>
                             <td>
-                                <button class="btn btn-primary">Sửa</button>
-                                <button class="btn btn-danger mt-1">Xóa</button>
+                                <button class="btn btn-primary">
+                                <i class="bi bi-pencil-square"></i></button>
+                                <button class="btn btn-danger mt-1">
+                                <i class="bi bi-dash-square"></i>
+                                </button>
                             </td>
                         </tr> 
                         </c:forEach>                                      

@@ -143,8 +143,10 @@
                             <td>supplier_describe</td>
                             <td>supplier_date_created</td>
                             <td>
-                                <button class="btn btn-primary btnEdit">Sửa</button>
-                                <button class="btn btn-danger btnDelete">Xóa</button>
+                                <button class="btn btn-primary btnEdit">
+                                <i class="bi bi-pencil-square"></i></button>
+                                <button class="btn btn-danger btnDelete">
+                                <i class="bi bi-dash-square"></i></button>
                             </td>
                         </tr> 
                         </c:forEach>         

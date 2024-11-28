@@ -139,18 +139,20 @@
                     <tbody>
                     	<c:forEach var="account" items="${accounts}">
                         <tr>
-                            <td>${account_id}</td>
-                            <td>${account_name}</td>
-                            <td>${account_email}</td>
-                            <td>${account_pass}</td>
-                            <td>${account_phone}</td>
-                            <td>${account_address}</td>
-                            <td>${account_birthday}</td>
-                            <td>${account_created_date}</td>
-                            <td>${account_role}</td>
+                            <td>${account.account_id}</td>
+                            <td>${account.account_name}</td>
+                            <td>${account.account_email}</td>
+                            <td>${account.account_pass}</td>
+                            <td>${account.account_phone}</td>
+                            <td>${account.account_address}</td>
+                            <td>${account.account_birthday}</td>
+                            <td>${account.account_created_date}</td>
+                            <td>${account.account_role}</td>
                             <td class="d-flex gap-2">
-                                <button class="btn btn-primary">Sửa</button>
-                                <button class="btn btn-danger">Xóa</button>
+                                <button class="btn btn-primary">
+                                <i class="bi bi-pencil-square"></i></button>
+                                <button class="btn btn-danger">
+                                <i class="bi bi-dash-square"></i></button>
                             </td>
                         </tr>    
                         </c:forEach>                     

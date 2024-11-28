@@ -140,7 +140,6 @@ public class BasicImpl implements Basic {
 		}
 		return null;
 	}
-
 	@Override
 	public void releaseConnection() {
 		// TODO Auto-generated method stub

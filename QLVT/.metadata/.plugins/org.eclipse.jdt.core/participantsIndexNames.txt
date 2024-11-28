@@ -3,6 +3,8 @@ D:\Documents\JAVAWEB\QLVT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\
 \BTL_QLCV_JavaNC\src\main\java
 D:\Documents\JAVAWEB\QLVT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1786035691.index
 \20241it6080001\src\main\java
+C:\Users\Toanvupc\Desktop\quan_li_vat_tu\QLVT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2865795324.index
+\quanlivattu\src\main\java
 D:\Documents\JAVAWEB\QLVT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3001777274.index
 \20241it6080001\src\main\java
 D:\Documents\JAVAWEB\QLVT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2865795324.index
