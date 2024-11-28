@@ -94,7 +94,7 @@
   
    <!--kết thúc-->
    <!--giới thiệu website-->
-   <div id="gioithieu" class="container rounded mt-1 intro" style="background-image: url(${pageContext.request.contextPath}/image/background.jpg);">
+   <div id="gioithieu" class="container rounded mt-1 intro" style="background-image: url(${pageContext.request.contextPath}/image/hero-bg.png);">
         <div class="text-center text-white" style="font-size: 30px; font-weight: bold; padding-top: 50px;">
             GIỚI THIỆU WEBSITE QUẢN LÍ VẬT TƯ Y TẾ
         </div>
@@ -135,7 +135,7 @@
    </div>
    <!--kết thúc-->
    <!--liên hệ-->
-   <div class="container text-dark">
+   <div class="container text-white" style="background-color: #178066;">
     <div id="lienhe" class="row" style="height: 300px;">
       <div class="col text-center">
           <div style="font-size: 25px; padding-top: 50px;">

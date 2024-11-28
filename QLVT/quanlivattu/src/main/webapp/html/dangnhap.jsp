@@ -56,7 +56,7 @@
 	</div>
 </div>
 <div class="container-fluid text-center">
-    <a class="nav-link back" href="${pageContext.request.contextPath}/index.jsp">Quay lại trang chủ</a>
+    <a class="nav-link back" href="${pageContext.request.contextPath}/html/index.jsp">Quay lại trang chủ</a>
 </div>
 
 <script src="${pageContext.request.contextPath}/js/dangnhap.js"></script>

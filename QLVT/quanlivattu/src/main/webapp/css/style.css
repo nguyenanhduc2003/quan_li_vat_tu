@@ -36,6 +36,6 @@ html{
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    opacity: 0.7; /* Đặt độ trong suốt (0.0 = trong suốt hoàn toàn, 1.0 = không trong suốt) */
-    transition: opacity 0.3s; /* Hiệu ứng chuyển đổi mượt */
+    opacity: 0.7;
+    transition: opacity 0.3s;
 }
