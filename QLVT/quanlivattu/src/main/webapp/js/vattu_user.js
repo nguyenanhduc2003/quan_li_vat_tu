@@ -103,3 +103,50 @@ $(document).ready(function () {
         }
     });
 });
+
+// tim kiem va loc card
+  // Tìm kiếm card
+  function searchCards() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const cards = document.querySelectorAll('.card-item');
+    
+    cards.forEach(card => {
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        if (title.indexOf(filter) > -1) {
+            card.style.display = ''; 
+        } else {
+            card.style.display = 'none'; 
+        }
+    });
+}
+
+
+const sortAscButton = document.getElementById('sort-asc');
+const sortDescButton = document.getElementById('sort-desc');
+const cardContainer = document.querySelector('.row > .col-md-9 > .row');
+
+
+sortAscButton.addEventListener('click', () => sortCards('asc'));
+
+
+sortDescButton.addEventListener('click', () => sortCards('desc'));
+
+function sortCards(order) {
+
+    const cards = Array.from(cardContainer.getElementsByClassName('col-md-4'));
+
+    cards.sort((a, b) => {
+        const titleA = a.querySelector('.card-title').textContent.trim().toLowerCase();
+        const titleB = b.querySelector('.card-title').textContent.trim().toLowerCase();
+
+        if (order === 'asc') {
+            return titleA.localeCompare(titleB); 
+        } else {
+            return titleB.localeCompare(titleA);
+        }
+    });
+
+    cardContainer.innerHTML = '';
+    cards.forEach(card => cardContainer.appendChild(card));
+}

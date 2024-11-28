@@ -130,54 +130,123 @@
 
 
             </div>
+			
+			<div class="card">
 
-            <div class="btn-file">
-                <button class="btn btn-success" onclick="exportToExcel()">
-                    Tải xuống
-                    <i class="bi bi-box-arrow-in-down ms-2"></i>
-                </button>
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <ul class="list-group">
+                                <li class="list-group-item" id="sort-asc">Sort A-Z</li>
+                                <li class="list-group-item" id="sort-desc">Sort Z-A</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-9">
+                    
+                            <div class="row" id="cardContainer">
+                                <!-- Card 1 -->
+                                <div class="col-md-4 col-12 card-item">
+                                    <div class="card" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#card1Modal">
+                                        <img src="https://ytesaigon.com/wp-content/uploads/2023/02/May-do-duong-huyet-On-Call-EZ-II.jpg.webp" class="card-img-top" alt="Card 1">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Máy đo đường huyết</h5>
+                                            <p class="card-text">Click xem thông tin chi tiết</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card 2 -->
+                                <div class="col-md-4 col-12 card-item">
+                                    <div class="card" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#card2Modal">
+                                        <img src="https://cdn.tgdd.vn/Products/Images/5872/283254/khau-trang-y-te-mask-care-4-lop-trang-hop-50-cai-thumb-1-600x600.jpg" class="card-img-top" alt="Card 2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Khẩu trang y tế 4 lớp</h5>
+                                            <p class="card-text">Click xem thông tin chi tiết</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card 3 -->
+                                <div class="col-md-4 col-12 card-item">
+                                    <div class="card" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#card3Modal">
+                                        <img src="https://cdn.nhathuoclongchau.com.vn/unsafe/https://cms-prod.s3-sgn09.fptcloud.com/00017885_bong_gac_dap_vet_thuong_bao_thach_8cm_x_12cm_2863_62ae_large_ca54514759.jpg" class="card-img-top" alt="Card 3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Bông gạc y tế</h5>
+                                            <p class="card-text">Click xem thông tin chi tiết</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Modal for Card 1 -->
+                <div class="modal fade" id="card1Modal" tabindex="-1" aria-labelledby="card1ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="card1ModalLabel">Mô tả Sản phẩm</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class=" col-12 col-md-6">
+                                        <label for="material_name" class="form-label">Tên sản phẩm</label>
+                                        <input id="material_name" name="material_name" type="text" class="form-control" value="Máy đo đường huyết On Call EZ II" readonly>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label for="material_country" class="form-label">Quốc gia sản xuất</label>
+                                        <input id="material_country" name="material_country" type="text" class="form-control" value="Mỹ" readonly>
+                                    </div>
+                                </div>
+
+                                <label for="material_describe" class="form-label">Mô tả</label>
+                                <textarea name="material_describe" id="material_describe" class="form-control" rows="4" readonly> Máy đo đường huyết On Call EZ II được sản xuất bởi tập đoàn ACON Laboratories Inc., USA dựa trên công nghệ mới với chất lượng rất cao, cách sử dụng đơn giản, tiện lợi và kết quả đo chính xác. Đặc biệt nguồn cung cấp que  thử dồi dào với giá cả rất hợp lý đã đáp ứng được nguyện vọng của đông đảo bệnh nhân tiểu đường trên toàn thế giới. Máy được sử dụng rộng rãi tại các bệnh viện, trung tâm y tế, phòng mạch cũng như tại gia đình.
+                                </textarea>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <label for="material_unit" class="form-label">Đơn vị</label>
+                                        <input id="material_unit" name="material_unit" class="form-control" type="text" value="Chiếc" readonly>
+                                    </div>
+
+                                    <div class="col-12 col-md-4">
+                                        <label for="material_date" class="form-label">Ngày sản xuất</label>
+                                        <input id="material_date" name="material_date" class="form-control" type="text" value="03-04-2017" readonly>
+                                    </div>
+
+                                    <div class="col-12 col-md-4">
+                                        <label for="material_expiry" class="form-label">Hạn sử dụng</label>
+                                        <input id="material_expiry" name="material_expiry" class="form-control" type="text" value="Đến khi hỏng" readonly>
+                                    </div>
+                                </div>
+
+                                <label for="material_use" class="form-label">Cách sử dụng</label>
+                                <textarea name="material_use" id="material_use" rows="4" class="form-control" readonly> Chuẩn bị các dụng cụ đo. Lắp kim mới vào bút lấy máu. Chuẩn bị một que đo mới. Chuẩn bị một miếng cồn để sát khuẩn. Rửa tay bằng xà phòng và lau khô. Sát khuẩn vị trí lấy máu (đầu ngón tay) bằng cồn và chờ cho cồn bay hơi hết (đầu ngón tay khô). Gắn que đo vào máy, máy sẽ tự động bật lên. Chờ cho đến khi trên màn hình xuất hiện biểu tượng giọt máu. Sau khi điều chỉnh độ nông sâu phù hợp áp đầu bút lấy máu vào ngón tay để chích máu. Mẹo để lấy máu ít đau là bạn nên chích kim ở bên cạnh đầu ngón tay. Không nên chích ở giữa vì ở giữa là nơi tập trung nhiều dây thần kinh do vậy bạn sẽ cảm thấy đau nhiều hơn. Thấm máu vào que đo. Lưu ý bạn cần cung cấm lượng máu đủ để đo. Trong trường hợp thiếu máu máy sẽ báo lỗi và que đo đó sẽ không được sử dụng lại. Máy sẽ bắt đầu đếm ngược và sau 10s kết quả sẽ hiện trên màn hình.
+                                </textarea>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <label for="material_supplier" class="form-label">Nhà cung cấp</label>
+                                        <textarea name="material_supplier" id="material_supplier" class="form-control" readonly>ArtCare Medical - Công Ty Cổ Phần Thương Mại Và Dịch Vụ ArtCare</textarea>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label for="material_value" class="form-label">Giá tiền</label>
+                                        <input type="text" name="material_value" id="material_value" class="form-control" value="499.00" readonly>
+                                    </div>
+                                </div>
+                                                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
             </div>
-
-
-            <div class="table-set table-responsive">
-                <table id="myTable" class="table table-bordered">
-                    <thead class="bg-primary text-white">
-                        <tr class="text-center">
-                            <th>Mã vật tư</th>
-                            <th>Tên vật tư</th>
-                            <th>Mô tả</th>
-                            <th>Đơn vị tính</th>
-                            <th>Ngày sản xuất</th>
-                            <th>Hạn sử dụng</th>
-                            <th>Cách sử dụng</th>
-                            <th>Nhà cung cấp</th>
-                            <th>Quốc gia sản xuất</th>
-                            <th>Giá tiền</th>
-                            <th>Ảnh</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	<c:forEach var="material" items="${materials}">
-                        <tr class="text-center">
-                            <td>${material_id}</td>
-                            <td>${material_name}</td>
-                            <td>${material_describe}</td>
-                            <td>${material_unit}</td>
-                            <td>${material_date}</td>
-                            <td>${material_expiry}</td>
-                            <td>${material_use}</td>
-                            <td>${material_supplier}</td>
-                            <td>${material_country}</td>
-                            <td>${material_value}</td>
-                            <td>${material_image}</td>
-                        </tr>
-                        </c:forEach>
-                    </tbody>
-    
-                </table>
-            </div>
-        </div>
-
+            
     </main>
     <!--end main content-->
     <script src="${pageContext.request.contextPath}/js/vattu_user.js"></script>
