@@ -46,13 +46,13 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/taikhoan_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="DashboardServlet?action=taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="DashboardServlet?action=vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
@@ -99,12 +99,57 @@
                 </div>
     
                 <div class="search-bar col-11 col-sm-7">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm gì đó...">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateInfoModal">
+                        Cập nhật thông tin cá nhân
+                    </button>
                 </div>
-    
+                
+                <!-- Modal -->
+			        <div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
+			            <div class="modal-dialog">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <h5 class="modal-title" id="updateInfoModalLabel">Cập nhật thông tin cá nhân</h5>
+			                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			                    </div>
+			                    <div class="modal-body">
+			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+			                            <div class="mb-3">
+			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
+			                            </div>
+			                            <div class="mb-3">
+			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+			                            </div>
+			                            <div class="mb-3">
+			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
+			                            </div>
+			                            <div class="mb-3">
+			                                <label for="address" class="form-label">Address</label>
+			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+			                            </div>
+			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                        </form>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    
+                <!-- end Modal -->
                 <div class="hello col-12 col-sm-4">
                     <span id="hello">Xin chào!</span>
-                    <span id="name">Nguyễn Anh Đức</span>
+                    <span id="name">
+                     <c:choose>
+				        <c:when test="${not empty sessionScope.account_name}">
+				            ${sessionScope.account_name}
+				        </c:when>
+				        <c:otherwise>
+				            Chưa có tên
+				        </c:otherwise>
+					   </c:choose>
+                    </span>
                     <span><img src="https://png.pngtree.com/png-vector/20220429/ourlarge/pngtree-human-template-doctor-avatar-white-individual-vector-png-image_27845716.jpg" alt=""></span>
                 </div>
                 
@@ -121,43 +166,45 @@
 
         <div class="content-here">
             <div class="table-content table-responsive">
-                <table id="myTable" class="table table-bordered">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Mã người dùng</th>
-                            <th>Tên người dùng</th>
-                            <th>Email</th>
-                            <th>Mật khẩu</th>
-                            <th>Số điện thoại</th>
-                            <th>Địa chỉ</th>
-                            <th>Ngày sinh</th>
-                            <th>Ngày tạo tài khoản</th>
-                            <th>Vai trò</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	<c:forEach var="account" items="${accounts}">
-                        <tr>
-                            <td>${account.account_id}</td>
-                            <td>${account.account_name}</td>
-                            <td>${account.account_email}</td>
-                            <td>${account.account_pass}</td>
-                            <td>${account.account_phone}</td>
-                            <td>${account.account_address}</td>
-                            <td>${account.account_birthday}</td>
-                            <td>${account.account_created_date}</td>
-                            <td>${account.account_role}</td>
-                            <td class="d-flex gap-2">
-                                <button class="btn btn-primary">
-                                <i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-danger">
-                                <i class="bi bi-dash-square"></i></button>
-                            </td>
-                        </tr>    
-                        </c:forEach>                     
-                    </tbody>
-                </table>
+                 <table id="myTable" class="table table-bordered">
+		            <thead class="table-dark">
+		                <tr>
+		                    <th>Mã người dùng</th>
+		                    <th>Tên người dùng</th>
+		                    <th>Email</th>
+		                    <th>Mật khẩu</th>
+		                    <th>Số điện thoại</th>
+		                    <th>Địa chỉ</th>
+		                    <th>Ngày sinh</th>
+		                    <th>Ngày tạo tài khoản</th>
+		                    <th>Vai trò</th>
+		                    <th>Thao tác</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <c:forEach var="account" items="${accounts}">
+		                    <tr>
+		                        <td>${account.account_id}</td>
+		                        <td>${account.account_name}</td>
+		                        <td>${account.account_email}</td>
+		                        <td>${account.account_pass}</td>
+		                        <td>${account.account_phone}</td>
+		                        <td>${account.account_address}</td>
+		                        <td>${account.account_birthday}</td>
+		                        <td>${account.account_created_date}</td>
+		                        <td>${account.account_role}</td>
+		                        <td class="d-flex gap-2">
+		                            <button class="btn btn-primary">
+		                                <i class="bi bi-pencil-square"></i> Sửa
+		                            </button>
+		                            <button class="btn btn-danger">
+		                                <i class="bi bi-dash-square"></i> Xóa
+		                            </button>
+		                        </td>
+		                    </tr>
+		                </c:forEach>
+		            </tbody>
+		        </table>
             </div>
             
         </div>

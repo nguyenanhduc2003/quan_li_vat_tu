@@ -32,7 +32,7 @@
         <div class="m-3 mt-3">
 
             <div class="logo d-flex align-items-center">
-                <a class="nav-link fade-link" href="${pageContext.request.contextPath}/trangchu_user.jsp">
+                <a class="nav-link fade-link" href="${pageContext.request.contextPath}/trangchu_admin.jsp">
                     <i class="bi bi-heart-pulse-fill"></i>
                     <span class="ms-2">VẬT TƯ Y TẾ</span>
                 </a>               
@@ -97,12 +97,58 @@
                 </div>
     
                 <div class="search-bar col-11 col-sm-7">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm gì đó...">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateInfoModal">
+                        Cập nhật thông tin cá nhân
+                    </button>
                 </div>
+                
+                <!-- Modal -->
+			        <div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
+			            <div class="modal-dialog">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <h5 class="modal-title" id="updateInfoModalLabel">Cập nhật thông tin cá nhân</h5>
+			                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			                    </div>
+			                    <div class="modal-body">
+			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+			                            <div class="mb-3">
+			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
+			                            </div>
+			                            <div class="mb-3">
+			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+			                            </div>
+			                            <div class="mb-3">
+			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
+			                            </div>
+			                            <div class="mb-3">
+			                                <label for="address" class="form-label">Address</label>
+			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+			                            </div>
+			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                        </form>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    
+                <!-- end Modal -->
     
                 <div class="hello col-12 col-sm-4">
                     <span id="hello">Xin chào!</span>
-                    <span id="name">Nguyễn Anh Đức</span>
+                    <span id="name">
+                     <c:choose>
+				        <c:when test="${not empty sessionScope.account_name}">
+				            ${sessionScope.account_name}
+				        </c:when>
+				        <c:otherwise>
+				            Chưa có tên
+				        </c:otherwise>
+					   </c:choose>
+                    </span>
                     <span><img src="https://png.pngtree.com/png-vector/20220429/ourlarge/pngtree-human-template-doctor-avatar-white-individual-vector-png-image_27845716.jpg" alt=""></span>
                 </div>
                 
@@ -112,9 +158,11 @@
 
         <div class="info-display">
             <div>
-                <label for="total-display" class="form-label">Tổng số vật tư</label>
-                <input id="total-display" name="total-display" type="text" class="form-control" placeholder="10" readonly>
-            </div>
+		        <label for="total-display" class="form-label">Tổng số vật tư</label>
+		        <input id="total-display" name="total-display" type="text" class="form-control" 
+		               value="${totalMaterials}" readonly>
+		               
+		    </div>
         </div>
 
         <div class="btn-add d-flex">
@@ -222,17 +270,21 @@
                     	<c:forEach var="material" items="${materials}">
                         <tr>
                             <td>1</td>
-                            <td>${material_id}</td>
-                            <td>${material_name}</td>
-                            <td>${material_describe}</td>
-                            <td>${material_unit}</td>
-                            <td>${material_date}</td>
-                            <td>${material_expiry}</td>
-                            <td>${material_use}</td>
-                            <td>${material_supplier}</td>
-                            <td>${material_country}</td>
-                            <td>${material_value}</td>
-                            <td>${material_image}</td>
+                            <td>${material.material_id}</td>
+                            <td>${material.material_name}</td>
+                            <td>
+                            <abbr title="${material.material_describe}">Xem chi tiết</abbr>
+                            </td>
+                            <td>${material.material_unit}</td>
+                            <td>${material.material_date}</td>
+                            <td>${material.material_expiry}</td>
+                            <td>
+                            <abbr title="${material.material_use}">Xem chi tiết</abbr>
+                            </td>
+                            <td>${material.material_supplier}</td>
+                            <td>${material.material_country}</td>
+                            <td>${material.material_value}</td>
+                            <td><img src="${material.material_image}" atl=""></td>
                             <td>
                                 <button class="btn btn-primary">
                                 <i class="bi bi-pencil-square"></i></button>

@@ -18,27 +18,29 @@ public class ConnectionPoolImpl implements ConnectionPool {
 	
 	
 	public ConnectionPoolImpl() {
-		// xác định trình điều khiển
-		this.driver = "com.mysql.cj.jdbc.Driver";
-		
-		//xác định đường dẫn chạy mysql
-		this.url = "jdbc:mysql://localhost:3306/quanlivattu?allowMultiQueries=true";
+		 this.driver = "com.mysql.cj.jdbc.Driver";
+		    this.url = "jdbc:mysql://localhost:3306/quanlivattu?useSSL=false&allowPublicKeyRetrieval=true";
+		    this.username = "quanlivattu_ducna";
+		    this.password = "@123$%65";
 
-		
-		//xác định tài khoản làm việc
-		
-		this.username = "quanlivattu_ducna";
-		this.password = "@123$%65";
-		
-		//nạp trình điều khiển
-		try {
-			Class.forName(this.driver);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    try {
+		        Class.forName(this.driver);
+		    } catch (ClassNotFoundException e) {
+		        e.printStackTrace();
+		    }
+
+		    this.pool = new Stack<>();
+		    initializePool(5);  // Tạo 5 kết nối ban đầu vào pool
 		}
-		//khởi tạo bộ nhớ lưu trữ đối tượng kết nối
-		this.pool = new Stack<>();
+
+		private void initializePool(int initialSize) {
+		    for (int i = 0; i < initialSize; i++) {
+		        try {
+		            this.pool.push(DriverManager.getConnection(this.url, this.username, this.password));
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
 		
 	}
 
