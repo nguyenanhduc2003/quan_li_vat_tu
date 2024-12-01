@@ -15,9 +15,9 @@
     <!--js bootstrap-->
     <script src="${pageContext.request.contextPath}/bootstrap/bootstrap.bundle.min.js"></script>
     <!--font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
     <!--datatable-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -28,7 +28,7 @@
     
 
 </head>
-<body style="font-family: 'Mona Sans', serif;">
+<body style="font-family: 'Noto Serif', serif;">
     <!--sidebar-->
     <div id="sidebar" class="sidebar">
         <div class="m-3 mt-3">
@@ -46,31 +46,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="DashboardServlet?action=taikhoan_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="DashboardServlet?action=vattu_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/kho_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/duyet_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/cungcap_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -157,14 +157,14 @@
 
         </div>
 
-        <div class="btn-file">
+        <div class="btn-file ms-3 me-3">
             <button class="btn btn-success" onclick="exportToExcel()">
                 Tải xuống
                 <i class="bi bi-box-arrow-in-down ms-2"></i>
             </button>
         </div>
 
-        <div class="content-here">
+        <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
                  <table id="myTable" class="table table-bordered">
 		            <thead class="table-dark">
@@ -195,10 +195,10 @@
 		                        <td>${account.account_role}</td>
 		                        <td class="d-flex gap-2">
 		                            <button class="btn btn-primary">
-		                                <i class="bi bi-pencil-square"></i> Sửa
+		                                <i class="bi bi-pencil-square"></i>
 		                            </button>
 		                            <button class="btn btn-danger">
-		                                <i class="bi bi-dash-square"></i> Xóa
+		                                <i class="bi bi-dash-square"></i>
 		                            </button>
 		                        </td>
 		                    </tr>
@@ -210,14 +210,14 @@
         </div>
 
         <!--them du lieu-->
-        <div class="add-data">
+        <div class="add-data ms-3 me-3">
             <!--form title-->
             <div class="form-title">
                 Thêm dữ liệu
             </div>
             <!--end form title-->
             <!--form-->
-            <form id="addRowForm">
+            <form id="addRowForm" action="Taikhoan_admin" method="POST" onsubmit="return confirmSubmit()">
                 <div class="row">
                     <div class="col-12 col-sm-3">
                         <label for="user-id" class="form-label">Mã người dùng</label>
@@ -262,14 +262,18 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-12 col-sm-3">
                         <label for="date-create" class="form-label">Ngày tạo tài khoản</label>
                         <input id="date-create" name="date-create" type="date" class="form-control" required>
                     </div>
                     <div class="col-12 col-sm-4">
-                        <label for="role" class="form-label">Vai trò</label>
-                        <input id="role" name="role" type="text" class="form-control" required>
+                       <label for="role" class="form-label">Vai trò</label>
+			            <select id="role" name="role" class="form-select" required>
+			                <option value="">Chọn vai trò</option>
+			                <option value="admin">admin</option>
+			                <option value="user">user</option>
+			            </select>
                     </div>
                 </div>
 

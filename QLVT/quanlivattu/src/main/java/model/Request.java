@@ -9,7 +9,7 @@ public class Request {
 	    private String request_email; 
 	    private String request_phone; 
 	    private String request_date; 
-	    private String request_material_name; 
+	    private String request_materialname; 
 	    private int request_quantity; 
 	    private String request_reason; 
 	    private String request_note; 

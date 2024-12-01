@@ -16,8 +16,8 @@
     <script src="${pageContext.request.contextPath}/bootstrap/bootstrap.bundle.min.js"></script>
     <!--font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
     <!--datatable-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -26,13 +26,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
 </head>
-<body style="font-family: 'Mona Sans', serif;">
+<body style="font-family: 'Noto Serif', serif;">
     <!--sidebar-->
     <div id="sidebar" class="sidebar">
         <div class="m-3 mt-3">
 
             <div class="logo d-flex align-items-center">
-                <a class="nav-link fade-link" href="${pageContext.request.contextPath}/trangchu_user.jsp">
+                <a class="nav-link fade-link" href="${pageContext.request.contextPath}/trangchu_admin.jsp">
                     <i class="bi bi-heart-pulse-fill"></i>
                     <span class="ms-2">VẬT TƯ Y TẾ</span>
                 </a>               
@@ -44,31 +44,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/taikhoan_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/kho_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/duyet_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/cungcap_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -183,15 +183,15 @@
                     <tbody>
                     <c:forEach var="request" items="${requests}">
                         <tr>
-                            <td>${request_name}</td>
-                            <td>${request_email}</td>
-                            <td>${request_phone}</td>
-                            <td>${request_date}</td>
-                            <td>${request_material_name}</td>
-                            <td>${request_quantity}</td>
-                            <td>${request_reason}</td>
-                            <td>${request_note}</td>
-                            <td>${request_status}</td>
+                            <td>${request.request_name}</td>
+                            <td>${request.request_email}</td>
+                            <td>${request.request_phone}</td>
+                            <td>${request.request_date}</td>
+                            <td>${request.request_materialname}</td>
+                            <td>${request.request_quantity}</td>
+                            <td>${request.request_reason}</td>
+                            <td>${request.request_note}</td>
+                            <td>${request.request_status}</td>
                             <td class="action-cell">
                                 <button class="btn btn-primary btn-sm btn-approve">Duyệt</button>
                                 <button class="btn btn-danger btn-sm btn-reject">Từ Chối</button>

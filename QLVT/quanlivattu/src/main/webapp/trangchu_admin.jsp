@@ -16,12 +16,12 @@
     <script src="${pageContext.request.contextPath}/bootstrap/bootstrap.bundle.min.js"></script>
     <!--font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
 
 
 </head>
-<body style="font-family: 'Mona Sans', serif;">
+<body style="font-family: 'Noto Serif', serif;">
     <!--sidebar-->
     <div id="sidebar" class="sidebar">
         <div class="m-3 mt-3">
@@ -51,19 +51,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/kho_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/duyet_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/cungcap_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>

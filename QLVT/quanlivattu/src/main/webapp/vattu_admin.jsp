@@ -16,8 +16,8 @@
     <script src="${pageContext.request.contextPath}/bootstrap/bootstrap.bundle.min.js"></script>
     <!--font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
     <!--datatable-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -26,7 +26,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
 </head>
-<body style="font-family: 'Mona Sans', serif;">
+<body style="font-family: 'Noto Serif', serif;">
     <!--sidebar-->
     <div id="sidebar" class="sidebar">
         <div class="m-3 mt-3">
@@ -44,31 +44,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/taikhoan_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/kho_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/duyet_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/cungcap_admin.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -156,7 +156,7 @@
 
         </div>
 
-        <div class="info-display">
+        <div class="info-display ms-3 me-3">
             <div>
 		        <label for="total-display" class="form-label">Tổng số vật tư</label>
 		        <input id="total-display" name="total-display" type="text" class="form-control" 
@@ -165,7 +165,7 @@
 		    </div>
         </div>
 
-        <div class="btn-add d-flex">
+        <div class="btn-add d-flex ms-3 me-3">
             <div class="me-2">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMaterialModal">
                     <i class="bi bi-plus"></i>
@@ -246,12 +246,11 @@
             <!--end modal-->
         </div>
 
-        <div class="content-here">
+        <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
-                        <tr class="table-dark">
-                            <th>#</th>
+                        <tr class="table-dark">                      
                             <th>Mã vật tư</th>
                             <th>Tên vật tư</th>
                             <th>Mô tả</th>
@@ -269,7 +268,6 @@
                     <tbody  id="materialTableBody">
                     	<c:forEach var="material" items="${materials}">
                         <tr>
-                            <td>1</td>
                             <td>${material.material_id}</td>
                             <td>${material.material_name}</td>
                             <td>

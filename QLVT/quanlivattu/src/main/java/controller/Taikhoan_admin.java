@@ -45,8 +45,42 @@ public class Taikhoan_admin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		 // Lấy dữ liệu từ form
+        int userId = Integer.parseInt(request.getParameter("user-id"));
+        String userName = request.getParameter("user-name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String phoneNumber = request.getParameter("phonenumber");
+        String birthday = request.getParameter("birthday");
+        String address = request.getParameter("address");
+        String dateCreate = request.getParameter("date-create");
+        String role = request.getParameter("role");
+
+        // Tạo đối tượng Account
+        Account account = new Account();
+        account.setAccount_id(userId);
+        account.setAccount_name(userName);
+        account.setAccount_email(email);
+        account.setAccount_pass(password);
+        account.setAccount_phone(phoneNumber);
+        account.setAccount_birthday(birthday);
+        account.setAccount_address(address);
+        account.setAccount_created_date(dateCreate);
+        account.setAccount_role(role);
+
+        // Thêm tài khoản vào cơ sở dữ liệu
+        boolean isAdded = accountDAO.addAccount(account);
+        
+     // Xử lý kết quả
+        response.setContentType("text/html");
+        if (isAdded) {
+            response.getWriter().println("<script>alert('Success!'); window.location.href = 'Taikhoan_admin';</script>");
+        } else {
+            response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+        }
+		
 	}
 
 }

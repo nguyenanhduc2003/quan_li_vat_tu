@@ -100,6 +100,42 @@ public class AccountDAO extends BaseDAO implements Dao<Account> {
             closeResources(conn, pstmt);
         }
     }
+    
+    // Phương thức thêm tài khoản
+    public boolean addAccount(Account account) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean isInserted = false;
+
+        try {
+            conn = getConnection();
+
+            String sql = "INSERT INTO tblaccount (account_id, account_name, account_email, account_pass, account_phone, account_birthday, account_address, account_created_date, account_role) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, account.getAccount_id());
+            pstmt.setString(2, account.getAccount_name());
+            pstmt.setString(3, account.getAccount_email());
+            pstmt.setString(4, account.getAccount_pass());
+            pstmt.setString(5, account.getAccount_phone());
+            pstmt.setString(6, account.getAccount_birthday());
+            pstmt.setString(7, account.getAccount_address());
+            pstmt.setString(8, account.getAccount_created_date());
+            pstmt.setString(9, account.getAccount_role());
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                isInserted = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, pstmt);
+        }
+
+        return isInserted;
+    }
 
     // Cập nhật tài khoản
     @Override
