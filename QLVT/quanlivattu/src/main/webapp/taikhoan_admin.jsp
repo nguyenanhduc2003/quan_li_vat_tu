@@ -162,12 +162,15 @@
                 Tải xuống
                 <i class="bi bi-box-arrow-in-down ms-2"></i>
             </button>
+             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAccount">
+                     <i class="bi bi-plus"></i> Thêm tài khoản mới
+             </button>
         </div>
 
         <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
-                 <table id="myTable" class="table table-bordered">
-		            <thead class="table-dark">
+                 <table id="myTable" class="table table-bordered" style="font-size: 14px;">
+		            <thead class="table-primary">
 		                <tr>
 		                    <th>Mã người dùng</th>
 		                    <th>Tên người dùng</th>
@@ -194,27 +197,149 @@
 		                        <td>${account.account_created_date}</td>
 		                        <td>${account.account_role}</td>
 		                        <td class="d-flex gap-2">
-		                            <button class="btn btn-primary">
+		                            <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateAccount">
 		                                <i class="bi bi-pencil-square"></i>
 		                            </button>
-		                            <button class="btn btn-danger">
-		                                <i class="bi bi-dash-square"></i>
-		                            </button>
+		                            <form action="DeleteAccount" method="post" style="display: inline;">
+								        <input type="hidden" name="accountId" value="${account.account_id}">
+								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?')">
+								            <i class="bi bi-dash-square"></i>
+								        </button>
+								    </form>
 		                        </td>
 		                    </tr>
 		                </c:forEach>
 		            </tbody>
 		        </table>
+		        
+		        <!-- Modal -->
+			        <div class="modal fade" id="UpdateAccount" tabindex="-1" aria-labelledby="UpdateAccountLabel" aria-hidden="true">
+			            <div class="modal-dialog modal-lg">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <h5 class="modal-title" id="UpdateAccountLabel">Chỉnh sửa tài khoản</h5>
+			                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			                    </div>
+			                    <div class="modal-body">
+			                        <form id="updateInfoForm" action="UpdateAccount" method="post">
+			                        <input type="hidden" name="accountId1" value="${account.account_id}">
+			                        	<div class="row">
+		                        		 <div class="mb-3 col-12 col-sm-6">
+			                                <label for="fullName" class="form-label">Họ và tên</label>
+			                                <input type="text" class="form-control" id="fullName1" name="fullName1" required>
+			                            </div>
+			                            <div class="mb-3 col-12 col-sm-6">
+			                                <label for="email" class="form-label">Email</label>
+			                                <input type="email" class="form-control" id="email1" name="email1" required>
+			                            </div>
+			                        	</div>
+			                        	<div class="row">
+			                        	<div class="mb-3 col-12 col-sm-6">
+			                                <label for="pass" class="form-label">Mật khẩu</label>
+			                                <input type="password" class="form-control" id="pass1" name="pass1" required>
+			                            </div>
+			                            <div class="mb-3 col-12 col-sm-6">
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
+			                                <input type="tel" class="form-control" id="phoneNumber1" name="phoneNumber1" required>
+			                            </div>
+			                        	</div>
+			                           
+			                            <div class="row">
+			                             <div class="mb-3 col-12 col-sm-6">
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
+			                                <input type="text" class="form-control" id="birthDate1" name="birthDate1" required>
+			                            </div>
+			                            <div class="col-12 col-sm-6">
+					                       <label for="role" class="form-label">Vai trò</label>
+								            <select id="role1" name="role1" class="form-select" required>
+								                <option value="">Chọn vai trò</option>
+								                <option value="admin">admin</option>
+								                <option value="user">user</option>
+								            </select>
+					                    </div>
+			                            </div>
+			                           
+			                            <div class="mb-3">
+			                                <label for="address" class="form-label">Địa chỉ liên hệ</label>
+			                                <textarea class="form-control" id="address1" name="address1" rows="3" required></textarea>
+			                            </div>
+			                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+			                            			                       
+			                        </form>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    
+                <!-- end Modal -->
+		        
             </div>
             
         </div>
 
         <!--them du lieu-->
         <div class="add-data ms-3 me-3">
-            <!--form title-->
-            <div class="form-title">
-                Thêm dữ liệu
-            </div>
+           
+            <!-- Modal -->
+			        <div class="modal fade" id="UpdateAccount" tabindex="-1" aria-labelledby="UpdateAccountLabel" aria-hidden="true">
+			            <div class="modal-dialog modal-lg">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <h5 class="modal-title" id="UpdateAccountLabel">Chỉnh sửa tài khoản</h5>
+			                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			                    </div>
+			                    <div class="modal-body">
+			                        <form id="updateInfoForm" action="UpdateAccount" method="post">
+			                        <input type="hidden" name="accountId1" value="${account.account_id}">
+			                        	<div class="row">
+		                        		 <div class="mb-3 col-12 col-sm-6">
+			                                <label for="fullName" class="form-label">Họ và tên</label>
+			                                <input type="text" class="form-control" id="fullName1" name="fullName1" required>
+			                            </div>
+			                            <div class="mb-3 col-12 col-sm-6">
+			                                <label for="email" class="form-label">Email</label>
+			                                <input type="email" class="form-control" id="email1" name="email1" required>
+			                            </div>
+			                        	</div>
+			                        	<div class="row">
+			                        	<div class="mb-3 col-12 col-sm-6">
+			                                <label for="pass" class="form-label">Mật khẩu</label>
+			                                <input type="password" class="form-control" id="pass1" name="pass1" required>
+			                            </div>
+			                            <div class="mb-3 col-12 col-sm-6">
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
+			                                <input type="tel" class="form-control" id="phoneNumber1" name="phoneNumber1" required>
+			                            </div>
+			                        	</div>
+			                           
+			                            <div class="row">
+			                             <div class="mb-3 col-12 col-sm-6">
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
+			                                <input type="text" class="form-control" id="birthDate1" name="birthDate1" required>
+			                            </div>
+			                            <div class="col-12 col-sm-6">
+					                       <label for="role" class="form-label">Vai trò</label>
+								            <select id="role1" name="role1" class="form-select" required>
+								                <option value="">Chọn vai trò</option>
+								                <option value="admin">admin</option>
+								                <option value="user">user</option>
+								            </select>
+					                    </div>
+			                            </div>
+			                           
+			                            <div class="mb-3">
+			                                <label for="address" class="form-label">Địa chỉ liên hệ</label>
+			                                <textarea class="form-control" id="address1" name="address1" rows="3" required></textarea>
+			                            </div>
+			                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+			                            			                       
+			                        </form>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    
+                <!-- end Modal -->
             <!--end form title-->
             <!--form-->
             <form id="addRowForm" action="Taikhoan_admin" method="POST" onsubmit="return confirmSubmit()">

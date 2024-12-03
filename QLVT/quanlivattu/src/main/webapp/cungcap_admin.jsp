@@ -156,7 +156,7 @@
 
         </div>
 
-        <div class="content-here">
+        <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
                 <div class="btn-file mt-4 mb-4">
                     <button class="btn btn-primary" id="btnAdd">Thêm mới</button>

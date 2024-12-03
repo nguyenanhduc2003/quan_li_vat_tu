@@ -19,5 +19,6 @@ public interface Dao<T> {
 
     // Xóa đối tượng
     void delete(T t);
+
 }
 

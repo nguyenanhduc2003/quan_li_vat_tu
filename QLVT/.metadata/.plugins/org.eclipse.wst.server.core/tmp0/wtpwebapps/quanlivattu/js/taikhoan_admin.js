@@ -79,3 +79,38 @@ function getBase64Image(img) {
     function confirmSubmit() {
         return confirm("Bạn có chắc chắn muốn thêm dữ liệu?");
     }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Lấy tất cả các nút sửa
+    const editButtons = document.querySelectorAll(".btn-edit");
+
+    editButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            // Lấy hàng chứa nút được nhấn
+            const row = button.closest("tr");
+            const cells = row.querySelectorAll("td");
+
+            // Lấy dữ liệu từ các ô trong hàng
+            const accountId = cells[0].innerText;
+            const fullName = cells[1].innerText;
+            const email = cells[2].innerText;
+            const pass = cells[3].innerText;
+            const phoneNumber = cells[4].innerText;
+            const address = cells[5].innerText;
+            const birthDate = cells[6].innerText;
+            const role = cells[8].innerText;
+
+            // Đưa dữ liệu lên modal
+            document.querySelector("#updateInfoForm input[name='accountId1']").value = accountId;
+            document.querySelector("#updateInfoForm input[name='fullName1']").value = fullName;
+            document.querySelector("#updateInfoForm input[name='email1']").value = email;
+            document.querySelector("#updateInfoForm input[name='pass1']").value = pass;
+            document.querySelector("#updateInfoForm input[name='phoneNumber1']").value = phoneNumber;
+            document.querySelector("#updateInfoForm input[name='birthDate1']").value = birthDate;
+            document.querySelector("#updateInfoForm select[name='role1']").value = role;
+            document.querySelector("#updateInfoForm textarea[name='address1']").value = address;
+        });
+    });
+});
+

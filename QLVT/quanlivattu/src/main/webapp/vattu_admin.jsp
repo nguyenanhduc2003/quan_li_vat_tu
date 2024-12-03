@@ -248,9 +248,9 @@
 
         <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
-                <table class="table table-bordered table-striped table-hover">
+                <table class="table table-bordered table-striped table-hover" style="font-size: 14px;">
                     <thead>
-                        <tr class="table-dark">                      
+                        <tr class="table-primary">                      
                             <th>Mã vật tư</th>
                             <th>Tên vật tư</th>
                             <th>Mô tả</th>

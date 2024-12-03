@@ -72,5 +72,6 @@ public class SupplierDAO extends BaseDAO implements Dao<Supplier>{
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 }

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import ads.ConnectionPool;
 import ads.ConnectionPoolImpl;
+import model.Account;
 
 public class BaseDAO {
 
@@ -32,4 +33,9 @@ public class BaseDAO {
 	            e.printStackTrace();
 	        }
 	    }
+
+		public Account getAccountById(String accountId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }

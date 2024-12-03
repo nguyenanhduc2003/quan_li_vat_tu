@@ -71,4 +71,5 @@ public class WarehouseDAO extends BaseDAO implements Dao<Warehouse>{
 		
 	}
 
+
 }

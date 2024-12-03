@@ -157,7 +157,7 @@
 
         </div>
 
-        <div class="content-here">
+        <div class="content-here ms-3 me-3">
             <div class="btn-file">
                 <button class="btn btn-primary mb-3 mt-3" onclick="handleAddNew()">Thêm vật tư mới</button>
                 <button class="btn btn-success" onclick="exportToExcel()">

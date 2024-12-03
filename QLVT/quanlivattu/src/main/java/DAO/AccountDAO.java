@@ -7,7 +7,8 @@ import java.util.Optional;
 import model.Account;
 
 public class AccountDAO extends BaseDAO implements Dao<Account> {
-
+	
+	
     // Lấy tất cả tài khoản
     @Override
     public List<Account> getAll() {
@@ -158,6 +159,60 @@ public class AccountDAO extends BaseDAO implements Dao<Account> {
             e.printStackTrace();
         } finally {
             closeResources(conn, pstmt);
+        }
+    }
+    
+    public boolean updateAccount(Account account) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            String sql = "UPDATE tblaccount SET account_name = ?, account_email = ?, account_pass = ?, account_phone = ?, account_address = ?, account_birthday = ?, account_role = ? WHERE account_id = ?";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, account.getAccount_name());
+            pstmt.setString(2, account.getAccount_email());
+            pstmt.setString(3, account.getAccount_pass());
+            pstmt.setString(4, account.getAccount_phone());
+            pstmt.setString(5, account.getAccount_address());
+            pstmt.setString(6, account.getAccount_birthday());
+            pstmt.setString(7, account.getAccount_role());
+            pstmt.setInt(8, account.getAccount_id());
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeResources(conn, pstmt, null);
+        }
+    }
+    
+    public boolean deleteAccount(int accountId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = getConnection();
+            String sql = "DELETE FROM tblaccount WHERE account_id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, accountId);
+
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Đóng kết nối
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
