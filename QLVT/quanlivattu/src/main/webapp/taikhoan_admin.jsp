@@ -156,6 +156,25 @@
             </div>
 
         </div>
+        <div class="row">
+        	<div class="ms-3 me-3 mt-3 mb-2 col-6 col-sm-2">
+        	 <span>Tổng số tài khoản</span>
+		     <input style="width:50px; text-align:center;" id="total-display" name="total-display" type="text" class="form-control" 
+		               value="${totalAccounts}" readonly>      
+        	</div>
+        	<div class="ms-3 me-3 mt-3 mb-2 col-6 col-sm-2">
+        	 <span>Tổng số Admin</span>
+		     <input style="width:50px; text-align:center;" id="total-display" name="total-display" type="text" class="form-control" 
+		               value="${totalAdmins}" readonly>      
+        	</div>
+        	<div class="ms-3 me-3 mt-3 mb-2 col-6 col-sm-2">
+        	 <span>Tổng số User</span>
+		     <input style="width:50px; text-align:center;" id="total-display" name="total-display" type="text" class="form-control" 
+		               value="${totalUsers}" readonly>      
+        	</div>
+        	
+        </div>
+         
 
         <div class="btn-file ms-3 me-3">
             <button class="btn btn-success" onclick="exportToExcel()">
@@ -281,75 +300,23 @@
         <div class="add-data ms-3 me-3">
            
             <!-- Modal -->
-			        <div class="modal fade" id="UpdateAccount" tabindex="-1" aria-labelledby="UpdateAccountLabel" aria-hidden="true">
-			            <div class="modal-dialog modal-lg">
-			                <div class="modal-content">
-			                    <div class="modal-header">
-			                        <h5 class="modal-title" id="UpdateAccountLabel">Chỉnh sửa tài khoản</h5>
-			                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			                    </div>
-			                    <div class="modal-body">
-			                        <form id="updateInfoForm" action="UpdateAccount" method="post">
-			                        <input type="hidden" name="accountId1" value="${account.account_id}">
-			                        	<div class="row">
-		                        		 <div class="mb-3 col-12 col-sm-6">
-			                                <label for="fullName" class="form-label">Họ và tên</label>
-			                                <input type="text" class="form-control" id="fullName1" name="fullName1" required>
-			                            </div>
-			                            <div class="mb-3 col-12 col-sm-6">
-			                                <label for="email" class="form-label">Email</label>
-			                                <input type="email" class="form-control" id="email1" name="email1" required>
-			                            </div>
-			                        	</div>
-			                        	<div class="row">
-			                        	<div class="mb-3 col-12 col-sm-6">
-			                                <label for="pass" class="form-label">Mật khẩu</label>
-			                                <input type="password" class="form-control" id="pass1" name="pass1" required>
-			                            </div>
-			                            <div class="mb-3 col-12 col-sm-6">
-			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
-			                                <input type="tel" class="form-control" id="phoneNumber1" name="phoneNumber1" required>
-			                            </div>
-			                        	</div>
-			                           
-			                            <div class="row">
-			                             <div class="mb-3 col-12 col-sm-6">
-			                                <label for="birthDate" class="form-label">Ngày sinh</label>
-			                                <input type="text" class="form-control" id="birthDate1" name="birthDate1" required>
-			                            </div>
-			                            <div class="col-12 col-sm-6">
-					                       <label for="role" class="form-label">Vai trò</label>
-								            <select id="role1" name="role1" class="form-select" required>
-								                <option value="">Chọn vai trò</option>
-								                <option value="admin">admin</option>
-								                <option value="user">user</option>
-								            </select>
-					                    </div>
-			                            </div>
-			                           
-			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Địa chỉ liên hệ</label>
-			                                <textarea class="form-control" id="address1" name="address1" rows="3" required></textarea>
-			                            </div>
-			                            <button type="submit" class="btn btn-primary">Xác nhận</button>
-			                            			                       
-			                        </form>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			    
-                <!-- end Modal -->
-            <!--end form title-->
-            <!--form-->
+       <div class="modal fade" id="AddAccount" tabindex="-1" aria-labelledby="AddAccountLabel" aria-hidden="true">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <h5 class="modal-title" id="AddAccountLabel">Thêm tài khoản mới</h5>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                   </div>
+                   <div class="modal-body">
+			                        <!--form-->
             <form id="addRowForm" action="Taikhoan_admin" method="POST" onsubmit="return confirmSubmit()">
                 <div class="row">
-                    <div class="col-12 col-sm-3">
+                    <div class="col-12 col-sm-4">
                         <label for="user-id" class="form-label">Mã người dùng</label>
                         <input id="user-id" name="user-id" type="text" class="form-control" required>
                     </div>
 
-                    <div class="col-12 col-sm-4">
+                    <div class="col-12 col-sm-8">
                         <label for="user-name" class="form-label">Tên người dùng</label>
                         <input id="user-name" name="user-name" type="name" class="form-control" required>
                     </div>
@@ -358,41 +325,41 @@
 
                 <div class="row">
 
-                    <div class="col-12 col-sm-4">
+                    <div class="col-12 col-sm-7">
                         <label for="email" class="form-label">Email</label>
                         <input id="email" name="email" type="text" class="form-control" required>
                     </div>
 
-                    <div class="col-12 col-sm-3">
+                    <div class="col-12 col-sm-5">
                         <label for="password" class="form-label">Mật khẩu</label>
                         <input id="password" name="password" type="password" class="form-control" required>
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col-12 col-sm-4">
+                    <div class="col-12 col-sm-6">
                         <label for="phonenumber" class="form-label">Số điện thoại</label>
                         <input id="phonenumber" name="phonenumber" type="number" class="form-control" required>
                     </div>
-                    <div class="col-12 col-sm-3">
+                    <div class="col-12 col-sm-6">
                         <label for="birthday" class="form-label">Ngày sinh</label>
                         <input id="birthday" name="birthday" type="date" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-12 col-sm-7">
+                    <div class="col-12">
                         <label for="address" class="form-label">Địa chỉ</label> <br>
                         <textarea name="address" id="address" class="form-control" cols="10"></textarea required>
                     </div>
                 </div>
 
                 <div class="row mt-2">
-                    <div class="col-12 col-sm-3">
+                    <div class="col-12 col-sm-6">
                         <label for="date-create" class="form-label">Ngày tạo tài khoản</label>
                         <input id="date-create" name="date-create" type="date" class="form-control" required>
                     </div>
-                    <div class="col-12 col-sm-4">
+                    <div class="col-12 col-sm-6">
                        <label for="role" class="form-label">Vai trò</label>
 			            <select id="role" name="role" class="form-select" required>
 			                <option value="">Chọn vai trò</option>
@@ -408,6 +375,14 @@
 
             </form>
             <!--end form-->
+                    </div>
+                </div>
+            </div>
+        </div>
+			    
+                <!-- end Modal -->
+            <!--end form title-->
+            
         </div>
         
         <!--end them du lieu-->

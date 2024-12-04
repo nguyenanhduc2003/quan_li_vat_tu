@@ -8,6 +8,68 @@ import model.Account;
 
 public class AccountDAO extends BaseDAO implements Dao<Account> {
 	
+	//thong ke admin user
+	public int getTotalByRole(String role) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int total = 0;
+
+	    try {
+	        conn = getConnection();
+	        String sql = "SELECT COUNT(*) AS total FROM tblaccount WHERE account_role = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, role);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            total = rs.getInt("total");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return total;
+	}
+
+	// thống kê tài khoản
+	public int getTotalAccounts() {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int total = 0;
+
+	    try {
+	        conn = getConnection();
+	        String sql = "SELECT COUNT(*) AS total FROM tblaccount";
+	        pstmt = conn.prepareStatement(sql);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            total = rs.getInt("total");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return total;
+	}
 	
     // Lấy tất cả tài khoản
     @Override

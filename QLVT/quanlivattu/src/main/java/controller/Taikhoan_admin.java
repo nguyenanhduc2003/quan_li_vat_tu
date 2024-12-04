@@ -31,14 +31,23 @@ public class Taikhoan_admin extends HttpServlet {
 		
 		 // Lấy danh sách tài khoản từ cơ sở dữ liệu
 	    List<Account> accounts = accountDAO.getAll();
-	    
-	    // Đưa danh sách tài khoản vào request để gửi đến JSP
 	    request.setAttribute("accounts", accounts);
 	    
-	    // Chuyển hướng đến trang JSP
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("taikhoan_admin.jsp");
-	    dispatcher.forward(request, response);
+	    
+	    // Lấy tổng số tài khoản từ DAO
+        int totalAccounts = accountDAO.getTotalAccounts();
+        request.setAttribute("totalAccounts", totalAccounts);
+        
+        int totalAdmins = accountDAO.getTotalByRole("admin");
+        int totalUsers = accountDAO.getTotalByRole("user");
+
+        // Gắn giá trị vào request
+        request.setAttribute("totalAdmins", totalAdmins);
+        request.setAttribute("totalUsers", totalUsers);
 		
+        // Gửi đến trang chủ
+        RequestDispatcher dispatcher = request.getRequestDispatcher("taikhoan_admin.jsp");
+	    dispatcher.forward(request, response);
 	}
 
 	/**

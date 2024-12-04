@@ -107,3 +107,6 @@ document.getElementById('confirmAdd').addEventListener('click', function () {
         modal.hide();
     }
 });
+
+// sửa
+// Bắt sự kiện click vào nút Sửa

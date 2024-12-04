@@ -7,11 +7,73 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import model.Account;
 import model.Material;
 
 public class MaterialDAO extends BaseDAO implements Dao<Material>{
+	
+	public boolean deleteMaterial(int materialId) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+
+	    try {
+	        conn = getConnection();
+	        String sql = "DELETE FROM tblmaterial WHERE material_id = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, materialId);
+
+	        int rowsAffected = pstmt.executeUpdate();
+	        return rowsAffected > 0; 
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        // Đóng kết nối
+	        try {
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
+	// Phương thức thêm vật tư
+    public boolean addMaterial(Material material) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean isInserted = false;
+
+        try {
+            conn = getConnection();
+
+            String sql = "INSERT INTO tblmaterial (material_id, material_name, material_describe, material_unit, material_date, material_expiry, material_use, material_supplier, material_country, material_value, material_image) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, material.getMaterial_id());
+            pstmt.setString(2, material.getMaterial_name());
+            pstmt.setString(3, material.getMaterial_describe());
+            pstmt.setString(4, material.getMaterial_unit());
+            pstmt.setString(5, material.getMaterial_date());
+            pstmt.setString(6, material.getMaterial_expiry());
+            pstmt.setString(7, material.getMaterial_use());
+            pstmt.setString(8, material.getMaterial_supplier());
+            pstmt.setString(9, material.getMaterial_country());
+            pstmt.setDouble(10, material.getMaterial_value());
+            pstmt.setString(11, material.getMaterial_image());
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                isInserted = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, pstmt);
+        }
+
+        return isInserted;
+    }
 	
 	public int getTotalMaterials() {
 	    int total = 0;
@@ -93,6 +155,38 @@ public class MaterialDAO extends BaseDAO implements Dao<Material>{
         return materials;
 		
 	}
+	
+	public boolean updateMaterial(Material material) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+
+	    try {
+	        conn = getConnection();
+	        String sql = "UPDATE tblmaterial SET material_name = ?, material_describe = ?, material_unit = ?, material_date = ?, material_expiry = ?, material_use = ?, material_supplier = ?, material_country = ?, material_value = ?, material_image = ? WHERE material_id = ?";
+	        pstmt = conn.prepareStatement(sql);
+
+	        pstmt.setString(1, material.getMaterial_name());
+	        pstmt.setString(2, material.getMaterial_describe());
+	        pstmt.setString(3, material.getMaterial_unit());
+	        pstmt.setString(4, material.getMaterial_date());
+	        pstmt.setString(5, material.getMaterial_expiry());
+	        pstmt.setString(6, material.getMaterial_use());
+	        pstmt.setString(7, material.getMaterial_supplier());
+	        pstmt.setString(8, material.getMaterial_country());
+	        pstmt.setDouble(9, material.getMaterial_value());
+	        pstmt.setString(10, material.getMaterial_image());
+	        pstmt.setInt(11, material.getMaterial_id());
+
+	        int rowsUpdated = pstmt.executeUpdate();
+	        return rowsUpdated > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        closeResources(conn, pstmt, null);
+	    }
+	}
+
 
 	@Override
 	public Optional<Material> get(int id) {

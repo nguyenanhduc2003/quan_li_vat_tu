@@ -46,24 +46,23 @@ document.addEventListener("DOMContentLoaded", function() {
 function exportToExcel() {
     var wb = XLSX.utils.table_to_book(document.getElementById('myTable'), {sheet: "Sheet1"});
     
-    // Xử lý hình ảnh (thêm ảnh vào Excel)
     var sheet = wb.Sheets['Sheet1'];
-    var images = document.querySelectorAll('.img-set');  // Chọn tất cả hình ảnh
+    var images = document.querySelectorAll('.img-set');  
     images.forEach(function (img, index) {
         var base64 = getBase64Image(img);
-        var cell = XLSX.utils.decode_cell('K' + (index + 2)); // K: Cột ảnh (thêm vào cột 11)
+        var cell = XLSX.utils.decode_cell('K' + (index + 2)); 
         sheet['!images'] = sheet['!images'] || [];
         sheet['!images'].push({
             name: 'image' + (index + 1) + '.jpg',
             data: base64,
             position: {
-                s: {r: cell.r, c: cell.c}, // Vị trí hình ảnh
-                e: {r: cell.r, c: cell.c}  // Vị trí kết thúc
+                s: {r: cell.r, c: cell.c}, 
+                e: {r: cell.r, c: cell.c} 
             }
         });
     });
 
-    // Xuất file Excel
+
     XLSX.writeFile(wb, 'xuat_file_du_lieu.xlsx');
 }
 
