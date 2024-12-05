@@ -77,9 +77,9 @@ public class UpdateInfoServlet extends HttpServlet {
 
      // Sau khi cập nhật thành công, chuyển hướng dựa trên vai trò
         if ("admin".equals(role)) {
-            response.sendRedirect("trangchu_admin.jsp"); // Chuyển hướng về trang admin
+        	response.getWriter().println("<script>alert('Success!'); window.location.href = 'trangchu_admin.jsp';</script>");
         } else {
-            response.sendRedirect("trangchu_user.jsp"); // Chuyển hướng về trang user
+        	response.getWriter().println("<script>alert('Success!'); window.location.href = 'trangchu_user.jsp';</script>");
         }
 		
 	}

@@ -172,3 +172,52 @@ body.fade-out {
     font-size: 30px;
     margin-top: 5px;
 }
+/*thiet ke lai button */
+  .btn-custom {
+        background-color: #007bff;  /* Màu nền xanh đậm */
+        border: 2px solid #007bff;
+        padding: 15px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 50px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.1);
+        color: #000;  /* Chữ đen mặc định */
+    }
+
+    .btn-custom .btn-text {
+        color: inherit;  /* Thừa kế màu chữ */
+        letter-spacing: 1px;
+    }
+
+    .btn-custom i {
+        margin-right: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #0056b3;  /* Màu nền xanh đậm khi hover */
+        border-color: #0056b3;
+        transform: translateY(-3px);
+        box-shadow: 0px 6px 18px rgba(0, 123, 255, 0.15);
+    }
+
+    .btn-custom:hover .btn-text {
+        color: #fff;  /* Chuyển chữ thành trắng khi hover */
+    }
+
+    .btn-custom:focus {
+        outline: none;
+        box-shadow: 0px 0px 0px 4px rgba(38, 143, 255, 0.5);
+    }
+
+    .btn-custom:hover i {
+        transform: translateX(5px);
+    }
+
+    .btn-custom:active {
+        transform: translateY(1px);
+    }

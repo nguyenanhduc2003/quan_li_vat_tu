@@ -96,46 +96,46 @@
                     <button id="toggle">☰</button>
                 </div>
     
-                <div class="search-bar col-11 col-sm-7">
-                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateInfoModal">
-                        Cập nhật thông tin cá nhân
-                    </button>
-                </div>
+                <div class="search-bar col-11 col-sm-7 d-flex justify-content-center">
+				    <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#updateInfoModal">
+				        <span class="btn-text"> <i class="bi bi-person-fill"></i>
+				         Cập nhật thông tin cá nhân</span>
+				    </button>
+				</div>
                 
-                 <!-- Modal -->
-			        <div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
-			            <div class="modal-dialog">
-			                <div class="modal-content">
-			                    <div class="modal-header">
-			                        <h5 class="modal-title" id="updateInfoModalLabel">Cập nhật thông tin cá nhân</h5>
-			                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			                    </div>
-			                    <div class="modal-body">
-			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
-			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Họ và tên</label>
-			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
-			                            </div>
-			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
-			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
-			                            </div>
-			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Ngày sinh</label>
-			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
-			                            </div>
-			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Địa chỉ</label>
-			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-			                            </div>
-			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-			                        </form>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			    
-                <!-- end Modal -->
+                  <!-- Modal -->
+				<div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
+				    <div class="modal-dialog">
+				        <div class="modal-content shadow-lg border-0 rounded-3">
+				            <div class="modal-header border-0 d-flex justify-content-between align-items-center">
+				                <h5 class="modal-title text-primary" id="updateInfoModalLabel">Cập nhật thông tin cá nhân</h5>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+				            <div class="modal-body">
+				                <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+				                    <div class="mb-4">
+				                        <label for="fullName" class="form-label">Họ và tên</label>
+				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName" required>
+				                    </div>
+				                    <div class="mb-4">
+				                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
+				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber" required>
+				                    </div>
+				                    <div class="mb-4">
+				                        <label for="birthDate" class="form-label">Ngày sinh</label>
+				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate" required>
+				                    </div>
+				                    <div class="mb-4">
+				                        <label for="address" class="form-label">Địa chỉ</label>
+				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3" required></textarea>
+				                    </div>
+				                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Cập nhật</button>
+				                </form>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<!-- End Modal -->
     
                 <div class="hello col-12 col-sm-4">
                     <span id="hello">Xin chào!</span>
@@ -293,64 +293,70 @@
                 <!-- end Modal -->
       
    <!-- Modal -->
- <div class="modal fade" id="UpdateSupplier" tabindex="-1" aria-labelledby="UpdateSupplierLabel" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="UpdateSupplierLabel">Chỉnh sửa nhà cung cấp</h5>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-                 <form id="updateInfoForm" action="UpdateSupplier" method="post">
-                 <input type="hidden" name="supplierId1" value="${supplier.supplier_id}">
-                 	
-                 	 <div class="row">
-                    <div class="col-12 col-sm-12">
-                        <label for="supplier_name" class="form-label">Tên nhà cung cấp</label>
-                        <input id="supplier_name" name="supplier_name" type="text" class="form-control" required>
-                    </div>
-                </div>
-				
-				<div class="row">
-                    <div class="col-12 col-sm-8">
-                        <label for="supplier_email" class="form-label">Email</label>
-                        <input id="supplier_email" name="supplier_email" type="text" class="form-control" required>
-                    </div>
+		<div class="modal fade" id="UpdateSupplier" tabindex="-1" aria-labelledby="UpdateSupplierLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-lg">
+		        <div class="modal-content rounded-4 shadow-lg">
+		            <div class="modal-header border-0 pb-2">
+		                <h5 class="modal-title fs-5" id="UpdateSupplierLabel">Chỉnh sửa nhà cung cấp</h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body">
+		                <form id="updateInfoForm" action="UpdateSupplier" method="post">
+		                    <input type="hidden" name="supplierId1" value="${supplier.supplier_id}">
+		
+		                    <div class="row mb-3">
+		                        <div class="col-12">
+		                            <label for="supplier_name" class="form-label">Tên nhà cung cấp</label>
+		                            <input id="supplier_name" name="supplier_name" type="text" class="form-control border-2 border-secondary rounded-3" required>
+		                        </div>
+		                    </div>
+		
+		                    <div class="row mb-3">
+		                        <div class="col-12 col-sm-8">
+		                            <label for="supplier_email" class="form-label">Email</label>
+		                            <input id="supplier_email" name="supplier_email" type="text" class="form-control border-2 border-secondary rounded-3" required>
+		                        </div>
+		
+		                        <div class="col-12 col-sm-4">
+		                            <label for="supplier_phone" class="form-label">Số điện thoại</label>
+		                            <input id="supplier_phone" name="supplier_phone" type="number" class="form-control border-2 border-secondary rounded-3" required>
+		                        </div>
+		                    </div>
+		
+		                    <div class="row mb-3">
+		                        <div class="col-12">
+		                            <label for="supplier_address" class="form-label">Địa chỉ</label>
+		                            <input id="supplier_address" name="supplier_address" type="text" class="form-control border-2 border-secondary rounded-3" required>
+		                        </div>
+		                    </div>
+		
+		                    <div class="row mb-3">
+		                        <div class="col-12 col-sm-7">
+		                            <label for="supplier_website" class="form-label">Website</label>
+		                            <input id="supplier_website" name="supplier_website" type="url" class="form-control border-2 border-secondary rounded-3">
+		                        </div>
+		
+		                        <div class="col-12 col-sm-5">
+		                            <label for="supplier_date_created" class="form-label">Ngày tạo</label>
+		                            <input id="supplier_date_created" name="supplier_date_created" type="text" class="form-control border-2 border-secondary rounded-3" required>
+		                        </div>
+		                    </div>
+		
+		                    <div class="mb-3">
+		                        <label for="supplier_describe" class="form-label">Mô tả</label>
+		                        <textarea name="supplier_describe" id="supplier_describe" class="form-control border-2 border-secondary rounded-3" rows="3" required></textarea>
+		                    </div>
+		
+		                    <div class="d-flex justify-content-end">
+		                        <button type="submit" class="btn btn-success px-4 py-2">Xác nhận</button>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- End Modal -->
 
-                    <div class="col-12 col-sm-4">
-                        <label for="supplier_phone" class="form-label">Số điện thoại</label>
-                        <input id="supplier_phone" name="supplier_phone" type="number" class="form-control" required>
-                    </div>
-                </div>
-                
-                <div>
-                        <label for="supplier_address" class="form-label">Địa chỉ</label>
-                        <input id="supplier_address" name="supplier_address" type="text" class="form-control" required>
-                </div>
-                       
-                 <div class="row">
-                    <div class="col-12 col-sm-7">
-                        <label for="supplier_website" class="form-label">Website</label>
-                        <input id="supplier_website" name="supplier_website" type="url" class="form-control">
-                    </div>
-
-                    <div class="col-12 col-sm-5">
-                        <label for="supplier_date_created" class="form-label">Ngày tạo</label>
-                        <input id="supplier_date_created" name="supplier_date_created" type="text" class="form-control" required>
-                    </div>
-                </div>
-                
-                 		<label for="supplier_describe" class="form-label">Mô tả</label> <br>
-                        <textarea name="supplier_describe" id="supplier_describe" class="form-control" cols="10" required></textarea>                                                                      
-                     <button type="submit" class="btn btn-primary mt-3">Xác nhận</button>
-                     			                       
-                 </form>
-             </div>
-         </div>
-     </div>
- </div>
-
-      <!-- end Modal -->
 
     </main>
     <!--end main content-->

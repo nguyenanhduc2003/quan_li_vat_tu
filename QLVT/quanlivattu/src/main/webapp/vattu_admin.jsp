@@ -96,46 +96,46 @@
                     <button id="toggle">☰</button>
                 </div>
     
-                <div class="search-bar col-11 col-sm-7">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateInfoModal">
-                        Cập nhật thông tin cá nhân
-                    </button>
-                </div>
+                <div class="search-bar col-11 col-sm-7 d-flex justify-content-center">
+				    <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#updateInfoModal">
+				        <span class="btn-text"> <i class="bi bi-person-fill"></i>
+				         Cập nhật thông tin cá nhân</span>
+				    </button>
+				</div>
                 
-                <!-- Modal -->
-			        <div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
-			            <div class="modal-dialog">
-			                <div class="modal-content">
-			                    <div class="modal-header">
-			                        <h5 class="modal-title" id="updateInfoModalLabel">Cập nhật thông tin cá nhân</h5>
-			                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			                    </div>
-			                    <div class="modal-body">
-			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
-			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Họ và tên</label>
-			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
-			                            </div>
-			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
-			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
-			                            </div>
-			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Ngày sinh</label>
-			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
-			                            </div>
-			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Địa chỉ</label>
-			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-			                            </div>
-			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-			                        </form>
-			                    </div>
-			                </div>
-			            </div>
-			        </div>
-			    
-                <!-- end Modal -->
+                 <!-- Modal -->
+				<div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
+				    <div class="modal-dialog">
+				        <div class="modal-content shadow-lg border-0 rounded-3">
+				            <div class="modal-header border-0 d-flex justify-content-between align-items-center">
+				                <h5 class="modal-title text-primary" id="updateInfoModalLabel">Cập nhật thông tin cá nhân</h5>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+				            <div class="modal-body">
+				                <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+				                    <div class="mb-4">
+				                        <label for="fullName" class="form-label">Họ và tên</label>
+				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName" required>
+				                    </div>
+				                    <div class="mb-4">
+				                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
+				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber" required>
+				                    </div>
+				                    <div class="mb-4">
+				                        <label for="birthDate" class="form-label">Ngày sinh</label>
+				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate" required>
+				                    </div>
+				                    <div class="mb-4">
+				                        <label for="address" class="form-label">Địa chỉ</label>
+				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3" required></textarea>
+				                    </div>
+				                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Cập nhật</button>
+				                </form>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<!-- End Modal -->
     
                 <div class="hello col-12 col-sm-4">
                     <span id="hello">Xin chào!</span>
@@ -184,92 +184,90 @@
             
         </div>
         
-          <!-- Modal -->
-       <div class="modal fade" id="AddMaterial" tabindex="-1" aria-labelledby="AddMaterialtLabel" aria-hidden="true">
-           <div class="modal-dialog modal-lg">
-               <div class="modal-content">
-                   <div class="modal-header">
-                       <h5 class="modal-title" id="AddMaterialtLabel">Thêm vật tư mới</h5>
-                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                   </div>
-                   <div class="modal-body">
-			                        <!--form-->
-            <form id="addRowForm" action="Vattu_admin" method="POST" onsubmit="return confirmSubmit()">
-                <div class="row mb-2">
-                	<div class="col-12 col-sm-3">
-                        <label for="material_id" class="form-label">Mã vật tư</label>
-                        <input id="material_id" name="material_id" type="text" class="form-control" required>
-                    </div>
-                	
-                    <div class="col-12 col-sm-6">
-                        <label for="material_name" class="form-label">Tên vật tư</label>
-                        <input id="material_name" name="material_name" type="text" class="form-control" required>
-                    </div>
+         <!-- Modal -->
+			<div class="modal fade" id="AddMaterial" tabindex="-1" aria-labelledby="AddMaterialtLabel" aria-hidden="true">
+			    <div class="modal-dialog modal-lg">
+			        <div class="modal-content rounded-3 shadow-lg border-0">
+			            <div class="modal-header bg-primary text-white">
+			                <h5 class="modal-title" id="AddMaterialtLabel">Thêm vật tư mới</h5>
+			                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			            </div>
+			            <div class="modal-body">
+			                <!-- Form -->
+			                <form id="addRowForm" action="Vattu_admin" method="POST" onsubmit="return confirmSubmit()">
+			                    <div class="row g-3 mb-3">
+			                        <div class="col-12 col-sm-3">
+			                            <label for="material_id" class="form-label">Mã vật tư</label>
+			                            <input id="material_id" name="material_id" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                        </div>
+			                        <div class="col-12 col-sm-6">
+			                            <label for="material_name" class="form-label">Tên vật tư</label>
+			                            <input id="material_name" name="material_name" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                        </div>
+			                        <div class="col-12 col-sm-3">
+			                            <label for="material_unit" class="form-label">Đơn vị tính</label>
+			                            <input id="material_unit" name="material_unit" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                        </div>
+			                    </div>
+			
+			                    <div class="mb-3">
+			                        <label for="material_describe" class="form-label">Mô tả</label>
+			                        <textarea name="material_describe" id="material_describe" class="form-control rounded-3 border-primary p-2" rows="2" required></textarea>
+			                    </div>
+			
+			                    <div class="row g-3 mb-3">
+			                        <div class="col-12 col-sm-6">
+			                            <label for="material_date" class="form-label">Ngày sản xuất</label>
+			                            <input id="material_date" name="material_date" type="date" class="form-control rounded-pill border-primary p-2" required>
+			                        </div>
+			                        <div class="col-12 col-sm-6">
+			                            <label for="material_expiry" class="form-label">Hạn sử dụng</label>
+			                            <input id="material_expiry" name="material_expiry" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                        </div>
+			                    </div>
+			
+			                    <div class="mb-3">
+			                        <label for="material_use" class="form-label">Cách sử dụng</label>
+			                        <textarea name="material_use" id="material_use" class="form-control rounded-3 border-primary p-2" rows="2" required></textarea>
+			                    </div>
+			
+			                    <div class="row g-3 mb-3">
+			                        <div class="col-12 col-sm-9">
+			                            <label for="material_supplier" class="form-label">Nhà cung cấp</label>
+			                            <input id="material_supplier" name="material_supplier" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                        </div>
+			                        <div class="col-12 col-sm-3">
+			                            <label for="material_country" class="form-label">Quốc gia sản xuất</label>
+			                            <input id="material_country" name="material_country" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                        </div>
+			                    </div>
+			
+			                    <div class="row g-3 mb-4">
+			                        <div class="col-12 col-sm-4">
+			                            <label for="material_value" class="form-label">Giá tiền</label>
+			                            <input id="material_value" name="material_value" type="number" class="form-control rounded-pill border-primary p-2" required>
+			                        </div>
+			                        <div class="col-12 col-sm-8">
+			                            <label for="material_image" class="form-label">Link ảnh</label>
+			                            <input id="material_image" name="material_image" type="url" class="form-control rounded-pill border-primary p-2">
+			                        </div>
+			                    </div>
+			
+			                    <div>
+			                        <button type="submit" id="addRowBtn" class="btn btn-primary w-100 py-2 rounded-pill">Thêm vật tư</button>
+			                    </div>
+			                </form>
+			                <!-- End Form -->
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<!-- End Modal -->
 
-                    <div class="col-12 col-sm-3">
-                        <label for="material_unit" class="form-label">Đơn vị tính</label>
-                        <input id="material_unit" name="material_unit" type="text" class="form-control" required>
-                    </div>
-                </div>
-
-                  <label for="material_describe" class="form-label">Mô tả</label>
-                  <textarea name="material_describe" id="material_describe" class="form-control mb-2" cols="10" required></textarea>
-					
-				<div class="row mb-2">
-                    <div class="col-12 col-sm-6">
-                        <label for="material_date" class="form-label">Ngày sản xuất</label>
-                        <input id="material_date" name="material_date" type="date" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                        <label for="material_expiry" class="form-label">Hạn sử dụng</label>
-                        <input id="material_expiry" name="material_expiry" type="text" class="form-control" required>
-                    </div>
-                </div>
-                
-                 <label for="material_use" class="form-label">Cách sử dụng</label>
-                  <textarea name="material_use" id="material_use" class="form-control mb-2" cols="10" required></textarea>
-                
-                <div class="row">
-                    <div class="col-12 col-sm-9">
-                        <label for="material_supplier" class="form-label">Nhà cung cấp</label>
-                        <input id="material_supplier" name="material_supplier" type="text" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 col-sm-3">
-                        <label for="material_country" class="form-label">Quốc gia sản xuất</label>
-                        <input id="material_country" name="material_country" type="text" class="form-control" required>
-                    </div>
-                </div>
-                
-                <div class="row mb-4">
-                    <div class="col-12 col-sm-4">
-                        <label for="material_value" class="form-label">Giá tiền</label>
-                        <input id="material_value" name="material_value" type="number" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 col-sm-8">
-                        <label for="material_image" class="form-label">Link ảnh</label>
-                        <input id="material_image" name="material_image" type="url" class="form-control">
-                    </div>
-                </div>
-                
-                <div>
-                    <button type="submit" id="addRowBtn" class="btn btn-primary">Thêm vật tư</button>
-                </div>
-
-            </form>
-            <!--end form-->
-                    </div>
-                </div>
-            </div>
-        </div>
-			    
-                <!-- end Modal -->
 
         <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
-                <table class="table table-bordered table-striped table-hover" style="font-size: 14px;">
+                <table id="myTable" class="table table-bordered table-striped table-hover" style="font-size: 14px;">
                     <thead>
                         <tr class="table-primary">                      
                             <th>Mã vật tư</th>
@@ -322,79 +320,90 @@
             </div>
         </div>
         
-        <!-- Modal -->
-<div class="modal fade" id="UpdateMaterial" tabindex="-1" aria-labelledby="UpdateMaterialLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="UpdateMaterialLabel">Chỉnh sửa vật tư</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="updateInfoForm" action="UpdateMaterial" method="post">
-                	<input type="hidden" id="material_id1" name="material_id1" value="${material.material_id}">
-                	<div class="row mb-2">            	
-                    <div class="col-12 col-sm-6">
-                        <label for="material_name1" class="form-label">Tên vật tư</label>
-                        <input id="material_name1" name="material_name1" type="text" class="form-control" required>
-                    </div>
+      <!-- Modal -->
+		<div class="modal fade" id="UpdateMaterial" tabindex="-1" aria-labelledby="UpdateMaterialLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-lg">
+		        <div class="modal-content rounded-4 shadow-lg">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="UpdateMaterialLabel">Chỉnh sửa vật tư</h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body">
+		                <form id="updateInfoForm" action="UpdateMaterial" method="post">
+		                    <input type="hidden" id="material_id1" name="material_id1" value="${material.material_id}">
+		
+		                    <!-- Material Name & Unit -->
+		                    <div class="row g-3 mb-3">
+		                        <div class="col-12 col-sm-6">
+		                            <label for="material_name1" class="form-label">Tên vật tư</label>
+		                            <input id="material_name1" name="material_name1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                        </div>
+		                        <div class="col-12 col-sm-3">
+		                            <label for="material_unit1" class="form-label">Đơn vị tính</label>
+		                            <input id="material_unit1" name="material_unit1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                        </div>
+		                    </div>
+		
+		                    <!-- Material Description -->
+		                    <div class="mb-3">
+		                        <label for="material_describe1" class="form-label">Mô tả</label>
+		                        <textarea name="material_describe1" id="material_describe1" class="form-control border-2 rounded-3 p-2" rows="4" required></textarea>
+		                    </div>
+		
+		                    <!-- Production Date & Expiry -->
+		                    <div class="row g-3 mb-3">
+		                        <div class="col-12 col-sm-6">
+		                            <label for="material_date1" class="form-label">Ngày sản xuất</label>
+		                            <input id="material_date1" name="material_date1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                        </div>
+		                        <div class="col-12 col-sm-6">
+		                            <label for="material_expiry1" class="form-label">Hạn sử dụng</label>
+		                            <input id="material_expiry1" name="material_expiry1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                        </div>
+		                    </div>
+		
+		                    <!-- Usage Instructions -->
+		                    <div class="mb-3">
+		                        <label for="material_use1" class="form-label">Cách sử dụng</label>
+		                        <textarea name="material_use1" id="material_use1" class="form-control border-2 rounded-3 p-2" rows="4" required></textarea>
+		                    </div>
+		
+		                    <!-- Supplier & Country -->
+		                    <div class="row g-3 mb-3">
+		                        <div class="col-12 col-sm-9">
+		                            <label for="material_supplier1" class="form-label">Nhà cung cấp</label>
+		                            <input id="material_supplier1" name="material_supplier1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                        </div>
+		                        <div class="col-12 col-sm-3">
+		                            <label for="material_country1" class="form-label">Quốc gia sản xuất</label>
+		                            <input id="material_country1" name="material_country1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                        </div>
+		                    </div>
+		
+		                    <!-- Price & Image -->
+		                    <div class="row g-3 mb-4">
+		                        <div class="col-12 col-sm-4">
+		                            <label for="material_value1" class="form-label">Giá tiền</label>
+		                            <input id="material_value1" name="material_value1" type="number" class="form-control border-2 rounded-3 p-2" required>
+		                        </div>
+		                        <div class="col-12 col-sm-8">
+		                            <label for="material_image1" class="form-label">Link ảnh</label>
+		                            <input id="material_image1" name="material_image1" type="url" class="form-control border-2 rounded-3 p-2">
+		                        </div>
+		                    </div>
+		
+		                    <!-- Submit Button -->
+		                    <div>
+		                        <button type="submit" class="btn btn-primary w-100 py-2 rounded-3">Xác nhận</button>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- End Modal -->
 
-                    <div class="col-12 col-sm-3">
-                        <label for="material_unit1" class="form-label">Đơn vị tính</label>
-                        <input id="material_unit1" name="material_unit1" type="text" class="form-control" required>
-                    </div>
-                </div>
 
-                  <label for="material_describe1" class="form-label">Mô tả</label>
-                  <textarea name="material_describe1" id="material_describe1" class="form-control mb-2" cols="10" required></textarea>
-					
-				<div class="row mb-2">
-                    <div class="col-12 col-sm-6">
-                        <label for="material_date1" class="form-label">Ngày sản xuất</label>
-                        <input id="material_date1" name="material_date1" type="text" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                        <label for="material_expiry1" class="form-label">Hạn sử dụng</label>
-                        <input id="material_expiry1" name="material_expiry1" type="text" class="form-control" required>
-                    </div>
-                </div>
-                
-                 <label for="material_use1" class="form-label">Cách sử dụng</label>
-                  <textarea name="material_use1" id="material_use1" class="form-control mb-2" cols="10" required></textarea>
-                
-                <div class="row">
-                    <div class="col-12 col-sm-9">
-                        <label for="material_supplier1" class="form-label">Nhà cung cấp</label>
-                        <input id="material_supplier1" name="material_supplier1" type="text" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 col-sm-3">
-                        <label for="material_country1" class="form-label">Quốc gia sản xuất</label>
-                        <input id="material_country1" name="material_country1" type="text" class="form-control" required>
-                    </div>
-                </div>
-                
-                <div class="row mb-4">
-                    <div class="col-12 col-sm-4">
-                        <label for="material_value1" class="form-label">Giá tiền</label>
-                        <input id="material_value1" name="material_value1" type="number" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 col-sm-8">
-                        <label for="material_image1" class="form-label">Link ảnh</label>
-                        <input id="material_image1" name="material_image1" type="url" class="form-control">
-                    </div>
-                </div>
-					<button type="submit" class="btn btn-primary">Xác nhận</button>
-                    			                       
-           </form>
-         </div>
-      </div>
-  	</div>
-</div>
-
-                <!-- end Modal -->
 
     </main>
     <!--end main content-->

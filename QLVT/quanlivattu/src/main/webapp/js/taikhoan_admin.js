@@ -42,41 +42,37 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // xuất file
+ function exportToExcel() {
 
-function exportToExcel() {
-    var wb = XLSX.utils.table_to_book(document.getElementById('myTable'), {sheet: "Sheet1"});
-    
-    var sheet = wb.Sheets['Sheet1'];
-    var images = document.querySelectorAll('.img-set');  
-    images.forEach(function (img, index) {
-        var base64 = getBase64Image(img);
-        var cell = XLSX.utils.decode_cell('K' + (index + 2)); 
-        sheet['!images'] = sheet['!images'] || [];
-        sheet['!images'].push({
-            name: 'image' + (index + 1) + '.jpg',
-            data: base64,
-            position: {
-                s: {r: cell.r, c: cell.c}, 
-                e: {r: cell.r, c: cell.c} 
-            }
+        var table = $('#myTable').DataTable();
+
+
+        var data = table.rows({ search: 'applied' }).data();
+
+
+        var ws_data = [];
+
+
+        var headers = [];
+        $('#myTable th').each(function() {
+            headers.push($(this).text());
         });
-    });
+        ws_data.push(headers);
 
 
-    XLSX.writeFile(wb, 'xuat_file_du_lieu.xlsx');
-}
+        data.each(function(row) {
+            ws_data.push(row);
+        });
 
-function getBase64Image(img) {
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img, 0, 0);
-    return canvas.toDataURL('image/jpeg').split(',')[1]; // Trả về base64 string
-}
-  // Hàm xác nhận khi gửi form
-    function confirmSubmit() {
-        return confirm("Bạn có chắc chắn muốn thêm dữ liệu?");
+
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+
+        XLSX.writeFile(wb, "Xuat_File_Excel.xlsx");
     }
 
 
