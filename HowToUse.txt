@@ -1,1 +1,10 @@
+Video hướng dẫn cụ thể:
 
+https://youtu.be/Nc0FEkYwXRU
+
+Một số chú ý quan trọng:
+Chạy server tomcat trước khi chạy web nếu không sẽ lỗi.
+Tài khoản admin: anhduc0853@gmail.com | pass: Duc@12#$%
+Tài khoản user: đăng kí tài khoản mới rồi đăng nhập.
+Nếu muốn tài khoản từ user -> admin thì đăng nhập tài khoản admin vào cấp quyền.
+Nếu lỗi đâu đó thì có thể refresh lại trang hoặc ctrl+f5
