@@ -66,27 +66,6 @@ function getBase64Image(img) {
     return canvas.toDataURL('image/jpeg').split(',')[1]; // Trả về base64 string
 }
 
-// xu li button
-$(document).ready(function () {
-    // Xử lý nút "Duyệt"
-    $(document).on('click', '.btn-approve', function () {
-        if (confirm('Bạn có chắc chắn muốn duyệt yêu cầu này không?')) {
-            const actionCell = $(this).closest('.action-cell');
-            actionCell.html('<span class="text-primary">Đã Duyệt</span>');
-            alert('Yêu cầu đã được duyệt.');
-        }
-    });
-
-    // Xử lý nút "Từ Chối"
-    $(document).on('click', '.btn-reject', function () {
-        if (confirm('Bạn có chắc chắn muốn từ chối yêu cầu này không?')) {
-            const actionCell = $(this).closest('.action-cell');
-            actionCell.html('<span class="text-danger">Từ Chối</span>');
-            alert('Yêu cầu đã bị từ chối.');
-        }
-    });
-});
-
 //datatable
 document.addEventListener("DOMContentLoaded", function() {
     const table = document.querySelector(".table");
@@ -96,29 +75,26 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+// duyet tai khoan
+document.addEventListener("DOMContentLoaded", function () {
+    // Lấy tất cả các nút sửa
+    const editButtons = document.querySelectorAll(".btn-edit");
 
-// xuất file
+    editButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            // Lấy hàng chứa nút được nhấn
+            const row = button.closest("tr");
+            const cells = row.querySelectorAll("td");
 
-function exportToExcel() {
-    var wb = XLSX.utils.table_to_book(document.getElementById('myTable'), {sheet: "Sheet1"});
-    
-    // Xử lý hình ảnh (thêm ảnh vào Excel)
-    var sheet = wb.Sheets['Sheet1'];
-    var images = document.querySelectorAll('.img-set');  // Chọn tất cả hình ảnh
-    images.forEach(function (img, index) {
-        var base64 = getBase64Image(img);
-        var cell = XLSX.utils.decode_cell('K' + (index + 2)); // K: Cột ảnh (thêm vào cột 11)
-        sheet['!images'] = sheet['!images'] || [];
-        sheet['!images'].push({
-            name: 'image' + (index + 1) + '.jpg',
-            data: base64,
-            position: {
-                s: {r: cell.r, c: cell.c}, // Vị trí hình ảnh
-                e: {r: cell.r, c: cell.c}  // Vị trí kết thúc
-            }
+            // Lấy dữ liệu từ các ô trong hàng
+            const requestId = cells[0].innerText;
+            const requestStatus = cells[0].innerText;
+
+
+            // Đưa dữ liệu lên modal
+            document.querySelector("#Duyet input[name='request_id']").value = requestId;
+            document.querySelector("#Duyet input[name='request_status']").value = requestStatus;
+
         });
     });
-
-    // Xuất file Excel
-    XLSX.writeFile(wb, 'xuat_file_du_lieu.xlsx');
-}
+});

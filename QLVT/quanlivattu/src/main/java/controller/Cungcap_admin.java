@@ -36,8 +36,13 @@ public class Cungcap_admin extends HttpServlet {
 		 // Lấy danh sách tài khoản từ cơ sở dữ liệu
 	    List<Supplier> suppliers = supplierDAO.getAll();
 	    
+	 // Lấy tổng số tài khoản từ DAO
+        int totalSuppliers = supplierDAO.getTotalSuppliers();
+        request.setAttribute("totalSuppliers", totalSuppliers);
+	    
 	    // Đưa danh sách tài khoản vào request để gửi đến JSP
 	    request.setAttribute("suppliers", suppliers);
+        request.setAttribute("totalSuppliers", totalSuppliers);
 	    
 	    // Chuyển hướng đến trang JSP
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("cungcap_admin.jsp");
@@ -49,8 +54,45 @@ public class Cungcap_admin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		 try {
+	            // Lấy dữ liệu từ form
+	            int supplierId = Integer.parseInt(request.getParameter("supplier_id"));
+	            String supplierName = request.getParameter("supplier_name");
+	            String supplierEmail = request.getParameter("supplier_email");
+	            String supplierPhone = request.getParameter("supplier_phone");
+	            String supplierAddress = request.getParameter("supplier_address");
+	            String supplierWebsite = request.getParameter("supplier_website");
+	            String supplierDescribe = request.getParameter("supplier_describe");
+	            String supplierDateCreated = request.getParameter("supplier_date_created");
+
+	            // Tạo đối tượng Supplier
+	            Supplier supplier = new Supplier();
+	            supplier.setSupplier_id(supplierId);
+	            supplier.setSupplier_name(supplierName);
+	            supplier.setSupplier_email(supplierEmail);
+	            supplier.setSupplier_phone(supplierPhone);
+	            supplier.setSupplier_address(supplierAddress);
+	            supplier.setSupplier_website(supplierWebsite);
+	            supplier.setSupplier_describe(supplierDescribe);
+	            supplier.setSupplier_date_created(supplierDateCreated);
+
+	            // Thêm nhà cung cấp vào cơ sở dữ liệu
+	            boolean isAdded = supplierDAO.addSupplier(supplier);
+
+	            // Xử lý kết quả
+	            response.setContentType("text/html");
+	            if (isAdded) {
+	                response.getWriter().println("<script>alert('Success!'); window.location.href = 'Cungcap_admin';</script>");
+	            } else {
+	                response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+	        }
+		
 	}
 
 }

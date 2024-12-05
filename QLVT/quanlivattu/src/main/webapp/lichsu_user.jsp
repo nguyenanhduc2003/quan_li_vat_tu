@@ -44,7 +44,7 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_user.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_user">
                         <i class="bi bi-database-fill me-2"></i>
                         Vật tư & thiết bị
                     </a>
@@ -56,22 +56,16 @@
                     </a>
                 </li>
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/lichsu_user.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/History_user">
                         <i class="bi bi-clock-history me-2"></i>
                         Lịch sử yêu cầu
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/nhan_user.jsp">
-                        <i class="bi bi-inboxes-fill me-2"></i>
-                        Nhận vật tư
                     </a>
                 </li>
             </ul>
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -107,22 +101,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>
@@ -159,7 +153,7 @@
                         Tổng phiếu đã tạo
                         <p>
                             <i class="bi bi-envelope-plus-fill"></i>
-                            <span>25</span>
+                            <span>${Tong}</span>
                         </p>
                     </div>
                 </div>
@@ -171,7 +165,7 @@
                         Đã duyệt
                         <p>
                             <i class="bi bi-clipboard-check-fill"></i>
-                            <span>20</span>
+                            <span>${DaDuyet}</span>
                         </p>
                          
                        </div>
@@ -179,14 +173,14 @@
                             Chưa duyệt
                             <p>
                                 <i class="bi bi-clipboard-minus-fill"></i>
-                                <span>05</span>
+                                <span>${DangCho}</span>
                             </p>
                        </div>
                        <div class="col-12 col-sm-3 thongke2 bg-danger text-white">
                         Không duyệt
                             <p>
                                 <i class="bi bi-clipboard-x-fill"></i>
-                                <span>0</span>
+                                <span>${TuChoi}</span>
                             </p>
                        </div>
                     </div>
@@ -203,8 +197,8 @@
             </div>
 
             <div class="table-set">
-                <table class="table  table-bordered table-striped table-hover">
-                    <thead class="bg-primary text-white">
+                <table class="table table-bordered table-bordered table-striped table-hover" style="font-size:14px">
+                    <thead class="table-primary">
                         <tr class="text-center">
                             <th>Email</th>
                             <th>Họ và tên</th>
@@ -220,15 +214,17 @@
                     <tbody>
                     	<c:forEach var="request" items="${requests}">
                         <tr class="text-center">
-                            <td>${request_email}</td>
-                            <td>${request_name}</td>
-                            <td>${request_phone}</td>
-                            <td>${request_date}</td>
-                            <td>${request_material_name}</td>
-                            <td>${request_quantity}</td>
-                            <td>${request_reason}</td>
-                            <td>${request_note}</td>
-                            <td>$(request_status)</td>
+                            <td>${request.request_email}</td>
+                            <td>${request.request_name}</td>
+                            <td>${request.request_phone}</td>
+                            <td>${request.request_date}</td>
+                            <td>${request.request_materialname}</td>
+                            <td>${request.request_quantity}</td>
+                            <td>${request.request_reason}</td>
+                            <td>${request.request_note}</td>
+                            <td class="${request.request_status == 'Đã duyệt' ? 'text-primary' : (request.request_status == 'Từ chối' ? 'text-danger' : '')}">
+							    ${request.request_status}
+							</td>
                         </tr>
                         </c:forEach>
                     </tbody>

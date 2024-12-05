@@ -39,31 +39,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -72,7 +72,7 @@
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="LogoutServlet">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -108,22 +108,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>

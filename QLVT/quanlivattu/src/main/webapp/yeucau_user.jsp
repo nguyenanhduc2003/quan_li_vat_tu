@@ -38,7 +38,7 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_user.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_user">
                         <i class="bi bi-database-fill me-2"></i>
                         Vật tư & thiết bị
                     </a>
@@ -50,22 +50,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/lichsu_user.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/History_user">
                         <i class="bi bi-clock-history me-2"></i>
                         Lịch sử yêu cầu
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/nhan_user.jsp">
-                        <i class="bi bi-inboxes-fill me-2"></i>
-                        Nhận vật tư
                     </a>
                 </li>
             </ul>
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -101,22 +95,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>
@@ -154,48 +148,48 @@
 
             <div class="form-content">
                 <div class="form-content-child">
-                    <form id="myForm" action="#" method="post">
+                    <form id="myForm" action="Duyet_admin" method="post">
                         <div class="row">
                             <div class="col-12 col-sm-6">
-                                <label for="email" class="form-lable">Email</label>
-                                <input id="email" name="email" type="text" class="form-control" required>
+                                <label for="request_email" class="form-lable">Email</label>
+                                <input id="request_email" name="request_email" type="text" class="form-control" required>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <label for="fullname" class="form-lable">Họ và tên</label>
-                                <input id="fullname" name="name" type="name" class="form-control" required>
+                                <label for="request_name" class="form-lable">Họ và tên</label>
+                                <input id="request_name" name="request_name" type="text" class="form-control" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12 col-sm-6">
-                                <label for="phonenumber" class="form-lable">Số điện thoại</label>
-                                <input id="phonenumber" name="phonenumber" type="number" class="form-control" required>
+                                <label for="request_phone" class="form-lable">Số điện thoại</label>
+                                <input id="request_phone" name="request_phone" type="number" class="form-control" required>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <label for="daterq" class="form-lable">Ngày yêu cầu</label>
-                                <input id="daterq" name="date-rq" type="date" class="form-control" required>
+                                <label for="request_date" class="form-lable">Ngày yêu cầu</label>
+                                <input id="request_date" name="request_date" type="date" class="form-control" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12 col-sm-6">
-                                <label for="materialname" class="form-lable">Tên vật tư</label>
-                                <input id="materialname" name="materialname" type="text" class="form-control" required>
+                                <label for="request_materialname" class="form-lable">Tên vật tư</label>
+                                <input id="request_materialname" name="request_materialname" type="text" class="form-control" required>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <label for="quantity" class="form-lable">Số lượng</label>
-                                <input id="quantity" name="quantity" type="number" class="form-control" required>
+                                <label for="request_quantity" class="form-lable">Số lượng</label>
+                                <input id="request_quantity" name="request_quantity" type="number" class="form-control" required>
                             </div>
                         </div>
 
                         <div>
-                            <label for="reason" class="form-lable">Lý do</label> <br>
-                            <textarea class="form-control" name="reason" id="reason" rows="4" cols="91" required></textarea>
+                            <label for="request_reason" class="form-lable">Lý do</label> <br>
+                            <textarea class="form-control" name="request_reason" id="request_reason" rows="4" cols="91" required></textarea>
                         </div>
 
                         <div>
-                            <label for="note" class="form-lable">Ghi chú</label>
-                            <textarea class="form-control" name="reason" id="reason" rows="2" cols="91"></textarea>
+                            <label for="request_note" class="form-lable">Ghi chú</label>
+                            <textarea class="form-control" name="request_note" id="request_note" rows="2" cols="91"></textarea>
                         </div>
 
                         <div class="btn-submit">

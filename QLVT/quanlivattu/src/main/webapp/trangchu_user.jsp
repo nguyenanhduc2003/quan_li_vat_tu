@@ -39,7 +39,7 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_user.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_user">
                         <i class="bi bi-database-fill me-2"></i>
                         Vật tư & thiết bị
                     </a>
@@ -51,22 +51,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/lichsu_user.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/History_user">
                         <i class="bi bi-clock-history me-2"></i>
                         Lịch sử yêu cầu
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/nhan_user.jsp">
-                        <i class="bi bi-inboxes-fill me-2"></i>
-                        Nhận vật tư
                     </a>
                 </li>
             </ul>
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -102,22 +96,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>

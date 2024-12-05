@@ -66,82 +66,6 @@ function getBase64Image(img) {
     return canvas.toDataURL('image/jpeg').split(',')[1]; // Trả về base64 string
 }
 
-//xu li table
-$(document).ready(function () {
-    // Hàm thêm dòng mới
-    function addRow(data) {
-        const row = `
-            <tr>
-                <td>${data.name}</td>
-                <td>${data.email}</td>
-                <td>${data.phone}</td>
-                <td>${data.address}</td>
-                <td>${data.website}</td>
-                <td>${data.description}</td>
-                <td>${data.createdDate}</td>
-                <td>
-                    <button class="btn btn-primary btnEdit">Sửa</button>
-                    <button class="btn btn-danger btnDelete">Xóa</button>
-                </td>
-            </tr>`;
-        $("#dataTableBody").append(row);
-    }
-
-    // Xử lý thêm mới
-    $("#btnAdd").click(function () {
-        const newData = {
-            name: prompt("Tên nhà cung cấp:"),
-            email: prompt("Email:"),
-            phone: prompt("Số điện thoại:"),
-            address: prompt("Địa chỉ:"),
-            website: prompt("Website:"),
-            description: prompt("Mô tả:"),
-            createdDate: new Date().toLocaleDateString()
-        };
-
-        if (newData.name && newData.email) {
-            addRow(newData);
-            alert("Thêm mới thành công!");
-        } else {
-            alert("Thông tin không hợp lệ!");
-        }
-    });
-
-    // Xử lý sửa
-    $(document).on("click", ".btnEdit", function () {
-        const row = $(this).closest("tr");
-        const cells = row.find("td");
-        const updatedData = {
-            name: prompt("Tên nhà cung cấp:", cells.eq(0).text()),
-            email: prompt("Email:", cells.eq(1).text()),
-            phone: prompt("Số điện thoại:", cells.eq(2).text()),
-            address: prompt("Địa chỉ:", cells.eq(3).text()),
-            website: prompt("Website:", cells.eq(4).text()),
-            description: prompt("Mô tả:", cells.eq(5).text()),
-            createdDate: cells.eq(6).text() // giữ nguyên ngày tạo
-        };
-
-        if (updatedData.name && updatedData.email) {
-            cells.eq(0).text(updatedData.name);
-            cells.eq(1).text(updatedData.email);
-            cells.eq(2).text(updatedData.phone);
-            cells.eq(3).text(updatedData.address);
-            cells.eq(4).text(updatedData.website);
-            cells.eq(5).text(updatedData.description);
-            alert("Cập nhật thành công!");
-        } else {
-            alert("Thông tin không hợp lệ!");
-        }
-    });
-
-    // Xử lý xóa
-    $(document).on("click", ".btnDelete", function () {
-        if (confirm("Bạn có chắc chắn muốn xóa dòng này?")) {
-            $(this).closest("tr").remove();
-            alert("Xóa thành công!");
-        }
-    });
-});
 
 //datatable
 document.addEventListener("DOMContentLoaded", function() {
@@ -153,28 +77,31 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// xuất file
+// hien thi modal
+    const editButtons = document.querySelectorAll(".btn-edit");
 
-function exportToExcel() {
-    var wb = XLSX.utils.table_to_book(document.getElementById('myTable'), {sheet: "Sheet1"});
-    
-    // Xử lý hình ảnh (thêm ảnh vào Excel)
-    var sheet = wb.Sheets['Sheet1'];
-    var images = document.querySelectorAll('.img-set');  // Chọn tất cả hình ảnh
-    images.forEach(function (img, index) {
-        var base64 = getBase64Image(img);
-        var cell = XLSX.utils.decode_cell('K' + (index + 2)); // K: Cột ảnh (thêm vào cột 11)
-        sheet['!images'] = sheet['!images'] || [];
-        sheet['!images'].push({
-            name: 'image' + (index + 1) + '.jpg',
-            data: base64,
-            position: {
-                s: {r: cell.r, c: cell.c}, // Vị trí hình ảnh
-                e: {r: cell.r, c: cell.c}  // Vị trí kết thúc
-            }
+    editButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+
+            const row = button.closest("tr");
+            const cells = row.querySelectorAll("td");
+
+            const supplierId = cells[0].innerText;
+            const supplierName = cells[1].innerText;
+            const supplierEmail = cells[2].innerText;
+            const supplierPhone = cells[3].innerText;
+            const supplierAddress = cells[4].innerText;
+            const supplierWebsite = cells[5].querySelector("a").href;
+            const supplierDescribe = cells[6].querySelector("abbr").title;
+            const supplierDateCreated = cells[7].innerText;
+
+            document.querySelector("#updateInfoForm input[name='supplierId1']").value = supplierId;
+            document.querySelector("#updateInfoForm input[name='supplier_name']").value = supplierName;
+            document.querySelector("#updateInfoForm input[name='supplier_email']").value = supplierEmail;
+            document.querySelector("#updateInfoForm input[name='supplier_phone']").value = supplierPhone;
+            document.querySelector("#updateInfoForm input[name='supplier_address']").value = supplierAddress;
+            document.querySelector("#updateInfoForm input[name='supplier_website']").value = supplierWebsite;
+            document.querySelector("#updateInfoForm textarea[name='supplier_describe']").value = supplierDescribe;
+            document.querySelector("#updateInfoForm input[name='supplier_date_created']").value = supplierDateCreated;
         });
     });
-
-    // Xuất file Excel
-    XLSX.writeFile(wb, 'xuat_file_du_lieu.xlsx');
-}

@@ -35,25 +35,22 @@ document.querySelectorAll('.fade-link').forEach(link => {
 
 function exportToExcel() {
     var wb = XLSX.utils.table_to_book(document.getElementById('myTable'), {sheet: "Sheet1"});
-    
-    // Xử lý hình ảnh (thêm ảnh vào Excel)
     var sheet = wb.Sheets['Sheet1'];
-    var images = document.querySelectorAll('.img-set');  // Chọn tất cả hình ảnh
+    var images = document.querySelectorAll('.img-set');  
     images.forEach(function (img, index) {
         var base64 = getBase64Image(img);
-        var cell = XLSX.utils.decode_cell('K' + (index + 2)); // K: Cột ảnh (thêm vào cột 11)
+        var cell = XLSX.utils.decode_cell('K' + (index + 2)); 
         sheet['!images'] = sheet['!images'] || [];
         sheet['!images'].push({
             name: 'image' + (index + 1) + '.jpg',
             data: base64,
             position: {
-                s: {r: cell.r, c: cell.c}, // Vị trí hình ảnh
-                e: {r: cell.r, c: cell.c}  // Vị trí kết thúc
+                s: {r: cell.r, c: cell.c},
+                e: {r: cell.r, c: cell.c}  
             }
         });
     });
 
-    // Xuất file Excel
     XLSX.writeFile(wb, 'xuat_file_du_lieu.xlsx');
 }
 
@@ -76,37 +73,38 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-//modal add data
-document.getElementById('confirmAdd').addEventListener('click', function () {
-    if (confirm('Bạn có chắc chắn muốn thêm vật tư này không?')) {
-        const form = document.getElementById('materialForm');
-        const formData = new FormData(form);
+//hien thi modal
 
-        // Tạo một hàng mới trong bảng
-        const tableBody = document.getElementById('materialTableBody');
-        const newRow = document.createElement('tr');
-        const fields = [
-            'maVatTu', 'tenVatTu', 'moTa', 'donViTinh', 
-            'ngaySanXuat', 'hanSuDung', 'cachSuDung', 
-            'nhaCungCap', 'quocGiaSanXuat', 'giaTien', 'anh'
-        ];
-        
-        newRow.innerHTML = `<td>${tableBody.children.length + 1}</td>`;
-        fields.forEach(id => {
-            if (id === 'anh') {
-                newRow.innerHTML += `<td><img src="#" alt="Ảnh" width="50"></td>`;
-            } else {
-                newRow.innerHTML += `<td>${document.getElementById(id).value}</td>`;
-            }
-        });
+const editButtons = document.querySelectorAll(".btn-edit");
 
-        tableBody.appendChild(newRow);
-        alert('Thêm vật tư thành công!');
-        document.getElementById('materialForm').reset();
-        const modal = bootstrap.Modal.getInstance(document.getElementById('addMaterialModal'));
-        modal.hide();
-    }
+editButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        const row = button.closest("tr");
+
+        const materialId = row.cells[0].innerText;
+        const materialName = row.cells[1].innerText;
+        const materialDescribe = row.cells[2].querySelector("abbr").title;
+        const materialUnit = row.cells[3].innerText;
+        const materialDate = row.cells[4].innerText;
+        const materialExpiry = row.cells[5].innerText;
+        const materialUse = row.cells[6].querySelector("abbr").title;
+        const materialSupplier = row.cells[7].innerText;
+        const materialCountry = row.cells[8].innerText;
+        const materialValue = row.cells[9].innerText;
+        const materialImage = row.cells[10].querySelector("img").src;
+
+        document.getElementById("material_id1").value = materialId;
+        document.getElementById("material_name1").value = materialName;
+        document.getElementById("material_describe1").value = materialDescribe;
+        document.getElementById("material_unit1").value = materialUnit;
+        document.getElementById("material_date1").value = materialDate;
+        document.getElementById("material_expiry1").value = materialExpiry;
+        document.getElementById("material_use1").value = materialUse;
+        document.getElementById("material_supplier1").value = materialSupplier;
+        document.getElementById("material_country1").value = materialCountry;
+        document.getElementById("material_value1").value = materialValue;
+        document.getElementById("material_image1").value = materialImage;
+    });
 });
 
-// sửa
-// Bắt sự kiện click vào nút Sửa
+

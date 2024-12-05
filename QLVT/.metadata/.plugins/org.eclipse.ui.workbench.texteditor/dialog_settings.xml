@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value=".table"/>
+		<item key="selection" value="DOMContentLoaded"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="DOMContentLoaded"/>
+			<item value="btn-edit"/>
+			<item value="address"/>
+			<item value="textarea"/>
+			<item value="addEventListener"/>
 			<item value=".table"/>
 			<item value="log-out"/>
 			<item value="/html"/>

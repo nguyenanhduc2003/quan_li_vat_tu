@@ -45,31 +45,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -78,7 +78,7 @@
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -114,22 +114,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>
@@ -159,17 +159,17 @@
 
         <div class="content-here ms-3 me-3">
             <div class="btn-file">
-                <button class="btn btn-primary mb-3 mt-3" onclick="handleAddNew()">Thêm vật tư mới</button>
+                <button class="btn btn-primary mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#AddWarehouse"> <i class="bi bi-plus"></i> Thêm vật tư</button>
                 <button class="btn btn-success" onclick="exportToExcel()">
                     Tải xuống
                     <i class="bi bi-box-arrow-in-down ms-2"></i>
                 </button>
             </div>
             <div class="table-content">
-                <table id="myTable" class="table table-bordered table-striped table-hover">
-                    <thead class="table-dark">
+                <table id="myTable" class="table table-bordered table-striped table-hover" style="font-size: 14px;">
+                    <thead class="table-primary">
                         <tr>
-                            <th>Mã vật tư</th>
+                            <th>Mã vật tư kho</th>
                             <th>Tên vật tư</th>
                             <th>Nhà cung cấp</th>
                             <th>Số lượng</th>
@@ -184,13 +184,19 @@
                             <td>${warehouse.warehouse_name}</td>
                             <td>${warehouse.warehouse_supplier}</td>
                             <td>${warehouse.warehouse_quantity}</td>
-                            <td class="${warehouse.warehouse_quantity < 10 ? 'textdanger' : 'text-success'}">
+                            <td class="${warehouse.warehouse_quantity < 10 ? 'text-danger' : 'text-success'}">
                             	${warehouse.warehouse_quantity < 10 ? 'Cần bổ sung' : 'Bình thường'}
                             </td>
                             <td>
-                                <button class="btn btn-primary" onclick="handleNhap(this)">Nhập</button>
-                                <button class="btn btn-success" onclick="handleXuat(this)">Xuất</button>
-                                <button class="btn btn-danger">Xóa</button>
+                                 <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateWarehouse">
+		                                <i class="bi bi-pencil-square"></i>
+		                            </button>
+		                            <form action="DeleteWarehouse" method="post" style="display: inline;">
+								        <input type="hidden" name="warehouseId" value="${warehouse.warehouse_id}">
+								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa vật tư này không?')">
+								            <i class="bi bi-dash-square"></i>
+								        </button>
+								    </form>
                             </td>
                         </tr>
                         </c:forEach>
@@ -198,6 +204,106 @@
                 </table>
             </div>
         </div>
+        
+         <!-- Modal -->
+       <div class="modal fade" id="AddWarehouse" tabindex="-1" aria-labelledby="AddWarehouseLabel" aria-hidden="true">
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <h5 class="modal-title" id="AddWarehouseLabel">Thêm vật tư mới</h5>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                   </div>
+                   <div class="modal-body">
+			                        <!--form-->
+            <form id="addRowForm" action="Kho_admin" method="POST" onsubmit="return confirmSubmit()">
+                <div class="row">
+                    <div class="col-12 col-sm-4">
+                        <label for="warehouse_id" class="form-label">Mã vật tư kho</label>
+                        <input id="warehouse_id" name="warehouse_id" type="text" class="form-control" required>
+                    </div>
+                    
+                    <div class="col-12 col-sm-4">
+                        <label for="material_id" class="form-label">Mã vật tư</label>
+                        <input id="material_id" name="material_id" type="text" class="form-control" required>
+                    </div>
+                    
+                     <div class="col-12 col-sm-4">
+                        <label for="warehouse_quantity" class="form-label">Số lượng</label>
+                        <input id="warehouse_quantity" name="warehouse_quantity" type="number" class="form-control" required>
+                    </div>
+
+                    
+
+                </div>
+
+                <div class="row mb-3">
+
+                    <div class="col-12 col-sm-7">
+                        <label for="warehouse_supplier" class="form-label">Nhà cung cấp</label>
+                        <input id="warehouse_supplier" name="warehouse_supplier" type="text" class="form-control" required>
+                    </div>
+
+                   <div class="col-12 col-sm-5">
+                        <label for="warehouse_name" class="form-label">Tên vật tư</label>
+                        <input id="warehouse_name" name="warehouse_name" type="text" class="form-control" required>
+                    </div>
+
+                </div>                         
+
+                <div>
+                    <button type="submit" id="addRowBtn" class="btn btn-primary">Thêm dữ liệu</button>
+                </div>
+
+            </form>
+            <!--end form-->
+                    </div>
+                </div>
+            </div>
+        </div>
+			    
+                <!-- end Modal -->
+	
+	 <!-- Modal -->
+<div class="modal fade" id="UpdateWarehouse" tabindex="-1" aria-labelledby="UpdateWarehouseLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UpdateWarehouseLabel">Chỉnh sửa vật tư</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form để chỉnh sửa thông tin -->
+                <form id="UpdateWarehouse" action="UpdateWarehouse" method="POST" onsubmit="return confirmSubmit()">
+                    <div class="row">
+                        <input id="warehouse_id1" name="warehouse_id1" type="hidden" class="form-control" value="${warehouse.warehouse_id}" required>   
+                        
+                        <div class="col-12 col-sm-8">
+                            <label for="warehouse_name1" class="form-label">Tên vật tư</label>
+                            <input id="warehouse_name1" name="warehouse_name1" type="text" class="form-control" required>
+                        </div>                          
+
+                        <div class="col-12 col-sm-4">
+                            <label for="warehouse_quantity1" class="form-label">Số lượng</label>
+                            <input id="warehouse_quantity1" name="warehouse_quantity1" type="number" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12 col-sm-12">
+                            <label for="warehouse_supplier1" class="form-label">Nhà cung cấp</label>
+                            <input id="warehouse_supplier1" name="warehouse_supplier1" type="text" class="form-control" required>
+                        </div>
+                    </div>                         
+
+                    <div>
+                        <button type="submit" id="addRowBtn" class="btn btn-primary">Cập nhật</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Modal -->
 
     </main>
     <!--end main content-->

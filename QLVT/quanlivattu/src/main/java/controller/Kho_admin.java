@@ -49,8 +49,44 @@ public class Kho_admin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		try {
+			
+			 // Lấy dữ liệu từ form
+		       int warehouse_id = Integer.parseInt(request.getParameter("warehouse_id"));
+		       int material_id = Integer.parseInt(request.getParameter("material_id"));
+		       String warehouse_name = request.getParameter("warehouse_name");
+		       String warehouse_supplier = request.getParameter("warehouse_supplier");
+		       int warehouse_quantity = Integer.parseInt(request.getParameter("warehouse_quantity"));
+		       
+
+		       // Tạo đối tượng Account
+		       Warehouse warehouse = new Warehouse();
+		       warehouse.setWarehouse_id(warehouse_id);
+		       warehouse.setMaterial_id(material_id);
+		       warehouse.setWarehouse_name(warehouse_name);
+		       warehouse.setWarehouse_supplier(warehouse_supplier);
+		       warehouse.setWarehouse_quantity(warehouse_quantity);
+		       
+
+		       // Thêm tài khoản vào cơ sở dữ liệu
+		       boolean isAdded = warehouseDAO.addWarehouse(warehouse);
+		       
+		    // Xử lý kết quả
+		       response.setContentType("text/html");
+		       if (isAdded) {
+		           response.getWriter().println("<script>alert('Success!'); window.location.href = 'Kho_admin';</script>");
+		       } else {
+		           response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+		       }
+			
+		} catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+        }
+					
 	}
 
 }

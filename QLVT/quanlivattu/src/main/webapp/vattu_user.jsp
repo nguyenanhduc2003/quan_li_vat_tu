@@ -44,7 +44,7 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/vattu_user.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_user">
                         <i class="bi bi-database-fill me-2"></i>
                         Vật tư & thiết bị
                     </a>
@@ -56,22 +56,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/lichsu_user.jsp">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/History_user">
                         <i class="bi bi-clock-history me-2"></i>
                         Lịch sử yêu cầu
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/nhan_user.jsp">
-                        <i class="bi bi-inboxes-fill me-2"></i>
-                        Nhận vật tư
                     </a>
                 </li>
             </ul>
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -107,22 +101,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>
@@ -159,17 +153,7 @@
                         Tổng số vật tư
                         <p>
                             <i class="bi bi-basket"></i>
-                            <span>100</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="mt-3 col-12 col-sm-4">
-                    <div class="thongke2">
-                        Nhà cung cấp nổi bật
-                        <p>
-                            <i class="bi bi-bus-front-fill"></i>
-                            <span>Nhà cung cấp A</span>
+                            <span>${totalMaterials}</span>
                         </p>
                     </div>
                 </div>
@@ -186,52 +170,33 @@
                                 <li class="list-group-item" id="sort-asc">Sort A-Z</li>
                                 <li class="list-group-item" id="sort-desc">Sort Z-A</li>
                             </ul>
+                             <!-- Thanh tìm kiếm -->
+						    <div class="mt-3">
+						        <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm sản phẩm..." onkeyup="filterMaterials()">
+						    </div>
+                            
                         </div>
                         <div class="col-md-9">
                     
                             <div class="row" id="cardContainer">
-                                <!-- Card 1 -->
-                                <div class="col-md-4 col-12 card-item">
-                                    <div class="card" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#card1Modal">
-                                        <img src="https://ytesaigon.com/wp-content/uploads/2023/02/May-do-duong-huyet-On-Call-EZ-II.jpg.webp" class="card-img-top" alt="Card 1">
+                                 <c:forEach var="material" items="${materials}">
+					            
+									<div class="col-md-4 col-12 card-item" data-material-name="${material.material_name}">
+                                    <div class="card" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal${material.material_id}">
+                                        <img src="${material.material_image}" class="card-img-top" alt="Card 1">
                                         <div class="card-body">
-                                            <h5 class="card-title">Máy đo đường huyết</h5>
+                                            <h5 class="card-title">${material.material_name}</h5>
                                             <p class="card-text">Click xem thông tin chi tiết</p>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Card 2 -->
-                                <div class="col-md-4 col-12 card-item">
-                                    <div class="card" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#card2Modal">
-                                        <img src="https://cdn.tgdd.vn/Products/Images/5872/283254/khau-trang-y-te-mask-care-4-lop-trang-hop-50-cai-thumb-1-600x600.jpg" class="card-img-top" alt="Card 2">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Khẩu trang y tế 4 lớp</h5>
-                                            <p class="card-text">Click xem thông tin chi tiết</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card 3 -->
-                                <div class="col-md-4 col-12 card-item">
-                                    <div class="card" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#card3Modal">
-                                        <img src="https://cdn.nhathuoclongchau.com.vn/unsafe/https://cms-prod.s3-sgn09.fptcloud.com/00017885_bong_gac_dap_vet_thuong_bao_thach_8cm_x_12cm_2863_62ae_large_ca54514759.jpg" class="card-img-top" alt="Card 3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Bông gạc y tế</h5>
-                                            <p class="card-text">Click xem thông tin chi tiết</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Modal for Card 1 -->
-                <div class="modal fade" id="card1Modal" tabindex="-1" aria-labelledby="card1ModalLabel" aria-hidden="true">
+                                	</div>
+                                	
+                                	<!-- Modal for Card 1 -->
+                <div class="modal fade" id="modal${material.material_id}" tabindex="-1" aria-labelledby="modal${material.material_id}" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="card1ModalLabel">Mô tả Sản phẩm</h5>
+                                <h5 class="modal-title" id="modal${material.material_id}">Mô tả Sản phẩm</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -239,49 +204,49 @@
                                 <div class="row">
                                     <div class=" col-12 col-md-6">
                                         <label for="material_name" class="form-label">Tên sản phẩm</label>
-                                        <input id="material_name" name="material_name" type="text" class="form-control" value="Máy đo đường huyết On Call EZ II" readonly>
+                                        <input id="material_name" name="material_name" type="text" class="form-control" value="${material.material_name}" readonly>
                                     </div>
 
                                     <div class="col-12 col-md-6">
                                         <label for="material_country" class="form-label">Quốc gia sản xuất</label>
-                                        <input id="material_country" name="material_country" type="text" class="form-control" value="Mỹ" readonly>
+                                        <input id="material_country" name="material_country" type="text" class="form-control" value="${material.material_country}" readonly>
                                     </div>
                                 </div>
 
                                 <label for="material_describe" class="form-label">Mô tả</label>
-                                <textarea name="material_describe" id="material_describe" class="form-control" rows="4" readonly> Máy đo đường huyết On Call EZ II được sản xuất bởi tập đoàn ACON Laboratories Inc., USA dựa trên công nghệ mới với chất lượng rất cao, cách sử dụng đơn giản, tiện lợi và kết quả đo chính xác. Đặc biệt nguồn cung cấp que  thử dồi dào với giá cả rất hợp lý đã đáp ứng được nguyện vọng của đông đảo bệnh nhân tiểu đường trên toàn thế giới. Máy được sử dụng rộng rãi tại các bệnh viện, trung tâm y tế, phòng mạch cũng như tại gia đình.
+                                <textarea name="material_describe" id="material_describe" class="form-control" rows="4" readonly>${material.material_describe}
                                 </textarea>
 
                                 <div class="row">
                                     <div class="col-12 col-md-4">
                                         <label for="material_unit" class="form-label">Đơn vị</label>
-                                        <input id="material_unit" name="material_unit" class="form-control" type="text" value="Chiếc" readonly>
+                                        <input id="material_unit" name="material_unit" class="form-control" type="text" value="${material.material_unit}" readonly>
                                     </div>
 
                                     <div class="col-12 col-md-4">
                                         <label for="material_date" class="form-label">Ngày sản xuất</label>
-                                        <input id="material_date" name="material_date" class="form-control" type="text" value="03-04-2017" readonly>
+                                        <input id="material_date" name="material_date" class="form-control" type="text" value="${material.material_date}" readonly>
                                     </div>
 
                                     <div class="col-12 col-md-4">
                                         <label for="material_expiry" class="form-label">Hạn sử dụng</label>
-                                        <input id="material_expiry" name="material_expiry" class="form-control" type="text" value="Đến khi hỏng" readonly>
+                                        <input id="material_expiry" name="material_expiry" class="form-control" type="text" value="${material.material_expiry}" readonly>
                                     </div>
                                 </div>
 
                                 <label for="material_use" class="form-label">Cách sử dụng</label>
-                                <textarea name="material_use" id="material_use" rows="4" class="form-control" readonly> Chuẩn bị các dụng cụ đo. Lắp kim mới vào bút lấy máu. Chuẩn bị một que đo mới. Chuẩn bị một miếng cồn để sát khuẩn. Rửa tay bằng xà phòng và lau khô. Sát khuẩn vị trí lấy máu (đầu ngón tay) bằng cồn và chờ cho cồn bay hơi hết (đầu ngón tay khô). Gắn que đo vào máy, máy sẽ tự động bật lên. Chờ cho đến khi trên màn hình xuất hiện biểu tượng giọt máu. Sau khi điều chỉnh độ nông sâu phù hợp áp đầu bút lấy máu vào ngón tay để chích máu. Mẹo để lấy máu ít đau là bạn nên chích kim ở bên cạnh đầu ngón tay. Không nên chích ở giữa vì ở giữa là nơi tập trung nhiều dây thần kinh do vậy bạn sẽ cảm thấy đau nhiều hơn. Thấm máu vào que đo. Lưu ý bạn cần cung cấm lượng máu đủ để đo. Trong trường hợp thiếu máu máy sẽ báo lỗi và que đo đó sẽ không được sử dụng lại. Máy sẽ bắt đầu đếm ngược và sau 10s kết quả sẽ hiện trên màn hình.
+                                <textarea name="material_use" id="material_use" rows="4" class="form-control" readonly> ${material.material_use}
                                 </textarea>
 
                                 <div class="row">
                                     <div class="col-12 col-md-6">
                                         <label for="material_supplier" class="form-label">Nhà cung cấp</label>
-                                        <textarea name="material_supplier" id="material_supplier" class="form-control" readonly>ArtCare Medical - Công Ty Cổ Phần Thương Mại Và Dịch Vụ ArtCare</textarea>
+                                        <textarea name="material_supplier" id="material_supplier" class="form-control" readonly>${material.material_supplier}</textarea>
                                     </div>
 
                                     <div class="col-12 col-md-6">
                                         <label for="material_value" class="form-label">Giá tiền</label>
-                                        <input type="text" name="material_value" id="material_value" class="form-control" value="499.00" readonly>
+                                        <input type="text" name="material_value" id="material_value" class="form-control" value="${material.material_value}" readonly>
                                     </div>
                                 </div>
                                                              
@@ -289,10 +254,20 @@
                         </div>
                     </div>
                 </div>
+					            
+        						</c:forEach>
+
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            
+                
             
 
             </div>
-            
+          </div>  
     </main>
     <!--end main content-->
     <script src="${pageContext.request.contextPath}/js/vattu_user.js"></script>

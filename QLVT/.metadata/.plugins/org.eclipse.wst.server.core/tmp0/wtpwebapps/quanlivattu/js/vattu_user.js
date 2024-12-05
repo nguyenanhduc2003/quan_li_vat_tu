@@ -105,21 +105,6 @@ $(document).ready(function () {
 });
 
 // tim kiem va loc card
-  // Tìm kiếm card
-  function searchCards() {
-    const input = document.getElementById('searchInput');
-    const filter = input.value.toLowerCase();
-    const cards = document.querySelectorAll('.card-item');
-    
-    cards.forEach(card => {
-        const title = card.querySelector('.card-title').textContent.toLowerCase();
-        if (title.indexOf(filter) > -1) {
-            card.style.display = ''; 
-        } else {
-            card.style.display = 'none'; 
-        }
-    });
-}
 
 
 const sortAscButton = document.getElementById('sort-asc');
@@ -133,9 +118,10 @@ sortAscButton.addEventListener('click', () => sortCards('asc'));
 sortDescButton.addEventListener('click', () => sortCards('desc'));
 
 function sortCards(order) {
+    const cardContainer = document.getElementById("cardContainer");
+    const cards = Array.from(cardContainer.getElementsByClassName('card-item'));
 
-    const cards = Array.from(cardContainer.getElementsByClassName('col-md-4'));
-
+    // Sắp xếp thẻ sản phẩm theo tên
     cards.sort((a, b) => {
         const titleA = a.querySelector('.card-title').textContent.trim().toLowerCase();
         const titleB = b.querySelector('.card-title').textContent.trim().toLowerCase();
@@ -147,6 +133,61 @@ function sortCards(order) {
         }
     });
 
+    // Xóa tất cả các thẻ hiện tại trong cardContainer và thêm lại các thẻ đã sắp xếp
     cardContainer.innerHTML = '';
     cards.forEach(card => cardContainer.appendChild(card));
+
+    // Sau khi sắp xếp, gọi lại hàm lọc để giữ trạng thái ẩn/hiện của các thẻ
+    filterMaterials();
 }
+
+
+// tim kiem vat tu
+
+function filterMaterials() {
+    var input = document.getElementById("searchInput");
+    
+
+    if (input) {
+        console.log("Giá trị của input:", input.value);
+
+        var filter = input.value.replace(/\s+/g, '').toLowerCase();
+        
+
+        var cardContainer = document.getElementById("cardContainer");
+        var cards = cardContainer.getElementsByClassName("card-item");
+
+
+        if (filter === "") {
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].style.display = ""; 
+            }
+        } else {
+
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+
+
+                var materialName = card.querySelector('.card-title').textContent.trim();
+                
+
+                if (materialName) {
+                    materialName = materialName.replace(/\s+/g, '').toLowerCase();
+
+
+                    if (materialName.includes(filter)) {
+                        card.style.display = ""; 
+                    } else {
+                        card.style.display = "none"; 
+                    }
+                } else {
+                    console.warn("Không tìm thấy tên sản phẩm trong thẻ card");
+                }
+            }
+        }
+    } else {
+        console.error("Không tìm thấy phần tử input với id 'searchInput'");
+    }
+}
+
+

@@ -44,31 +44,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -77,7 +77,7 @@
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -113,22 +113,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>
@@ -155,11 +155,17 @@
             </div>
 
         </div>
-
-        <div class="ms-3 me-3 mt-3 mb-2">
-        	 <span>Tổng số vật tư</span>
-		     <input style="width:50px; text-align:center;" id="total-display" name="total-display" type="text" class="form-control" 
-		               value="${totalMaterials}" readonly>      
+        
+        <div class="row">
+        	        <div class="ms-3 me-3 mt-3 mb-2 col-12 col-sm-3">
+        	<div class="thongke1">
+        	Tổng số vật tư
+        	 <p>
+                 <i class="bi bi-archive-fill"></i>
+                 <span>${totalMaterials}</span>
+             </p>	     
+        	</div>    
+        </div>
         </div>
 
         <div class="btn-add d-flex ms-3 me-3">
@@ -167,6 +173,7 @@
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddMaterial">
                     <i class="bi bi-plus"></i>
                     Thêm vật tư
+                    </button>
             </div>
                 <div class="btn-file">
                     <button class="btn btn-success" onclick="exportToExcel()">
@@ -174,7 +181,7 @@
                         <i class="bi bi-box-arrow-in-down ms-2"></i>
                     </button>
                 </div>
-            </button>
+            
         </div>
         
           <!-- Modal -->
@@ -206,7 +213,7 @@
                 </div>
 
                   <label for="material_describe" class="form-label">Mô tả</label>
-                  <textarea name="material_describe" id="material_describe" class="form-control mb-2" cols="10"></textarea required>
+                  <textarea name="material_describe" id="material_describe" class="form-control mb-2" cols="10" required></textarea>
 					
 				<div class="row mb-2">
                     <div class="col-12 col-sm-6">
@@ -221,7 +228,7 @@
                 </div>
                 
                  <label for="material_use" class="form-label">Cách sử dụng</label>
-                  <textarea name="material_use" id="material_use" class="form-control mb-2" cols="10"></textarea required>
+                  <textarea name="material_use" id="material_use" class="form-control mb-2" cols="10" required></textarea>
                 
                 <div class="row">
                     <div class="col-12 col-sm-9">
@@ -296,7 +303,7 @@
                             <td>${material.material_supplier}</td>
                             <td>${material.material_country}</td>
                             <td>${material.material_value}</td>
-                            <td><img src="${material.material_image}" atl=""></td>
+                            <td><img src="${material.material_image}" alt="image"></td>
                             <td>
                                 <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateMaterial">
 		                                <i class="bi bi-pencil-square"></i>
@@ -325,7 +332,7 @@
             </div>
             <div class="modal-body">
                 <form id="updateInfoForm" action="UpdateMaterial" method="post">
-                	<input type="hidden" name="material_id1" value="${material.material_id}">
+                	<input type="hidden" id="material_id1" name="material_id1" value="${material.material_id}">
                 	<div class="row mb-2">            	
                     <div class="col-12 col-sm-6">
                         <label for="material_name1" class="form-label">Tên vật tư</label>

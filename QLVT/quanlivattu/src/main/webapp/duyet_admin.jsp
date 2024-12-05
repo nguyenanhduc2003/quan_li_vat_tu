@@ -44,31 +44,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -77,7 +77,7 @@
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -113,22 +113,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>
@@ -155,6 +155,34 @@
             </div>
 
         </div>
+        
+         <div class="mt-3 col-12 col-sm-8">
+                    <div class="row">
+
+                       <div class="ms-3 col-12 col-sm-3 thongke2 bg-success text-white">
+                        Yêu cầu đã duyệt
+                        <p>
+                            <i class="bi bi-clipboard-check-fill"></i>
+                            <span>${totalDuyet}</span>
+                        </p>
+                         
+                       </div>
+                       <div class="col-12 col-sm-3 thongke2 bg-primary text-white">
+                            Yêu cầu đã từ chối
+                            <p>
+                                <i class="bi bi-clipboard-minus-fill"></i>
+                                <span>${totalTuchoi}</span>
+                            </p>
+                       </div>
+                       <div class="col-12 col-sm-3 thongke2 bg-danger text-white">
+                        Yêu cầu đang chờ
+                            <p>
+                                <i class="bi bi-clipboard-x-fill"></i>
+                                <span>${totalCho}</span>
+                            </p>
+                       </div>
+                    </div>
+                </div>
 
         <div class="content-here ms-3 me-3">
             <div class="btn-file mt-4">
@@ -164,9 +192,10 @@
                 </button>
             </div>
             <div class="table-content mt-4">
-                <table id="myTable" class="table table-bordered table-striped">
-                    <thead class="table-dark">
+                <table id="myTable" class="table table-bordered table-striped" style="font-size: 14px;">
+                    <thead class="table-primary">
                     <tr>
+                    	<th>Mã</th>
                         <th>Họ và Tên</th>
                         <th>Email</th>
                         <th>Số Điện Thoại</th>
@@ -183,6 +212,7 @@
                     <tbody>
                     <c:forEach var="request" items="${requests}">
                         <tr>
+                            <td>${request.request_id}</td>
                             <td>${request.request_name}</td>
                             <td>${request.request_email}</td>
                             <td>${request.request_phone}</td>
@@ -191,10 +221,12 @@
                             <td>${request.request_quantity}</td>
                             <td>${request.request_reason}</td>
                             <td>${request.request_note}</td>
-                            <td>${request.request_status}</td>
+                            <td class="${request.request_status == 'Đã duyệt' ? 'text-primary' : (request.request_status == 'Từ chối' ? 'text-danger' : '')}">
+							    ${request.request_status}
+							</td>
+
                             <td class="action-cell">
-                                <button class="btn btn-primary btn-sm btn-approve">Duyệt</button>
-                                <button class="btn btn-danger btn-sm btn-reject">Từ Chối</button>
+                                <button class="btn btn-primary btn-sm btn-edit" data-bs-toggle="modal" data-bs-target="#Duyet"><i class="bi bi-pencil-square"></i></button>                              
                             </td>
                         </tr>
                     </c:forEach>
@@ -202,6 +234,32 @@
                 </table>
             </div>
         </div>
+        
+        <!-- Modal -->
+			        <div class="modal fade" id="Duyet" tabindex="-1" aria-labelledby="DuyetLabel" aria-hidden="true">
+			            <div class="modal-dialog">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <h5 class="modal-title" id="DuyetLabel">Chọn thao tác</h5>
+			                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			                    </div>
+			                    <div class="modal-body">
+			                        <form id="Duyet" action="Duyet" method="post">
+			                        <input type="hidden" id="request_id" name="request_id" value="${request.request_id}">
+			                        	<select id="request_status" name="request_status" class="form-select" required>
+								                <option value="">Chọn thao tác</option>
+								                <option value="Đã duyệt">Duyệt</option>
+								                <option value="Từ chối">Từ chối</option>
+								            </select>			                        
+			                            <button type="submit" class="btn btn-primary mt-3">Xác nhận</button>
+			                            			                       
+			                        </form>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    
+                <!-- end Modal -->
 
     </main>
     <!--end main content-->

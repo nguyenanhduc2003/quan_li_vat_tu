@@ -44,31 +44,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -77,7 +77,7 @@
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -113,22 +113,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>
@@ -155,18 +155,30 @@
             </div>
 
         </div>
+        
+        <div class="row">
+        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
+        	<div class="thongke1">
+        	 Tổng số nhà cung cấp
+        	 <p>
+                 <i class="bi bi-bus-front-fill"></i>
+                 <span>${totalSuppliers}</span>
+             </p>
+        	</div>     	     
+        	</div>
+        	</div>
 
         <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
                 <div class="btn-file mt-4 mb-4">
-                    <button class="btn btn-primary" id="btnAdd">Thêm mới</button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddSupplier"> <i class="bi bi-plus"></i> Thêm mới</button>
                     <button class="btn btn-success" onclick="exportToExcel()">
                         Tải xuống
                         <i class="bi bi-box-arrow-in-down ms-2"></i>
                     </button>
                 </div>
-                <table id="myTable" class="table table-bordered table-bordered table-striped table-hover">
-                    <thead class="table-dark">
+                <table id="myTable" class="table table-bordered table-bordered table-striped table-hover" style="font-size:14px">
+                    <thead class="table-primary">
                         <tr>
                         	<th>Mã nhà cung cấp</th>
                             <th>Tên nhà cung cấp</th>
@@ -195,10 +207,15 @@
                             </td>
                             <td>${supplier.supplier_date_created}</td>
                             <td>
-                                <button class="btn btn-primary btnEdit">
-                                <i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-danger btnDelete">
-                                <i class="bi bi-dash-square"></i></button>
+                                <button class="btn btn-primary btn-edit btn-sm" data-bs-toggle="modal" data-bs-target="#UpdateSupplier">
+		                                <i class="bi bi-pencil-square"></i>
+		                            </button>
+		                            <form action="DeleteSupplier" method="post" style="display: inline;">
+								        <input type="hidden" name="supplierId" value="${supplier.supplier_id}">
+								        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?')">
+								            <i class="bi bi-dash-square"></i>
+								        </button>
+								    </form>
                             </td>
                         </tr> 
                         </c:forEach>         
@@ -206,6 +223,134 @@
                 </table>
             </div>
         </div>
+        
+         <!-- Modal -->
+       <div class="modal fade" id="AddSupplier" tabindex="-1" aria-labelledby="AddSupplierLabel" aria-hidden="true">
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <h5 class="modal-title" id="AddSupplierLabel">Thêm tài khoản mới</h5>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                   </div>
+                   <div class="modal-body">
+			                        <!--form-->
+            <form id="addRowForm" action="Cungcap_admin" method="POST" onsubmit="return confirmSubmit()">
+                <div class="row">
+                    <div class="col-12 col-sm-4">
+                        <label for="supplier_id" class="form-label">Mã nhà cung cấp</label>
+                        <input id="supplier_id" name="supplier_id" type="text" class="form-control" required>
+                    </div>
+
+                    <div class="col-12 col-sm-8">
+                        <label for="supplier_name" class="form-label">Tên nhà cung cấp</label>
+                        <input id="supplier_name" name="supplier_name" type="text" class="form-control" required>
+                    </div>
+                </div>
+				
+				<div class="row">
+                    <div class="col-12 col-sm-8">
+                        <label for="supplier_email" class="form-label">Email</label>
+                        <input id="supplier_email" name="supplier_email" type="text" class="form-control" required>
+                    </div>
+
+                    <div class="col-12 col-sm-4">
+                        <label for="supplier_phone" class="form-label">Số điện thoại</label>
+                        <input id="supplier_phone" name="supplier_phone" type="number" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div>
+                        <label for="supplier_address" class="form-label">Địa chỉ</label>
+                        <input id="supplier_address" name="supplier_address" type="text" class="form-control" required>
+                </div>
+                       
+                 <div class="row">
+                    <div class="col-12 col-sm-7">
+                        <label for="supplier_website" class="form-label">Website</label>
+                        <input id="supplier_website" name="supplier_website" type="url" class="form-control">
+                    </div>
+
+                    <div class="col-12 col-sm-5">
+                        <label for="supplier_date_created" class="form-label">Ngày tạo</label>
+                        <input id="supplier_date_created" name="supplier_date_created" type="date" class="form-control" required>
+                    </div>
+                </div>
+                
+                 		<label for="supplier_describe" class="form-label">Mô tả</label> <br>
+                        <textarea name="supplier_describe" id="supplier_describe" class="form-control" cols="10" required></textarea>
+
+                <div>
+                    <button type="submit" id="addRowBtn" class="btn btn-primary mt-3">Thêm dữ liệu</button>
+                </div>
+
+            </form>
+            <!--end form-->
+                    </div>
+                </div>
+            </div>
+        </div>
+			    
+                <!-- end Modal -->
+      
+   <!-- Modal -->
+ <div class="modal fade" id="UpdateSupplier" tabindex="-1" aria-labelledby="UpdateSupplierLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="UpdateSupplierLabel">Chỉnh sửa nhà cung cấp</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <form id="updateInfoForm" action="UpdateSupplier" method="post">
+                 <input type="hidden" name="supplierId1" value="${supplier.supplier_id}">
+                 	
+                 	 <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <label for="supplier_name" class="form-label">Tên nhà cung cấp</label>
+                        <input id="supplier_name" name="supplier_name" type="text" class="form-control" required>
+                    </div>
+                </div>
+				
+				<div class="row">
+                    <div class="col-12 col-sm-8">
+                        <label for="supplier_email" class="form-label">Email</label>
+                        <input id="supplier_email" name="supplier_email" type="text" class="form-control" required>
+                    </div>
+
+                    <div class="col-12 col-sm-4">
+                        <label for="supplier_phone" class="form-label">Số điện thoại</label>
+                        <input id="supplier_phone" name="supplier_phone" type="number" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div>
+                        <label for="supplier_address" class="form-label">Địa chỉ</label>
+                        <input id="supplier_address" name="supplier_address" type="text" class="form-control" required>
+                </div>
+                       
+                 <div class="row">
+                    <div class="col-12 col-sm-7">
+                        <label for="supplier_website" class="form-label">Website</label>
+                        <input id="supplier_website" name="supplier_website" type="url" class="form-control">
+                    </div>
+
+                    <div class="col-12 col-sm-5">
+                        <label for="supplier_date_created" class="form-label">Ngày tạo</label>
+                        <input id="supplier_date_created" name="supplier_date_created" type="text" class="form-control" required>
+                    </div>
+                </div>
+                
+                 		<label for="supplier_describe" class="form-label">Mô tả</label> <br>
+                        <textarea name="supplier_describe" id="supplier_describe" class="form-control" cols="10" required></textarea>                                                                      
+                     <button type="submit" class="btn btn-primary mt-3">Xác nhận</button>
+                     			                       
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
+
+      <!-- end Modal -->
 
     </main>
     <!--end main content-->

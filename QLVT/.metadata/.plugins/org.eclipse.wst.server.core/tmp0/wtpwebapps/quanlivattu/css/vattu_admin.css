@@ -157,3 +157,18 @@ body.fade-out {
 .btn-add{
     margin-top: 10px;
 }
+.thongke1{
+    text-align: center;
+    align-items: center;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 4px 4px 3px rgb(181, 183, 181);
+}
+.thongke1 i{
+    color: #21dbcf;
+}
+.thongke1 p{
+    font-size: 30px;
+    margin-top: 5px;
+}

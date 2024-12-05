@@ -11,6 +11,8 @@ import model.Material;
 
 public class MaterialDAO extends BaseDAO implements Dao<Material>{
 	
+
+	
 	public boolean deleteMaterial(int materialId) {
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;

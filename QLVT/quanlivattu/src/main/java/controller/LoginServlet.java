@@ -76,6 +76,8 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("account_id", rs.getInt("account_id"));
                     session.setAttribute("account_name", rs.getString("account_name"));
                     session.setAttribute("account_role", rs.getString("account_role"));
+                    session.setAttribute("account_email", email);   
+
 
                     // Kiểm tra vai trò và chuyển hướng tương ứng
                     String role = rs.getString("account_role");

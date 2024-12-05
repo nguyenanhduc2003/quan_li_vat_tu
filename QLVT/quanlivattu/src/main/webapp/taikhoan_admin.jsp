@@ -46,31 +46,31 @@
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Taikhoan_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Vattu_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Kho_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Duyet_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="Cungcap_admin">
+                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -79,7 +79,7 @@
         </div>
 
         <div class="log-out">
-            <a class="nav-link" href="${pageContext.request.contextPath}/dangnhap.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">
                 Đăng Xuất
                 <i class="bi bi-box-arrow-right"></i>
             </a>
@@ -115,22 +115,22 @@
 			                    <div class="modal-body">
 			                        <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
 			                            <div class="mb-3">
-			                                <label for="fullName" class="form-label">Full Name</label>
+			                                <label for="fullName" class="form-label">Họ và tên</label>
 			                                <input type="text" class="form-control" id="fullName" name="fullName" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="phoneNumber" class="form-label">Phone Number</label>
+			                                <label for="phoneNumber" class="form-label">Số điện thoại</label>
 			                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="birthDate" class="form-label">Date of Birth</label>
+			                                <label for="birthDate" class="form-label">Ngày sinh</label>
 			                                <input type="text" class="form-control" id="birthDate" name="birthDate" required>
 			                            </div>
 			                            <div class="mb-3">
-			                                <label for="address" class="form-label">Address</label>
+			                                <label for="address" class="form-label">Địa chỉ</label>
 			                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
 			                            </div>
-			                            <button type="submit" class="btn btn-primary">Submit</button>
+			                            <button type="submit" class="btn btn-primary">Cập nhật</button>
 			                        </form>
 			                    </div>
 			                </div>
@@ -157,21 +157,39 @@
 
         </div>
         <div class="row">
-        	<div class="ms-3 me-3 mt-3 mb-2 col-6 col-sm-2">
-        	 <span>Tổng số tài khoản</span>
-		     <input style="width:50px; text-align:center;" id="total-display" name="total-display" type="text" class="form-control" 
-		               value="${totalAccounts}" readonly>      
+        
+        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
+        	<div class="thongke1">
+        	 Tổng số tài khoản
+        	 <p>
+                 <i class="bi bi-people-fill"></i>
+                 <span>${totalAccounts}</span>
+             </p>
+        	</div>     	     
         	</div>
-        	<div class="ms-3 me-3 mt-3 mb-2 col-6 col-sm-2">
-        	 <span>Tổng số Admin</span>
-		     <input style="width:50px; text-align:center;" id="total-display" name="total-display" type="text" class="form-control" 
-		               value="${totalAdmins}" readonly>      
+        	
+        	
+        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
+        	<div class="thongke1">
+        	Tổng số Admin
+        	 <p>
+                 <i class="bi bi-person-workspace"></i>
+                 <span>${totalAdmins}</span>
+             </p>	     
         	</div>
-        	<div class="ms-3 me-3 mt-3 mb-2 col-6 col-sm-2">
-        	 <span>Tổng số User</span>
-		     <input style="width:50px; text-align:center;" id="total-display" name="total-display" type="text" class="form-control" 
-		               value="${totalUsers}" readonly>      
+        	
         	</div>
+        	  	
+        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
+     	     <div class="thongke1">
+     	     	 Tổng số User
+        	 <p>
+                 <i class="bi bi-person-fill"></i>
+                 <span>${totalUsers}</span>
+             </p> 
+     	     </div>	   
+        	</div>
+        	
         	
         </div>
          
@@ -318,7 +336,7 @@
 
                     <div class="col-12 col-sm-8">
                         <label for="user-name" class="form-label">Tên người dùng</label>
-                        <input id="user-name" name="user-name" type="name" class="form-control" required>
+                        <input id="user-name" name="user-name" type="text" class="form-control" required>
                     </div>
 
                 </div>
@@ -350,7 +368,7 @@
                 <div class="row">
                     <div class="col-12">
                         <label for="address" class="form-label">Địa chỉ</label> <br>
-                        <textarea name="address" id="address" class="form-control" cols="10"></textarea required>
+                        <textarea name="address" id="address" class="form-control" cols="10" required></textarea>
                     </div>
                 </div>
 

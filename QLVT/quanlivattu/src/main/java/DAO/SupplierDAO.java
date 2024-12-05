@@ -11,6 +11,103 @@ import java.util.Optional;
 import model.Supplier;
 
 public class SupplierDAO extends BaseDAO implements Dao<Supplier>{
+	
+	// thống kê 
+		public int getTotalSuppliers() {
+		    Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    int total = 0;
+
+		    try {
+		        conn = getConnection();
+		        String sql = "SELECT COUNT(*) AS total FROM tblsupplier";
+		        pstmt = conn.prepareStatement(sql);
+		        rs = pstmt.executeQuery();
+
+		        if (rs.next()) {
+		            total = rs.getInt("total");
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (rs != null) rs.close();
+		            if (pstmt != null) pstmt.close();
+		            if (conn != null) conn.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return total;
+		}
+	
+	 public boolean deleteSupplier(int supplierId) {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+
+	        try {
+	            conn = getConnection();
+	            String sql = "DELETE FROM tblsupplier WHERE supplier_id = ?";
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setInt(1, supplierId);
+
+	            int rowsAffected = pstmt.executeUpdate();
+	            return rowsAffected > 0;
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return false;
+	        } finally {
+	            // Đóng kết nối
+	            try {
+	                if (pstmt != null) pstmt.close();
+	                if (conn != null) conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	
+	// Phương thức thêm nhà cung cấp
+	public boolean addSupplier(Supplier supplier) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    boolean isInserted = false;
+
+	    try {
+	        conn = getConnection();
+
+	        // Câu lệnh SQL để chèn nhà cung cấp mới
+	        String sql = "INSERT INTO tblsupplier (supplier_id, supplier_name, supplier_email, supplier_phone, supplier_address, supplier_website, supplier_describe, supplier_date_created) "
+	                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+	        pstmt = conn.prepareStatement(sql);
+
+	        // Gán giá trị từ đối tượng Supplier
+	        pstmt.setInt(1, supplier.getSupplier_id());
+	        pstmt.setString(2, supplier.getSupplier_name());
+	        pstmt.setString(3, supplier.getSupplier_email());
+	        pstmt.setString(4, supplier.getSupplier_phone());
+	        pstmt.setString(5, supplier.getSupplier_address());
+	        pstmt.setString(6, supplier.getSupplier_website());
+	        pstmt.setString(7, supplier.getSupplier_describe());
+	        pstmt.setString(8, supplier.getSupplier_date_created());
+
+	        // Thực thi câu lệnh SQL
+	        int rowsAffected = pstmt.executeUpdate();
+	        if (rowsAffected > 0) {
+	            isInserted = true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources(conn, pstmt);
+	    }
+
+	    return isInserted;
+	}
+
 
 	@Override
 	public List<Supplier> getAll() {
