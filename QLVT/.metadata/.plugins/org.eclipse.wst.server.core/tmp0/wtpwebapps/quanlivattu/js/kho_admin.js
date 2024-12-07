@@ -66,14 +66,94 @@ function exportToExcel() {
 
         XLSX.writeFile(wb, "Xuat_File_Excel.xlsx");
     }
+    // xuất file1
+function exportToExcel1() {
+
+        var table = $('#myTable1').DataTable();
+
+
+        var data = table.rows({ search: 'applied' }).data();
+
+
+        var ws_data = [];
+
+
+        var headers = [];
+        $('#myTable1 th').each(function() {
+            headers.push($(this).text());
+        });
+        ws_data.push(headers);
+
+
+        data.each(function(row) {
+            ws_data.push(row);
+        });
+
+
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+
+        XLSX.writeFile(wb, "Xuat_File_Excel.xlsx");
+    }
+     // xuất file2
+function exportToExcel2() {
+
+        var table = $('#myTable2').DataTable();
+
+
+        var data = table.rows({ search: 'applied' }).data();
+
+
+        var ws_data = [];
+
+
+        var headers = [];
+        $('#myTable2 th').each(function() {
+            headers.push($(this).text());
+        });
+        ws_data.push(headers);
+
+
+        data.each(function(row) {
+            ws_data.push(row);
+        });
+
+
+        var ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+
+        XLSX.writeFile(wb, "Xuat_File_Excel.xlsx");
+    }
 
 //datatable
-    const table = document.querySelector(".table");
+    const table = document.querySelector("#myTable");
     $(table).DataTable({
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.13.1/i18n/vi.json"
         }
     });
+//datatable1
+const table1 = document.querySelector("#myTable1");
+$(table1).DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.13.1/i18n/vi.json"
+    }
+});
+//datatable2
+const table2 = document.querySelector("#myTable2");
+$(table2).DataTable({
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.13.1/i18n/vi.json"
+    }
+});
 
 
 // hien thi modal

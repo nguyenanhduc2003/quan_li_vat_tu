@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import DAO.AccountDAO;
 import model.Account;
 
@@ -55,6 +54,7 @@ public class Taikhoan_admin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		try {
 		
 		 // Lấy dữ liệu từ form
         int userId = Integer.parseInt(request.getParameter("user-id"));
@@ -83,13 +83,17 @@ public class Taikhoan_admin extends HttpServlet {
         boolean isAdded = accountDAO.addAccount(account);
         
      // Xử lý kết quả
-        response.setContentType("text/html");
+        response.setContentType("text/html;charset=UTF-8");
         if (isAdded) {
-            response.getWriter().println("<script>alert('Success!'); window.location.href = 'Taikhoan_admin';</script>");
+            response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'Taikhoan_admin';</script>");
         } else {
-            response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+            response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
         }
-		
+		} catch (NumberFormatException | IOException e) {
+            e.printStackTrace();
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+        }		
 	}
 
 }

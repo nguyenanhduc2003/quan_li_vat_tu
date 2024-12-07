@@ -41,22 +41,18 @@ public class DeleteWarehouse extends HttpServlet {
         try {
             int warehouseId = Integer.parseInt(warehouseIdStr);
             boolean isDeleted = warehouseDAO.deleteWarehouse(warehouseId);
+            response.setContentType("text/html;charset=UTF-8");
 
             if (isDeleted) {
-                // Xóa thành công, chuyển hướng lại trang danh sách
-                request.setAttribute("message", "Xóa thành công!");
+            	response.getWriter().println("<script>alert('Xóa thành công!'); window.location.href = 'Kho_admin';</script>");
             } else {
-                // Xóa thất bại
-                request.setAttribute("message", "Xóa thất bại. Vui lòng thử lại sau.");
+            	response.getWriter().println("<script>alert('Xóa thất bại, vui lòng thử lại.'); history.back();</script>");
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            request.setAttribute("message", "Dữ liệu không hợp lệ!");
+            response.setContentType("text/html;charset=UTF-8");
+	        response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
         }
-
-        
-        response.sendRedirect("Kho_admin"); 
-		
 	}
 
 }

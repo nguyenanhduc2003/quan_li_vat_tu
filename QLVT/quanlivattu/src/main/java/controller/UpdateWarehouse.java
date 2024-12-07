@@ -39,6 +39,7 @@ public class UpdateWarehouse extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		try {
 		 // Lấy dữ liệu từ form
       int warehouseId = Integer.parseInt(request.getParameter("warehouse_id1"));
       int warehouseQuantity = Integer.parseInt(request.getParameter("warehouse_quantity1"));
@@ -54,12 +55,17 @@ public class UpdateWarehouse extends HttpServlet {
       boolean isUpdated = warehouseDAO.updateWarehouse(warehouse);
       
       // Xử lý kết quả
+      response.setContentType("text/html;charset=UTF-8");
       if (isUpdated) {
-      	 response.getWriter().println("<script>alert('Success!'); window.location.href = 'Kho_admin';</script>");
+      	 response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'Kho_admin';</script>");
       } else {
-          response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+          response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
       }
-		
+		} catch (NumberFormatException | IOException e) {
+            e.printStackTrace();
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+        }
 	}
 
 }

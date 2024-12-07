@@ -58,6 +58,7 @@ public class Vattu_admin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		try {
 		
 		 // Lấy dữ liệu từ form
        int materialId = Integer.parseInt(request.getParameter("material_id"));
@@ -91,13 +92,17 @@ public class Vattu_admin extends HttpServlet {
        boolean isAdded = materialDAO.addMaterial(material);
        
     // Xử lý kết quả
-       response.setContentType("text/html");
+       response.setContentType("text/html;charset=UTF-8");
        if (isAdded) {
-           response.getWriter().println("<script>alert('Success!'); window.location.href = 'Vattu_admin';</script>");
+           response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'Vattu_admin';</script>");
        } else {
-           response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+           response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
        }
-		
+		 } catch (NumberFormatException | IOException e) {
+	            e.printStackTrace();
+	            response.setContentType("text/html;charset=UTF-8");
+	            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+	        }	
 	}
 
 }

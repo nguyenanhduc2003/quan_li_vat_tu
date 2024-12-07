@@ -8,7 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import DAO.ExportDAO;
+import DAO.ImportDAO;
 import DAO.WarehouseDAO;
+import model.Export;
+import model.Import;
 import model.Warehouse;
 
 /**
@@ -19,6 +24,8 @@ public class Kho_admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private WarehouseDAO warehouseDAO = new WarehouseDAO();
+	private ImportDAO importDAO = new ImportDAO();
+	private ExportDAO exportDAO = new ExportDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,9 +42,13 @@ public class Kho_admin extends HttpServlet {
 		
 		 // Lấy danh sách tài khoản từ cơ sở dữ liệu
 	    List<Warehouse> warehouses = warehouseDAO.getAll();
+	    List<Import> importts = importDAO.getAll();
+	    List<Export> exportts = exportDAO.getAll();
 	    
 	    // Đưa danh sách tài khoản vào request để gửi đến JSP
 	    request.setAttribute("warehouses", warehouses);
+	    request.setAttribute("importts", importts);
+	    request.setAttribute("exportts", exportts);
 	    
 	    // Chuyển hướng đến trang JSP
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("kho_admin.jsp");
@@ -75,16 +86,16 @@ public class Kho_admin extends HttpServlet {
 		       boolean isAdded = warehouseDAO.addWarehouse(warehouse);
 		       
 		    // Xử lý kết quả
-		       response.setContentType("text/html");
+		       response.setContentType("text/html;charset=UTF-8");
 		       if (isAdded) {
-		           response.getWriter().println("<script>alert('Success!'); window.location.href = 'Kho_admin';</script>");
+		           response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'Kho_admin';</script>");
 		       } else {
-		           response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+		           response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
 		       }
 			
 		} catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
         }
 					
 	}

@@ -84,8 +84,6 @@ public class AccountDAO extends BaseDAO implements Dao<Account> {
             String sql = "SELECT * FROM tblaccount";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
-            System.out.println("Query executed successfully!");
-
             while (rs.next()) {
                 Account account = new Account();
                 account.setAccount_id(rs.getInt("account_id"));

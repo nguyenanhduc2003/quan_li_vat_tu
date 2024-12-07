@@ -59,6 +59,7 @@ public class Duyet_admin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		try {
 
         // Lấy dữ liệu từ form
         String requestEmail = request.getParameter("request_email");
@@ -93,7 +94,11 @@ public class Duyet_admin extends HttpServlet {
         } else {
             response.getWriter().println("<script>alert('Gửi yêu cầu thất bại! Vui lòng thử lại.'); history.back();</script>");
         }
-		
+		} catch (NumberFormatException | IOException e) {
+            e.printStackTrace();
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+        }	
 	}
 
 }

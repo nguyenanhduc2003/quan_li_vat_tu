@@ -39,6 +39,7 @@ public class UpdateInfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		try {
 		
 		 // Lấy dữ liệu từ form
         String fullName = request.getParameter("fullName");
@@ -76,12 +77,17 @@ public class UpdateInfoServlet extends HttpServlet {
         accountDAO.update(account);
 
      // Sau khi cập nhật thành công, chuyển hướng dựa trên vai trò
+        response.setContentType("text/html;charset=UTF-8");
         if ("admin".equals(role)) {
-        	response.getWriter().println("<script>alert('Success!'); window.location.href = 'trangchu_admin.jsp';</script>");
+        	response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'trangchu_admin.jsp';</script>");
         } else {
-        	response.getWriter().println("<script>alert('Success!'); window.location.href = 'trangchu_user.jsp';</script>");
+        	response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'trangchu_user.jsp';</script>");
         }
-		
+		 } catch (NumberFormatException | IOException e) {
+	            e.printStackTrace();
+	            response.setContentType("text/html;charset=UTF-8");
+	            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+	        }
 	}
 
 }

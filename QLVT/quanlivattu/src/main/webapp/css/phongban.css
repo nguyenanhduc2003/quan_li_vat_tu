@@ -7,6 +7,10 @@
     margin-right: 7px;
     transition: margin-left 0.5s ease-in-out;
     background-color: #F6F9FF;
+    height: 100%;
+}
+.content-here{
+    margin-top: 20px;
 }
 .header{
     border-bottom-left-radius: 20px;
@@ -19,17 +23,17 @@
     align-items: center;
     border: none;
     background-color: #F6F9FF;
+    align-items: center;
     padding: 10px;
 }
 .toggle:hover button{
     background-color: rgb(224, 227, 232);
-    transition: background-color 0.3s ease;;
+    transition: 0.3s;
 }
 .search-bar{
     display: flex;
     align-items: center;
 }
-
 .hello{
     display: flex;
     align-items: center;
@@ -122,63 +126,12 @@
 #checked a{
     color: white;
 }
-.thongke{
-    color: #012970;
-    margin-bottom: 25px;
-}
-.thongke1{
-    text-align: center;
-    align-items: center;
-    font-size: 18px;
-    margin-left: 20%;
-    margin-right: 20%;
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: 4px 4px 3px rgb(181, 183, 181);
-}
-.thongke1 i{
-    color: #21dbcf;
-}
-.thongke2 i{
-    color: #21dbcf;
-}
-.thongke2{
-    text-align: center;
-    align-items: center;
-    font-size: 18px;
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: 4px 4px 3px rgb(181, 183, 181);
-}
-.thongke1 p{
-    font-size: 30px;
-    margin-top: 5px;
-}
-.thongke2 p{
-    font-size: 30px;
-    margin-top: 5px;
-}
-.thongke span{
-    font-size: 20px;
-    font-weight: bold;
-}
-.table-set{
-    border: 1px solid black;
-    border-radius: 15px;
-    width: 100%;
-}
-.img-set{
-    width: 100px;
-    height: 100px;
-}
-
-
 body.fade-out {
     transition: 0.4s;
     opacity: 0.6; /* Làm mờ màn hình */
 }
-.table tbody tr:hover{
-    background-color: #e5f4f5;
+.btn-file{
+    margin-top: 20px;
 }
 @media (max-width: 768px) {
     .sidebar {
@@ -189,49 +142,46 @@ body.fade-out {
         margin-left: 0;
     }
 }
-.btn-file button{
-    font-size: 20px;
-    margin: 20px;
+.table tbody tr:hover{
+    background-color: rgb(248, 236, 236);
+    transition: 0.3s;
+}
+.add-data{
+    margin-top: 20px;
+}
+.form-title{
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    background-color: blue;
+    width: 250px;
+    color: white;
+    border-top-right-radius: 50px;
+}
+.add-data input{
+    margin-bottom: 10px;
+}
+.add-data button{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.thongke1{
+    text-align: center;
+    align-items: center;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 4px 4px 3px rgb(181, 183, 181);
+}
+.thongke1 i{
+    color: #21dbcf;
+}
+.thongke1 p{
+    font-size: 30px;
+    margin-top: 5px;
 }
 
-.card {
-    	border-radius: 10px;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        display: flex;
-	    flex-direction: column;
-	    height: 100%;
-}
-.card-body {
-        padding: 20px;
-        background-color: #f8f9fa;
-        flex-grow: 1;
-    }
-
-    .list-group-item {
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-    }
-
-    .list-group-item:hover {
-        background-color: #007bff;
-        color: white;
-    }
-
-    .modal-header {
-        background-color: #007bff;
-        color: white;
-    }
-
-    .modal-title {
-        font-weight: 600;
-    }
-
-    /* Tối ưu hóa cho các thiết bị di động */
-    @media (max-width: 768px) {
-        .col-md-3 {
-            margin-bottom: 20px;
-        }
 /*thiet ke lai button */
   .btn-custom {
         background-color: #007bff;  /* Màu nền xanh đậm */
@@ -280,5 +230,4 @@ body.fade-out {
 
     .btn-custom:active {
         transform: translateY(1px);
-    }
     }

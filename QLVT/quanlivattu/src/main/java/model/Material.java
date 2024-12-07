@@ -1,5 +1,5 @@
 package model;
-import lombok.Data;
+import lombok.*;
 @Data
 
 public class Material {

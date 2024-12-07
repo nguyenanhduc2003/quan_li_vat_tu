@@ -82,15 +82,15 @@ public class Cungcap_admin extends HttpServlet {
 	            boolean isAdded = supplierDAO.addSupplier(supplier);
 
 	            // Xử lý kết quả
-	            response.setContentType("text/html");
+	            response.setContentType("text/html;charset=UTF-8");
 	            if (isAdded) {
-	                response.getWriter().println("<script>alert('Success!'); window.location.href = 'Cungcap_admin';</script>");
+	                response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'Cungcap_admin';</script>");
 	            } else {
-	                response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+	                response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
 	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	            response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+	            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
 	        }
 		
 	}

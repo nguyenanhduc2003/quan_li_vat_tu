@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DAO.AccountDAO;
+import DAO.ImportDAO;
 
 /**
- * Servlet implementation class DeleteAccount
+ * Servlet implementation class DeleteImport
  */
-@WebServlet("/DeleteAccount")
-public class DeleteAccount extends HttpServlet {
+@WebServlet("/DeleteImport")
+public class DeleteImport extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private AccountDAO accountDAO = new AccountDAO();
+	private ImportDAO importDAO = new ImportDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteAccount() {
+    public DeleteImport() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,24 +37,24 @@ public class DeleteAccount extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String accountIdStr = request.getParameter("accountId");
-        try {
-            int accountId = Integer.parseInt(accountIdStr);
-            boolean isDeleted = accountDAO.deleteAccount(accountId);
-            response.setContentType("text/html;charset=UTF-8");
+		String importIdStr = request.getParameter("importId");
 
+        try {
+            int importId = Integer.parseInt(importIdStr);  // Lấy importId từ form
+            boolean isDeleted = importDAO.deleteImport(importId); // Gọi phương thức deleteImport từ DAO
+
+            response.setContentType("text/html;charset=UTF-8");
             if (isDeleted) {
-            	response.getWriter().println("<script>alert('Xóa thành công!'); window.location.href = 'Taikhoan_admin';</script>");
+                response.getWriter().println("<script>alert('Xóa phiếu nhập thành công!'); window.location.href = 'Kho_admin';</script>");
             } else {
-            	response.getWriter().println("<script>alert('Xóa thất bại, vui lòng thử lại.'); history.back();</script>");
+                response.getWriter().println("<script>alert('Xóa thất bại, vui lòng thử lại.'); history.back();</script>");
             }
+
         } catch (NumberFormatException e) {
             e.printStackTrace();
             response.setContentType("text/html;charset=UTF-8");
-	        response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
-        }     
-    }
-		
+            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+        }
 	}
 
+}

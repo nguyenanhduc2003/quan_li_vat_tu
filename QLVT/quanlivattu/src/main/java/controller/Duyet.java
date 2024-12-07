@@ -39,6 +39,7 @@ public class Duyet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		try {
 		 // Lấy dữ liệu từ form
        int requestId = Integer.parseInt(request.getParameter("request_id"));
        String requestStatus = request.getParameter("request_status");
@@ -51,12 +52,17 @@ public class Duyet extends HttpServlet {
        boolean isUpdated = requestDAO.updateRequest(request1);
 
        // Xử lý kết quả
+       response.setContentType("text/html;charset=UTF-8");
        if (isUpdated) {
-       	 response.getWriter().println("<script>alert('Success!'); window.location.href = 'Duyet_admin';</script>");
+       	 response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'Duyet_admin';</script>");
        } else {
-           response.getWriter().println("<script>alert('Failse! Try again!'); history.back();</script>");
+           response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
        }
-		
+		} catch (NumberFormatException | IOException e) {
+            e.printStackTrace();
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+        }	
 	}
 
 }

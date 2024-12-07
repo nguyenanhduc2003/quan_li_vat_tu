@@ -44,32 +44,38 @@
         
         <div class="dashboard mt-5 ms-3">
             <ul class="navbar-nav">
+            	 <li class="nav-item">
+                    <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Department_admin">
+                        <i class="bi bi-hospital-fill me-2"></i>
+                        Phòng ban & nhân sự
+                    </a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Taikhoan_admin">
+                    <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Taikhoan_admin">
                         <i class="bi bi-person-circle me-2"></i>
                         Quản lí tài khoản
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Vattu_admin">
+                    <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Vattu_admin">
                         <i class="bi bi-layers-fill me-2"></i>
                         Quản lí vật tư
                     </a>
                 </li>
                 <li id="checked" class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
+                    <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
                         Quản lí kho
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Duyet_admin">
+                    <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Duyet_admin">
                         <i class="bi bi-bookmark-fill me-2"></i>
                         Duyệt yêu cầu
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-3 m-2 fade-link" href="${pageContext.request.contextPath}/Cungcap_admin">
+                    <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Cungcap_admin">
                         <i class="bi bi-briefcase-fill me-2"></i>
                         Quản lí nhà cung cấp
                     </a>
@@ -164,6 +170,8 @@
                     Tải xuống
                     <i class="bi bi-box-arrow-in-down ms-2"></i>
                 </button>
+                <button class="btn btn-info text-white mb-3 mt-3 ms-5" data-bs-toggle="modal" data-bs-target="#AddImport"> <i class="bi bi-plus"></i> Tạo phiếu nhập</button>
+                <button class="btn btn-warning text-white mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#AddExport"> <i class="bi bi-plus"></i> Tạo phiếu xuất</button>
             </div>
             <div class="table-content">
                 <table id="myTable" class="table table-bordered table-striped table-hover" style="font-size: 14px;">
@@ -204,6 +212,115 @@
                 </table>
             </div>
         </div>
+        
+         <div class="row">
+         	<div class="col bg-primary text-center ms-3 me-3 rounded text-white p-3 mt-4" style="font-size: 20px;">Quản lí phiếu nhập</div>
+         </div>
+
+        <div class="btn-file ms-3 me-3 mt-3">
+            <button class="btn btn-success" onclick="exportToExcel1()">
+                Tải xuống
+                <i class="bi bi-box-arrow-in-down ms-2"></i>
+            </button>
+        </div>
+
+        <div class="content-here ms-3 me-3">
+            <div class="table-content table-responsive">
+                 <table id="myTable1" class="table table-bordered" style="font-size: 14px;">
+		            <thead class="table-primary">
+		                <tr>
+		                    <th>Mã phiếu nhập</th>
+		                    <th>Tên phiếu nhập</th>
+		                    <th>Ngày nhập</th>
+		                    <th>Tên người nhập</th>
+		                    <th>Số điện thoại</th>
+		                    <th>Thuộc phòng ban</th>
+		                    <th>Số lượng</th>
+		                    <th>Thao tác</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <c:forEach var="importt" items="${importts}">
+		                    <tr>
+		                        <td>${importt.import_id}</td>
+		                        <td>${importt.import_name}</td>
+		                        <td>${importt.import_date}</td>
+		                        <td>${importt.import_receiver}</td>
+		                        <td>${importt.import_phone}</td>
+		                        <td>${importt.import_department}</td>
+		                        <td>${importt.import_quantity}</td>
+		                        <td class="d-flex gap-2">
+		                            <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateImport">
+		                                <i class="bi bi-pencil-square"></i>
+		                            </button>
+		                            <form action="DeleteImport" method="post" style="display: inline;">
+								        <input type="hidden" name="importId" value="${importt.import_id}">
+								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+								            <i class="bi bi-dash-square"></i>
+								        </button>
+								    </form>
+		                        </td>
+		                    </tr>
+		                </c:forEach>
+		            </tbody>
+		        </table>
+		        </div>
+		        </div>
+		        
+		        <div class="row">
+         	<div class="col bg-warning text-center ms-3 me-3 rounded text-white p-3 mt-4" style="font-size: 20px;">Quản lí phiếu xuất</div>
+         </div>
+
+        <div class="btn-file ms-3 me-3 mt-3">
+            <button class="btn btn-success" onclick="exportToExcel2()">
+                Tải xuống
+                <i class="bi bi-box-arrow-in-down ms-2"></i>
+            </button>
+        </div>
+
+        <div class="content-here ms-3 me-3">
+            <div class="table-content table-responsive">
+                 <table id="myTable2" class="table table-bordered" style="font-size: 14px;">
+		            <thead class="table-primary">
+		                <tr>
+		                    <th>Mã phiếu xuất</th>
+		                    <th>Tên phiếu xuất</th>
+		                    <th>Ngày xuất</th>
+		                    <th>Tên người xuất</th>
+		                    <th>Số điện thoại</th>
+		                    <th>Thuộc phòng ban</th>
+		                    <th>Số lượng</th>
+		                    <th>Thao tác</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <c:forEach var="exportt" items="${exportts}">
+		                    <tr>
+		                        <td>${exportt.export_id}</td>
+		                        <td>${exportt.export_name}</td>
+		                        <td>${exportt.export_date}</td>
+		                        <td>${exportt.export_receiver}</td>
+		                        <td>${exportt.export_phone}</td>
+		                        <td>${exportt.export_department}</td>
+		                        <td>${exportt.export_quantity}</td>
+		                        <td class="d-flex gap-2">
+		                            <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateExport">
+		                                <i class="bi bi-pencil-square"></i>
+		                            </button>
+		                            <form action="DeleteExport" method="post" style="display: inline;">
+								        <input type="hidden" name="exportId" value="${exportt.export_id}">
+								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+								            <i class="bi bi-dash-square"></i>
+								        </button>
+								    </form>
+		                        </td>
+		                    </tr>
+		                </c:forEach>
+		            </tbody>
+		        </table>
+		        </div>
+		        </div>
+		        
         
        <!-- Modal -->
 			<div class="modal fade" id="AddWarehouse" tabindex="-1" aria-labelledby="AddWarehouseLabel" aria-hidden="true">
@@ -253,6 +370,124 @@
 			    </div>
 			</div>
 			<!-- End Modal -->
+			<!-- Modal Import -->
+				<div class="modal fade" id="AddImport" tabindex="-1" aria-labelledby="ImportModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-lg">
+				        <div class="modal-content rounded-4 shadow-lg">
+				            <div class="modal-header border-4 pb-2">
+				                <h5 class="modal-title fs-5" id="ImportModalLabel">Tạo phiếu nhập</h5>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+				            <div class="modal-body">
+				                <!-- Form -->
+				                <form id="addImportForm" action="Kho_admin1" method="POST" onsubmit="return confirmSubmit()">
+				                    <div class="row">
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="import_id" class="form-label">Mã phiếu nhập</label>
+				                            <input id="import_id" name="import_id" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="import_name" class="form-label">Tên phiếu nhập</label>
+				                            <input id="import_name" name="import_name" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="import_date" class="form-label">Ngày nhập</label>
+				                            <input id="import_date" name="import_date" type="date" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				                        
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="import_receiver" class="form-label">Tên người nhập</label>
+				                            <input id="import_receiver" name="import_receiver" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="import_department" class="form-label">Thuộc phòng ban</label>
+				                            <input id="import_department" name="import_department" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="import_phone" class="form-label">Số điện thoại</label>
+				                            <input id="import_phone" name="import_phone" type="number" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="import_quantity" class="form-label">Số lượng</label>
+				                            <input id="import_quantity" name="import_quantity" type="number" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="d-flex justify-content-end">
+				                        <button type="submit" id="addImportBtn" class="btn btn-primary px-4 py-2">Thêm phiếu nhập</button>
+				                    </div>
+				                </form>
+				                <!-- End Form -->
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<!-- End Modal Import -->
+				<!-- Modal Export -->
+				<div class="modal fade" id="AddExport" tabindex="-1" aria-labelledby="ExportModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-lg">
+				        <div class="modal-content rounded-4 shadow-lg">
+				            <div class="modal-header border-4 pb-2">
+				                <h5 class="modal-title fs-5" id="ExportModalLabel">Tạo phiếu xuất</h5>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+				            <div class="modal-body">
+				                <!-- Form -->
+				                <form id="addExportForm" action="Kho_admin2" method="POST" onsubmit="return confirmSubmit()">
+				                    <div class="row">
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="export_id" class="form-label">Mã phiếu xuất</label>
+				                            <input id="export_id" name="export_id" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="export_name" class="form-label">Tên phiếu xuất</label>
+				                            <input id="export_name" name="export_name" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="export_date" class="form-label">Ngày xuất</label>
+				                            <input id="export_date" name="export_date" type="date" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				                        
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="export_receiver" class="form-label">Tên người xuất</label>
+				                            <input id="export_receiver" name="export_receiver" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="export_department" class="form-label">Thuộc phòng ban</label>
+				                            <input id="export_department" name="export_department" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="export_phone" class="form-label">Số điện thoại</label>
+				                            <input id="export_phone" name="export_phone" type="number" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				
+				                        <div class="col-12 col-sm-6 mb-3">
+				                            <label for="export_quantity" class="form-label">Số lượng</label>
+				                            <input id="export_quantity" name="export_quantity" type="number" class="form-control border-2 border-primary rounded-4" required>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="d-flex justify-content-end">
+				                        <button type="submit" id="addExportBtn" class="btn btn-primary px-4 py-2">Thêm phiếu xuất</button>
+				                    </div>
+				                </form>
+				                <!-- End Form -->
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<!-- End Modal Export -->
+				
+			
 
 
 	

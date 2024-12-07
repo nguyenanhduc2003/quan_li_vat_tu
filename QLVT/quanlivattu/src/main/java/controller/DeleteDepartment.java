@@ -6,21 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import DAO.AccountDAO;
+import DAO.DepartmentDAO;
 
 /**
- * Servlet implementation class DeleteAccount
+ * Servlet implementation class DeleteDepartment
  */
-@WebServlet("/DeleteAccount")
-public class DeleteAccount extends HttpServlet {
+@WebServlet("/DeleteDepartment")
+public class DeleteDepartment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private AccountDAO accountDAO = new AccountDAO();
+	private DepartmentDAO departmentDAO = new DepartmentDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteAccount() {
+    public DeleteDepartment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,24 +36,23 @@ public class DeleteAccount extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String accountIdStr = request.getParameter("accountId");
+		String departmentIdStr = request.getParameter("departmentId");
+
         try {
-            int accountId = Integer.parseInt(accountIdStr);
-            boolean isDeleted = accountDAO.deleteAccount(accountId);
+            int departmentId = Integer.parseInt(departmentIdStr); // Lấy ID phòng ban từ request
+            boolean isDeleted = departmentDAO.deleteDepartment(departmentId);
             response.setContentType("text/html;charset=UTF-8");
 
             if (isDeleted) {
-            	response.getWriter().println("<script>alert('Xóa thành công!'); window.location.href = 'Taikhoan_admin';</script>");
+            	 response.getWriter().println("<script>alert('Xóa phòng ban thành công!'); window.location.href = 'Department_admin';</script>");
             } else {
-            	response.getWriter().println("<script>alert('Xóa thất bại, vui lòng thử lại.'); history.back();</script>");
+            	response.getWriter().println("<script>alert('Xóa phòng ban thất bại, vui lòng thử lại.'); history.back();</script>");
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
             response.setContentType("text/html;charset=UTF-8");
 	        response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
-        }     
-    }
-		
+        }
 	}
 
+}
