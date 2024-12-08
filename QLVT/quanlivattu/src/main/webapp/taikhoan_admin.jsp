@@ -66,7 +66,7 @@
                 <li class="nav-item">
                     <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
-                        Quản lí kho
+                        Nhập xuất
                     </a>
                 </li>
                 <li class="nav-item">

@@ -53,6 +53,7 @@ public class UpdateMaterial extends HttpServlet {
        String materialCountry = request.getParameter("material_country1");
        String materialValue = request.getParameter("material_value1");
        String materialImage = request.getParameter("material_image1");
+       int materialQuantity = Integer.parseInt(request.getParameter("material_quantity1"));
        
 
        // Tạo đối tượng Account để cập nhật
@@ -69,6 +70,7 @@ public class UpdateMaterial extends HttpServlet {
        material.setMaterial_country(materialCountry);
        material.setMaterial_value(convertedValue);
        material.setMaterial_image(materialImage);
+       material.setMaterial_quantity(materialQuantity);
 
 
        // Thực hiện cập nhật

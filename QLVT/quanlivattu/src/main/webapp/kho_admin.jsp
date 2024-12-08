@@ -65,7 +65,7 @@
                 <li id="checked" class="nav-item">
                     <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
-                        Quản lí kho
+                        Nhập xuất
                     </a>
                 </li>
                 <li class="nav-item">
@@ -162,54 +162,53 @@
             </div>
 
         </div>
+        
+        <div class="container mt-2">
+    <div class="card shadow-lg rounded-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Phiếu Thống Kê Vật Tư</h5>
+        </div>
+        <div class="card-body">
+            <!-- Thông tin tổng quan -->
+            <div class="row mb-4">
+                <!-- Tổng số vật tư -->
+                <div class="col-md-4">
+                    <div class="card border-primary">
+                        <div class="card-body text-center">
+                            <h6>Tổng Số Vật Tư</h6>
+                            <h4 id="totalMaterials" class="text-primary">${totalMaterials}</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tổng số lượng nhập -->
+                <div class="col-md-4">
+                    <div class="card border-success">
+                        <div class="card-body text-center">
+                            <h6>Tổng Số Lượng Nhập</h6>
+                            <h4 id="totalImported" class="text-success">${totalImported}</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tổng số lượng xuất -->
+                <div class="col-md-4">
+                    <div class="card border-danger">
+                        <div class="card-body text-center">
+                            <h6>Tổng Số Lượng Xuất</h6>
+                            <h4 id="totalExported" class="text-danger">${totalExported}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
 
         <div class="content-here ms-3 me-3">
-            <div class="btn-file">
-                <button class="btn btn-primary mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#AddWarehouse"> <i class="bi bi-plus"></i> Thêm vật tư</button>
-                <button class="btn btn-success" onclick="exportToExcel()">
-                    Tải xuống
-                    <i class="bi bi-box-arrow-in-down ms-2"></i>
-                </button>
-                <button class="btn btn-info text-white mb-3 mt-3 ms-5" data-bs-toggle="modal" data-bs-target="#AddImport"> <i class="bi bi-plus"></i> Tạo phiếu nhập</button>
-                <button class="btn btn-warning text-white mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#AddExport"> <i class="bi bi-plus"></i> Tạo phiếu xuất</button>
-            </div>
-            <div class="table-content">
-                <table id="myTable" class="table table-bordered table-striped table-hover" style="font-size: 14px;">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>Mã vật tư kho</th>
-                            <th>Tên vật tư</th>
-                            <th>Nhà cung cấp</th>
-                            <th>Số lượng</th>
-                            <th>Trạng thái</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>             
-                        <c:forEach var="warehouse" items="${warehouses}">
-                        <tr>
-                            <td>${warehouse.warehouse_id}</td>
-                            <td>${warehouse.warehouse_name}</td>
-                            <td>${warehouse.warehouse_supplier}</td>
-                            <td>${warehouse.warehouse_quantity}</td>
-                            <td class="${warehouse.warehouse_quantity < 10 ? 'text-danger' : 'text-success'}">
-                            	${warehouse.warehouse_quantity < 10 ? 'Cần bổ sung' : 'Bình thường'}
-                            </td>
-                            <td>
-                                 <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateWarehouse">
-		                                <i class="bi bi-pencil-square"></i>
-		                            </button>
-		                            <form action="DeleteWarehouse" method="post" style="display: inline;">
-								        <input type="hidden" name="warehouseId" value="${warehouse.warehouse_id}">
-								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa vật tư này không?')">
-								            <i class="bi bi-dash-square"></i>
-								        </button>
-								    </form>
-                            </td>
-                        </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+            <div class="btn-file">           
+                <button class="btn btn-info text-white mb-3 mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#AddImport"> <i class="bi bi-plus"></i> Tạo phiếu nhập</button>
+                <button class="btn btn-warning text-white mb-3 mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#AddExport"> <i class="bi bi-plus"></i> Tạo phiếu xuất</button>
             </div>
         </div>
         
@@ -227,43 +226,41 @@
         <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
                  <table id="myTable1" class="table table-bordered" style="font-size: 14px;">
-		            <thead class="table-primary">
-		                <tr>
-		                    <th>Mã phiếu nhập</th>
-		                    <th>Tên phiếu nhập</th>
-		                    <th>Ngày nhập</th>
-		                    <th>Tên người nhập</th>
-		                    <th>Số điện thoại</th>
-		                    <th>Thuộc phòng ban</th>
-		                    <th>Số lượng</th>
-		                    <th>Thao tác</th>
-		                </tr>
-		            </thead>
-		            <tbody>
-		                <c:forEach var="importt" items="${importts}">
-		                    <tr>
-		                        <td>${importt.import_id}</td>
-		                        <td>${importt.import_name}</td>
-		                        <td>${importt.import_date}</td>
-		                        <td>${importt.import_receiver}</td>
-		                        <td>${importt.import_phone}</td>
-		                        <td>${importt.import_department}</td>
-		                        <td>${importt.import_quantity}</td>
-		                        <td class="d-flex gap-2">
-		                            <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateImport">
-		                                <i class="bi bi-pencil-square"></i>
-		                            </button>
-		                            <form action="DeleteImport" method="post" style="display: inline;">
-								        <input type="hidden" name="importId" value="${importt.import_id}">
-								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
-								            <i class="bi bi-dash-square"></i>
-								        </button>
-								    </form>
-		                        </td>
-		                    </tr>
-		                </c:forEach>
-		            </tbody>
-		        </table>
+					    <thead class="table-primary">
+					        <tr>
+					            <th>Mã phiếu nhập</th>
+					            <th>Tên phiếu nhập</th>
+					            <th>Ngày nhập</th>
+					            <th>Tên người nhập</th>
+					            <th>Số điện thoại</th>
+					            <th>Mã phòng ban</th>
+					            <th>Số lượng</th>
+					            <th>Thao tác</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <c:forEach var="importt" items="${importts}">
+					            <tr>
+					                <td>${importt.import_id}</td>
+					                <td>${importt.import_name}</td>
+					                <td>${importt.import_date}</td>
+					                <td>${importt.import_receiver}</td>
+					                <td>${importt.import_phone}</td>
+					                <td>${importt.import_department}</td>
+					                <td>${importt.import_quantity}</td>
+					                <td class="d-flex gap-2">
+					                    <form action="DeleteImport" method="post" style="display: inline;">
+					                        <input type="hidden" name="importId" value="${importt.import_id}">
+					                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+					                            <i class="bi bi-dash-square"></i>
+					                        </button>
+					                    </form>
+					                </td>
+					            </tr>
+					        </c:forEach>
+					    </tbody>
+					</table>
+
 		        </div>
 		        </div>
 		        
@@ -281,257 +278,189 @@
         <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
                  <table id="myTable2" class="table table-bordered" style="font-size: 14px;">
-		            <thead class="table-primary">
-		                <tr>
-		                    <th>Mã phiếu xuất</th>
-		                    <th>Tên phiếu xuất</th>
-		                    <th>Ngày xuất</th>
-		                    <th>Tên người xuất</th>
-		                    <th>Số điện thoại</th>
-		                    <th>Thuộc phòng ban</th>
-		                    <th>Số lượng</th>
-		                    <th>Thao tác</th>
-		                </tr>
-		            </thead>
-		            <tbody>
-		                <c:forEach var="exportt" items="${exportts}">
-		                    <tr>
-		                        <td>${exportt.export_id}</td>
-		                        <td>${exportt.export_name}</td>
-		                        <td>${exportt.export_date}</td>
-		                        <td>${exportt.export_receiver}</td>
-		                        <td>${exportt.export_phone}</td>
-		                        <td>${exportt.export_department}</td>
-		                        <td>${exportt.export_quantity}</td>
-		                        <td class="d-flex gap-2">
-		                            <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateExport">
-		                                <i class="bi bi-pencil-square"></i>
-		                            </button>
-		                            <form action="DeleteExport" method="post" style="display: inline;">
-								        <input type="hidden" name="exportId" value="${exportt.export_id}">
-								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
-								            <i class="bi bi-dash-square"></i>
-								        </button>
-								    </form>
-		                        </td>
-		                    </tr>
-		                </c:forEach>
-		            </tbody>
-		        </table>
+    <thead class="table-primary">
+        <tr>
+            <th>Mã phiếu xuất</th>
+            <th>Tên phiếu xuất</th>
+            <th>Ngày xuất</th>
+            <th>Tên người xuất</th>
+            <th>Số điện thoại</th>
+            <th>Mã phòng ban</th>
+            <th>Số lượng</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="exportt" items="${exportts}">
+            <tr>
+                <td>${exportt.export_id}</td>
+                <td>${exportt.export_name}</td> 
+                <td>${exportt.export_date}</td> 
+                <td>${exportt.export_receiver}</td> 
+                <td>${exportt.export_phone}</td> 
+                <td>${exportt.export_department}</td> 
+                <td>${exportt.export_quantity}</td> 
+                <td class="d-flex gap-2">
+                    <form action="DeleteExport" method="post" style="display: inline;">
+                        <input type="hidden" name="exportId" value="${exportt.export_id}">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+                            <i class="bi bi-dash-square"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+
 		        </div>
 		        </div>
+		        	        
 		        
-        
-       <!-- Modal -->
-			<div class="modal fade" id="AddWarehouse" tabindex="-1" aria-labelledby="AddWarehouseLabel" aria-hidden="true">
+	
+			<!-- Modal -->
+			<div class="modal fade" id="AddImport" tabindex="-1" aria-labelledby="AddImportExportLabel" aria-hidden="true">
 			    <div class="modal-dialog modal-lg">
 			        <div class="modal-content rounded-4 shadow-lg">
-			            <div class="modal-header border-4 pb-2">
-			                <h5 class="modal-title fs-5" id="AddWarehouseLabel">Thêm vật tư mới</h5>
+			            <div class="modal-header border-0 pb-2">
+			                <h5 class="modal-title fs-5" id="AddImportExportLabel">Tạo phiếu nhập</h5>
 			                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			            </div>
 			            <div class="modal-body">
-			                <!-- Form -->
-			                <form id="addRowForm" action="Kho_admin" method="POST" onsubmit="return confirmSubmit()">
-			                    <div class="row">
-			                        <div class="col-12 col-sm-6 mb-3">
-			                            <label for="warehouse_id" class="form-label">Mã vật tư kho</label>
-			                            <input id="warehouse_id" name="warehouse_id" type="text" class="form-control border-2 border-primary rounded-4" required>
+			                <!-- Form để chỉnh sửa thông tin -->
+			                <form action="Kho_admin" method="POST">
+			                    <div class="row mb-3">
+			                        <div class="col-md-6">
+			                            <label for="material_name" class="form-label">Tên vật tư:</label>
+			                            <select id="material_name" name="material_name" class="form-select" required>
+			                                <option value="">--Chọn vật tư--</option>
+			                                <c:forEach var="material" items="${materialList}">
+			                                    <option value="${material.material_name}">${material.material_name}</option>
+			                                </c:forEach>
+			                            </select>
 			                        </div>
-			
-			                        <div class="col-12 col-sm-6 mb-3">
-			                            <label for="material_id" class="form-label">Mã vật tư</label>
-			                            <input id="material_id" name="material_id" type="text" class="form-control border-2 border-primary rounded-4" required>
-			                        </div>
-			
-			                        <div class="col-12 col-sm-6 mb-3">
-			                            <label for="warehouse_quantity" class="form-label">Số lượng</label>
-			                            <input id="warehouse_quantity" name="warehouse_quantity" type="number" class="form-control border-2 border-primary rounded-4" required>
-			                        </div>
-			                        
-			                        <div class="col-12 col-sm-6 mb-3">
-			                            <label for="warehouse_supplier" class="form-label">Nhà cung cấp</label>
-			                            <input id="warehouse_supplier" name="warehouse_supplier" type="text" class="form-control border-2 border-primary rounded-4" required>
-			                        </div>
-			
-			                        <div class="col-12 col-sm-6 mb-3">
-			                            <label for="warehouse_name" class="form-label">Tên vật tư</label>
-			                            <input id="warehouse_name" name="warehouse_name" type="text" class="form-control border-2 border-primary rounded-4" required>
+			                        <div class="col-md-6">
+			                            <label for="import_name" class="form-label">Tên phiếu nhập:</label>
+			                            <input type="text" id="import_name" name="import_name" class="form-control" required>
 			                        </div>
 			                    </div>
-			                    
-			                    <div class="d-flex justify-content-end">
-			                        <button type="submit" id="addRowBtn" class="btn btn-primary px-4 py-2">Thêm dữ liệu</button>
+			
+			                    <div class="row mb-3">
+			                        <div class="col-md-6">
+			                            <label for="import_date" class="form-label">Ngày nhập:</label>
+			                            <input type="date" id="import_date" name="import_date" class="form-control" required>
+			                        </div>
+			                        <div class="col-md-6">
+			                            <label for="import_receiver" class="form-label">Tên người nhập:</label>
+			                            <input type="text" id="import_receiver" name="import_receiver" class="form-control" required>
+			                        </div>
+			                    </div>
+			
+			                    <div class="row mb-3">
+			                        <div class="col-md-6">
+			                            <label for="import_phone" class="form-label">Số điện thoại:</label>
+			                            <input type="number" id="import_phone" name="import_phone" class="form-control" required>
+			                        </div>
+			                        <div class="col-md-6">
+			                            <label for="import_department" class="form-label">Phòng ban:</label>
+			                            <select id="import_department" name="import_department" class="form-select" required>
+			                                <option value="">--Chọn phòng ban--</option>
+			                                <c:forEach var="department" items="${departments}">
+			                                    <option value="${department.department_id}">${department.department_name}</option>
+			                                </c:forEach>
+			                            </select>
+			                        </div>
+			                    </div>
+			
+			                    <div class="row mb-3">
+			                        <div class="col-md-6">
+			                            <label for="import_quantity" class="form-label">Số lượng nhập:</label>
+			                            <input type="number" id="import_quantity" name="import_quantity" class="form-control" required>
+			                        </div>
+			                    </div>
+			
+			                    <div class="text-center">
+			                        <button type="submit" class="btn btn-primary">Nhập kho</button>
 			                    </div>
 			                </form>
-			                <!-- End Form -->
 			            </div>
 			        </div>
 			    </div>
 			</div>
 			<!-- End Modal -->
-			<!-- Modal Import -->
-				<div class="modal fade" id="AddImport" tabindex="-1" aria-labelledby="ImportModalLabel" aria-hidden="true">
+			<!-- Modal -->
+				<div class="modal fade" id="AddExport" tabindex="-1" aria-labelledby="AddExportLabel" aria-hidden="true">
 				    <div class="modal-dialog modal-lg">
 				        <div class="modal-content rounded-4 shadow-lg">
-				            <div class="modal-header border-4 pb-2">
-				                <h5 class="modal-title fs-5" id="ImportModalLabel">Tạo phiếu nhập</h5>
+				            <div class="modal-header border-0 pb-2">
+				                <h5 class="modal-title fs-5" id="AddExportLabel">Tạo phiếu xuất</h5>
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 				            <div class="modal-body">
-				                <!-- Form -->
-				                <form id="addImportForm" action="Kho_admin1" method="POST" onsubmit="return confirmSubmit()">
-				                    <div class="row">
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="import_id" class="form-label">Mã phiếu nhập</label>
-				                            <input id="import_id" name="import_id" type="text" class="form-control border-2 border-primary rounded-4" required>
+				                <!-- Form để chỉnh sửa thông tin -->
+				                <form action="ExportServlet" method="POST">
+				                    <div class="row mb-3">
+				                        <div class="col-md-6">
+				                            <label for="material_name" class="form-label">Tên vật tư:</label>
+				                            <select id="material_name" name="material_name" class="form-select" required>
+				                                <option value="">--Chọn vật tư--</option>
+				                                <c:forEach var="material" items="${materialList}">
+				                                    <option value="${material.material_name}">${material.material_name}</option>
+				                                </c:forEach>
+				                            </select>
 				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="import_name" class="form-label">Tên phiếu nhập</label>
-				                            <input id="import_name" name="import_name" type="text" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="import_date" class="form-label">Ngày nhập</label>
-				                            <input id="import_date" name="import_date" type="date" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				                        
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="import_receiver" class="form-label">Tên người nhập</label>
-				                            <input id="import_receiver" name="import_receiver" type="text" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="import_department" class="form-label">Thuộc phòng ban</label>
-				                            <input id="import_department" name="import_department" type="text" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="import_phone" class="form-label">Số điện thoại</label>
-				                            <input id="import_phone" name="import_phone" type="number" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="import_quantity" class="form-label">Số lượng</label>
-				                            <input id="import_quantity" name="import_quantity" type="number" class="form-control border-2 border-primary rounded-4" required>
+				                        <div class="col-md-6">
+				                            <label for="export_name" class="form-label">Tên phiếu xuất:</label>
+				                            <input type="text" id="export_name" name="export_name" class="form-control" required>
 				                        </div>
 				                    </div>
-				                    
-				                    <div class="d-flex justify-content-end">
-				                        <button type="submit" id="addImportBtn" class="btn btn-primary px-4 py-2">Thêm phiếu nhập</button>
+				
+				                    <div class="row mb-3">
+				                        <div class="col-md-6">
+				                            <label for="export_date" class="form-label">Ngày xuất:</label>
+				                            <input type="date" id="export_date" name="export_date" class="form-control" required>
+				                        </div>
+				                        <div class="col-md-6">
+				                            <label for="export_receiver" class="form-label">Tên người xuất:</label>
+				                            <input type="text" id="export_receiver" name="export_receiver" class="form-control" required>
+				                        </div>
+				                    </div>
+				
+				                    <div class="row mb-3">
+				                        <div class="col-md-6">
+				                            <label for="export_phone" class="form-label">Số điện thoại:</label>
+				                            <input type="number" id="export_phone" name="export_phone" class="form-control" required>
+				                        </div>
+				                        <div class="col-md-6">
+				                            <label for="export_department" class="form-label">Phòng ban:</label>
+				                            <select id="export_department" name="export_department" class="form-select" required>
+				                                <option value="">--Chọn phòng ban--</option>
+				                                <c:forEach var="department" items="${departments}">
+				                                    <option value="${department.department_id}">${department.department_name}</option>
+				                                </c:forEach>
+				                            </select>
+				                        </div>
+				                    </div>
+				
+				                    <div class="row mb-3">
+				                        <div class="col-md-6">
+				                            <label for="export_quantity" class="form-label">Số lượng xuất:</label>
+				                            <input type="number" id="export_quantity" name="export_quantity" class="form-control" required>
+				                        </div>
+				                    </div>
+				
+				                    <div class="text-center">
+				                        <button type="submit" class="btn btn-primary">Xuất kho</button>
 				                    </div>
 				                </form>
-				                <!-- End Form -->
 				            </div>
 				        </div>
 				    </div>
 				</div>
-				<!-- End Modal Import -->
-				<!-- Modal Export -->
-				<div class="modal fade" id="AddExport" tabindex="-1" aria-labelledby="ExportModalLabel" aria-hidden="true">
-				    <div class="modal-dialog modal-lg">
-				        <div class="modal-content rounded-4 shadow-lg">
-				            <div class="modal-header border-4 pb-2">
-				                <h5 class="modal-title fs-5" id="ExportModalLabel">Tạo phiếu xuất</h5>
-				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				            </div>
-				            <div class="modal-body">
-				                <!-- Form -->
-				                <form id="addExportForm" action="Kho_admin2" method="POST" onsubmit="return confirmSubmit()">
-				                    <div class="row">
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="export_id" class="form-label">Mã phiếu xuất</label>
-				                            <input id="export_id" name="export_id" type="text" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="export_name" class="form-label">Tên phiếu xuất</label>
-				                            <input id="export_name" name="export_name" type="text" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="export_date" class="form-label">Ngày xuất</label>
-				                            <input id="export_date" name="export_date" type="date" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				                        
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="export_receiver" class="form-label">Tên người xuất</label>
-				                            <input id="export_receiver" name="export_receiver" type="text" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="export_department" class="form-label">Thuộc phòng ban</label>
-				                            <input id="export_department" name="export_department" type="text" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="export_phone" class="form-label">Số điện thoại</label>
-				                            <input id="export_phone" name="export_phone" type="number" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				
-				                        <div class="col-12 col-sm-6 mb-3">
-				                            <label for="export_quantity" class="form-label">Số lượng</label>
-				                            <input id="export_quantity" name="export_quantity" type="number" class="form-control border-2 border-primary rounded-4" required>
-				                        </div>
-				                    </div>
-				                    
-				                    <div class="d-flex justify-content-end">
-				                        <button type="submit" id="addExportBtn" class="btn btn-primary px-4 py-2">Thêm phiếu xuất</button>
-				                    </div>
-				                </form>
-				                <!-- End Form -->
-				            </div>
-				        </div>
-				    </div>
-				</div>
-				<!-- End Modal Export -->
-				
+				<!-- End Modal -->
 			
 
 
-	
-	<!-- Modal -->
-		<div class="modal fade" id="UpdateWarehouse" tabindex="-1" aria-labelledby="UpdateWarehouseLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		        <div class="modal-content rounded-4 shadow-lg">
-		            <div class="modal-header border-0 pb-2">
-		                <h5 class="modal-title fs-5" id="UpdateWarehouseLabel">Chỉnh sửa vật tư</h5>
-		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		            </div>
-		            <div class="modal-body">
-		                <!-- Form để chỉnh sửa thông tin -->
-		                <form id="UpdateWarehouse" action="UpdateWarehouse" method="POST" onsubmit="return confirmSubmit()">
-		                    <div class="row">
-		                        <input id="warehouse_id1" name="warehouse_id1" type="hidden" class="form-control" value="${warehouse.warehouse_id}" required>   
-		                        
-		                        <div class="col-12 col-sm-8 mb-3">
-		                            <label for="warehouse_name1" class="form-label">Tên vật tư</label>
-		                            <input id="warehouse_name1" name="warehouse_name1" type="text" class="form-control border-2 border-secondary rounded-3" required>
-		                        </div>                          
-		
-		                        <div class="col-12 col-sm-4 mb-3">
-		                            <label for="warehouse_quantity1" class="form-label">Số lượng</label>
-		                            <input id="warehouse_quantity1" name="warehouse_quantity1" type="number" class="form-control border-2 border-secondary rounded-3" required>
-		                        </div>
-		                    </div>
-		
-		                    <div class="row mb-3">
-		                        <div class="col-12">
-		                            <label for="warehouse_supplier1" class="form-label">Nhà cung cấp</label>
-		                            <input id="warehouse_supplier1" name="warehouse_supplier1" type="text" class="form-control border-2 border-secondary rounded-3" required>
-		                        </div>
-		                    </div>
-		
-		                    <div class="d-flex justify-content-end">
-		                        <button type="submit" id="addRowBtn" class="btn btn-success px-4 py-2">Cập nhật</button>
-		                    </div>
-		                </form>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-		<!-- End Modal -->
 
 
     </main>

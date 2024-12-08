@@ -10,6 +10,20 @@ import java.util.Optional;
 import model.Export;
 
 public class ExportDAO extends BaseDAO implements Dao<Export> {
+	public int getTotalExportedQuantity() {
+	    String sql = "SELECT SUM(export_quantity) FROM tblexport";
+	    try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1);  // Trả về tổng số lượng xuất
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return 0;
+	}
+
+
 	public boolean deleteExport(int exportId) {
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;

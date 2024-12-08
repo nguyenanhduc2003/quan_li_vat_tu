@@ -10,6 +10,20 @@ import java.util.Optional;
 import model.Import;
 
 public class ImportDAO extends BaseDAO implements Dao<Import> {
+	public int getTotalImportedQuantity() {
+	    String sql = "SELECT SUM(import_quantity) FROM tblimport";
+	    try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1);  // Trả về tổng số lượng nhập
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return 0;
+	}
+
+
 	public boolean deleteImport(int importId) {
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;

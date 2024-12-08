@@ -64,7 +64,7 @@
                 <li class="nav-item">
                     <a class="nav-link ms-3 fade-link" href="${pageContext.request.contextPath}/Kho_admin">
                         <i class="bi bi-archive-fill me-2"></i>
-                        Quản lí kho
+                        Nhập xuất
                     </a>
                 </li>
                 <li class="nav-item">
@@ -253,9 +253,13 @@
 			                            <label for="material_value" class="form-label">Giá tiền</label>
 			                            <input id="material_value" name="material_value" type="number" class="form-control rounded-pill border-primary p-2" required>
 			                        </div>
-			                        <div class="col-12 col-sm-8">
+			                        <div class="col-12 col-sm-6">
 			                            <label for="material_image" class="form-label">Link ảnh</label>
 			                            <input id="material_image" name="material_image" type="url" class="form-control rounded-pill border-primary p-2">
+			                        </div>
+			                        <div class="col-12 col-sm-2">
+			                            <label for="material_quantity" class="form-label">Số lượng</label>
+			                            <input id="material_quantity" name="material_quantity" type="number" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                    </div>
 			
@@ -287,6 +291,7 @@
                             <th>Quốc gia sản xuất</th>
                             <th>Giá tiền</th>
                             <th>Ảnh</th>
+                            <th>Số lượng</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -308,6 +313,7 @@
                             <td>${material.material_country}</td>
                             <td>${material.material_value}</td>
                             <td><img src="${material.material_image}" alt="image"></td>
+                            <td>${material.material_quantity}</td>
                             <td>
                                 <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateMaterial">
 		                                <i class="bi bi-pencil-square"></i>
@@ -392,9 +398,13 @@
 		                            <label for="material_value1" class="form-label">Giá tiền</label>
 		                            <input id="material_value1" name="material_value1" type="number" class="form-control border-2 rounded-3 p-2" required>
 		                        </div>
-		                        <div class="col-12 col-sm-8">
+		                        <div class="col-12 col-sm-6">
 		                            <label for="material_image1" class="form-label">Link ảnh</label>
 		                            <input id="material_image1" name="material_image1" type="url" class="form-control border-2 rounded-3 p-2">
+		                        </div>
+		                        <div class="col-12 col-sm-2">
+		                            <label for="material_quantity1" class="form-label">Số lượng</label>
+		                            <input id="material_quantity1" name="material_quantity1" type="number" class="form-control border-2 rounded-3 p-2">
 		                        </div>
 		                    </div>
 		

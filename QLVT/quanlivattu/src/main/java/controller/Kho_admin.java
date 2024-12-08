@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.DepartmentDAO;
 import DAO.ExportDAO;
 import DAO.ImportDAO;
-import DAO.WarehouseDAO;
+import DAO.MaterialDAO;
+import model.Department;
 import model.Export;
 import model.Import;
-import model.Warehouse;
+import model.Material;
 
 /**
  * Servlet implementation class Kho_admin
@@ -23,9 +25,10 @@ import model.Warehouse;
 public class Kho_admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private WarehouseDAO warehouseDAO = new WarehouseDAO();
 	private ImportDAO importDAO = new ImportDAO();
 	private ExportDAO exportDAO = new ExportDAO();
+	private MaterialDAO materialDAO = new MaterialDAO();
+	private DepartmentDAO departmentDAO = new DepartmentDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -39,16 +42,34 @@ public class Kho_admin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		 // Lấy danh sách tài khoản từ cơ sở dữ liệu
-	    List<Warehouse> warehouses = warehouseDAO.getAll();
 	    List<Import> importts = importDAO.getAll();
 	    List<Export> exportts = exportDAO.getAll();
+	    List<Material> materialList = materialDAO.getAllMaterials();
+	    List<Department> departments = departmentDAO.getAllDepartments();
+	    MaterialDAO materialDAO = new MaterialDAO();
+	    List<Material> materialList2 = materialDAO.getAllMaterialsWithStatistics();
+	    
+	 // Tính toán tổng số vật tư, tổng số nhập và tổng số xuất
+        int totalMaterials = materialList.size();
+        int totalImported = importDAO.getTotalImportedQuantity();
+        int totalExported = exportDAO.getTotalExportedQuantity();
+
+
+        // Đưa các thông tin vào request để truyền cho JSP
+        request.setAttribute("totalMaterials", totalMaterials);
+        request.setAttribute("totalImported", totalImported);
+        request.setAttribute("totalExported", totalExported);
+        request.setAttribute("materialList2", materialList2);
 	    
 	    // Đưa danh sách tài khoản vào request để gửi đến JSP
-	    request.setAttribute("warehouses", warehouses);
 	    request.setAttribute("importts", importts);
 	    request.setAttribute("exportts", exportts);
+	    request.setAttribute("materialList", materialList);
+	    request.setAttribute("departments", departments);
+
 	    
 	    // Chuyển hướng đến trang JSP
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("kho_admin.jsp");
@@ -59,45 +80,38 @@ public class Kho_admin extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		request.setCharacterEncoding("UTF-8");
-		
-		try {
-			
-			 // Lấy dữ liệu từ form
-		       int warehouse_id = Integer.parseInt(request.getParameter("warehouse_id"));
-		       int material_id = Integer.parseInt(request.getParameter("material_id"));
-		       String warehouse_name = request.getParameter("warehouse_name");
-		       String warehouse_supplier = request.getParameter("warehouse_supplier");
-		       int warehouse_quantity = Integer.parseInt(request.getParameter("warehouse_quantity"));
-		       
+		 // Lấy dữ liệu từ form
+        String materialName = request.getParameter("material_name");
+        String importName = request.getParameter("import_name");
+        String importDate = request.getParameter("import_date");
+        String importReceiver = request.getParameter("import_receiver");
+        String importPhone = request.getParameter("import_phone");
+        String importDepartment = request.getParameter("import_department");
+        int importQuantity = Integer.parseInt(request.getParameter("import_quantity"));
 
-		       // Tạo đối tượng Account
-		       Warehouse warehouse = new Warehouse();
-		       warehouse.setWarehouse_id(warehouse_id);
-		       warehouse.setMaterial_id(material_id);
-		       warehouse.setWarehouse_name(warehouse_name);
-		       warehouse.setWarehouse_supplier(warehouse_supplier);
-		       warehouse.setWarehouse_quantity(warehouse_quantity);
-		       
+        // Tạo đối tượng MaterialDAO để tương tác với cơ sở dữ liệu
+        MaterialDAO materialDAO = new MaterialDAO();
 
-		       // Thêm tài khoản vào cơ sở dữ liệu
-		       boolean isAdded = warehouseDAO.addWarehouse(warehouse);
-		       
-		    // Xử lý kết quả
-		       response.setContentType("text/html;charset=UTF-8");
-		       if (isAdded) {
-		           response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'Kho_admin';</script>");
-		       } else {
-		           response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
-		       }
-			
-		} catch (Exception e) {
-            e.printStackTrace();
-            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+        // Lấy material_id từ tên vật tư
+        int materialId = materialDAO.getMaterialIdByName(materialName);
+
+        if (materialId == -1) {
+        	response.getWriter().println("<script>alert('Vật tư không tồn tại.'); history.back();</script>");
+            return;
         }
-					
+
+        // Nhập kho
+        boolean success = materialDAO.importMaterial(materialId, importName, importDate, importReceiver, importPhone, importDepartment, importQuantity);
+
+        // Kiểm tra kết quả
+        response.setContentType("text/html;charset=UTF-8");
+        if (success) {
+        	 response.getWriter().println("<script>alert('Nhập vào kho thành công!'); window.location.href = 'Kho_admin';</script>");
+        } else {
+        	response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
+        }	
 	}
 
 }

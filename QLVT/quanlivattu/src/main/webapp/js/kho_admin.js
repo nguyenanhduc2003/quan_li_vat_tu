@@ -33,39 +33,6 @@ document.querySelectorAll('.fade-link').forEach(link => {
 });
 
 
-// xuất file
-function exportToExcel() {
-
-        var table = $('#myTable').DataTable();
-
-
-        var data = table.rows({ search: 'applied' }).data();
-
-
-        var ws_data = [];
-
-
-        var headers = [];
-        $('#myTable th').each(function() {
-            headers.push($(this).text());
-        });
-        ws_data.push(headers);
-
-
-        data.each(function(row) {
-            ws_data.push(row);
-        });
-
-
-        var ws = XLSX.utils.aoa_to_sheet(ws_data);
-
-
-        var wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-
-
-        XLSX.writeFile(wb, "Xuat_File_Excel.xlsx");
-    }
     // xuất file1
 function exportToExcel1() {
 
@@ -133,13 +100,6 @@ function exportToExcel2() {
         XLSX.writeFile(wb, "Xuat_File_Excel.xlsx");
     }
 
-//datatable
-    const table = document.querySelector("#myTable");
-    $(table).DataTable({
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.13.1/i18n/vi.json"
-        }
-    });
 //datatable1
 const table1 = document.querySelector("#myTable1");
 $(table1).DataTable({
@@ -156,25 +116,5 @@ $(table2).DataTable({
 });
 
 
-// hien thi modal
-    const editButtons = document.querySelectorAll(".btn-edit");
-
-    editButtons.forEach((button) => {
-        button.addEventListener("click", function () {
-
-            const row = button.closest("tr");
-            const cells = row.querySelectorAll("td");
-
-            const warehouseId = cells[0].innerText; 
-            const warehouseName = cells[1].innerText; 
-            const warehouseSupplier = cells[2].innerText; 
-            const warehouseQuantity = cells[3].innerText; 
-            
-             console.log(warehouseId, warehouseName, warehouseSupplier, warehouseQuantity);
-
-            document.querySelector("#warehouse_id1").value = warehouseId; 
-            document.querySelector("#warehouse_name1").value = warehouseName;
-            document.querySelector("#warehouse_supplier1").value = warehouseSupplier;
-            document.querySelector("#warehouse_quantity1").value = warehouseQuantity;
-        });
-    });
+    
+ // option

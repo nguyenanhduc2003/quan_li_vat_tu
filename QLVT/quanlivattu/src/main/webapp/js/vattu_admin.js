@@ -93,6 +93,7 @@ editButtons.forEach(button => {
         const materialCountry = row.cells[8].innerText;
         const materialValue = row.cells[9].innerText;
         const materialImage = row.cells[10].querySelector("img").src;
+        const materialQuantity = row.cells[11].innerText;
 
         document.getElementById("material_id1").value = materialId;
         document.getElementById("material_name1").value = materialName;
@@ -105,6 +106,7 @@ editButtons.forEach(button => {
         document.getElementById("material_country1").value = materialCountry;
         document.getElementById("material_value1").value = materialValue;
         document.getElementById("material_image1").value = materialImage;
+        document.getElementById("material_quantity1").value = materialQuantity;
     });
 });
 

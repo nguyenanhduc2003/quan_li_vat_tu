@@ -32,6 +32,7 @@ public class Cungcap_admin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		 // Lấy danh sách tài khoản từ cơ sở dữ liệu
 	    List<Supplier> suppliers = supplierDAO.getAll();

@@ -9,9 +9,255 @@ import java.util.List;
 import java.util.Optional;
 import model.Material;
 
-public class MaterialDAO extends BaseDAO implements Dao<Material>{
-	
+public class MaterialDAO extends BaseDAO implements Dao<Material>{	
+	public List<Material> getAllMaterialsWithStatistics() {
+	    List<Material> materials = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
 
+	    try {
+	        conn = getConnection();
+	        String sql = "SELECT material_name, stock_quantity, total_imported, total_exported, unit FROM tblmaterial";
+	        pstmt = conn.prepareStatement(sql);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            Material material = new Material();
+	            material.setMaterial_name(rs.getString("material_name"));
+	            material.setStock_quantity(rs.getInt("stock_quantity"));
+	            material.setTotal_imported(rs.getInt("total_imported"));
+	            material.setTotal_exported(rs.getInt("total_exported"));
+	            material.setUnit(rs.getString("unit"));
+	            materials.add(material);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources(conn, pstmt, rs);
+	    }
+
+	    return materials;
+	}
+
+	public boolean updateStock(String materialName, int newStock) {
+	    String sql = "UPDATE tblmaterial SET material_quantity = ? WHERE material_name = ?";
+	    try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, newStock);
+	        ps.setString(2, materialName);
+	        int result = ps.executeUpdate();
+	        return result > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+
+
+	public int getStockByMaterialName(String materialName) {
+	    String sql = "SELECT material_quantity FROM tblmaterial WHERE material_name = ?";
+	    try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setString(1, materialName);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt("material_quantity");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return 0; 
+	}
+
+
+	// Phương thức lấy danh sách vật tư từ cơ sở dữ liệu
+    public List<Material> getAllMaterials() {
+        List<Material> materials = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+            String sql = "SELECT material_id, material_name FROM tblmaterial"; // Lấy material_id và material_name
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Material material = new Material();
+                material.setMaterial_id(rs.getInt("material_id"));
+                material.setMaterial_name(rs.getString("material_name"));
+                materials.add(material);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, pstmt, rs);
+        }
+
+        return materials;
+    }
+	// Thực hiện xuất kho từ tblexport và cập nhật số lượng vật tư trong tblmaterial
+		public boolean exportMaterial(int materialId, String exportName, String exportDate, String exportReceiver, String exportPhone, String exportDepartment, int exportQuantity) {
+		    Connection conn = null;
+		    PreparedStatement pstmtExport = null;
+		    PreparedStatement pstmtUpdate = null;
+		    boolean success = false;
+
+		    try {
+		        conn = getConnection();
+		        conn.setAutoCommit(false); // Bắt đầu giao dịch
+
+		        // Chèn phiếu xuất kho vào tblexport
+		        String sqlExport = "INSERT INTO tblexport (export_name, export_date, export_receiver, export_phone, export_department, export_quantity, material_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		        pstmtExport = conn.prepareStatement(sqlExport);
+		        pstmtExport.setString(1, exportName);
+		        pstmtExport.setString(2, exportDate);
+		        pstmtExport.setString(3, exportReceiver);
+		        pstmtExport.setString(4, exportPhone);
+		        pstmtExport.setString(5, exportDepartment);
+		        pstmtExport.setInt(6, exportQuantity);
+		        pstmtExport.setInt(7, materialId);
+		        pstmtExport.executeUpdate();
+
+		        // Cập nhật số lượng vật tư trong tblmaterial
+		        String sqlUpdate = "UPDATE tblmaterial SET material_quantity = material_quantity - ? WHERE material_id = ?";
+		        pstmtUpdate = conn.prepareStatement(sqlUpdate);
+		        pstmtUpdate.setInt(1, exportQuantity);
+		        pstmtUpdate.setInt(2, materialId);
+		        pstmtUpdate.executeUpdate();
+
+		        conn.commit(); // Xác nhận giao dịch
+		        success = true; // Thành công
+		    } catch (SQLException e) {
+		        try {
+		            if (conn != null) {
+		                conn.rollback(); // Nếu có lỗi, hoàn tác giao dịch
+		            }
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (conn != null) {
+		                conn.setAutoCommit(true); // Quay lại chế độ commit tự động
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		        closeResources(conn, pstmtExport, null);
+		        closeResources(null, pstmtUpdate, null);
+		    }
+
+		    return success;
+		}
+	// Thực hiện nhập kho vào tblimport và cập nhật số lượng vật tư trong tblmaterial
+		public boolean importMaterial(int materialId, String importName, String importDate, String importReceiver, String importPhone, String importDepartment, int importQuantity) {
+		    Connection conn = null;
+		    PreparedStatement pstmtImport = null;
+		    PreparedStatement pstmtUpdate = null;
+		    boolean success = false;
+
+		    try {
+		        conn = getConnection();
+		        conn.setAutoCommit(false); // Bắt đầu giao dịch
+
+		        // Chèn phiếu nhập kho vào tblimport
+		        String sqlImport = "INSERT INTO tblimport (import_name, import_date, import_receiver, import_phone, import_department, import_quantity, material_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		        pstmtImport = conn.prepareStatement(sqlImport);
+		        pstmtImport.setString(1, importName);
+		        pstmtImport.setString(2, importDate);
+		        pstmtImport.setString(3, importReceiver);
+		        pstmtImport.setString(4, importPhone);
+		        pstmtImport.setString(5, importDepartment);
+		        pstmtImport.setInt(6, importQuantity);
+		        pstmtImport.setInt(7, materialId);
+		        pstmtImport.executeUpdate();
+
+		        // Cập nhật số lượng vật tư trong tblmaterial
+		        String sqlUpdate = "UPDATE tblmaterial SET material_quantity = material_quantity + ? WHERE material_id = ?";
+		        pstmtUpdate = conn.prepareStatement(sqlUpdate);
+		        pstmtUpdate.setInt(1, importQuantity);
+		        pstmtUpdate.setInt(2, materialId);
+		        pstmtUpdate.executeUpdate();
+
+		        conn.commit(); // Xác nhận giao dịch
+		        success = true; // Thành công
+		    } catch (SQLException e) {
+		        try {
+		            if (conn != null) {
+		                conn.rollback(); // Nếu có lỗi, hoàn tác giao dịch
+		            }
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (conn != null) {
+		                conn.setAutoCommit(true); // Quay lại chế độ commit tự động
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		        closeResources(conn, pstmtImport, null);
+		        closeResources(null, pstmtUpdate, null);
+		    }
+
+		    return success;
+		}
+	// Lấy material_id từ tên vật tư
+	public int getMaterialIdByName(String materialName) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int materialId = -1; // Mặc định trả về -1 nếu không tìm thấy vật tư
+
+	    try {
+	        conn = getConnection();
+	        String sql = "SELECT material_id FROM tblmaterial WHERE material_name = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, materialName);
+
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            materialId = rs.getInt("material_id");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        closeResources(conn, pstmt, rs);
+	    }
+
+	    return materialId;
+	}
+
+    // Cập nhật số lượng vật tư
+    public boolean updateMaterial1(Material material) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean isUpdated = false;
+
+        try {
+            conn = getConnection();
+            String sql = "UPDATE tblmaterial SET material_quantity = ? WHERE material_id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, material.getMaterial_quantity());
+            pstmt.setInt(2, material.getMaterial_id());
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                isUpdated = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, pstmt);
+        }
+
+        return isUpdated;
+    }
 	
 	public boolean deleteMaterial(int materialId) {
 	    Connection conn = null;
@@ -48,8 +294,8 @@ public class MaterialDAO extends BaseDAO implements Dao<Material>{
         try {
             conn = getConnection();
 
-            String sql = "INSERT INTO tblmaterial (material_id, material_name, material_describe, material_unit, material_date, material_expiry, material_use, material_supplier, material_country, material_value, material_image) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO tblmaterial (material_id, material_name, material_describe, material_unit, material_date, material_expiry, material_use, material_supplier, material_country, material_value, material_image, material_quantity) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, material.getMaterial_id());
@@ -63,6 +309,7 @@ public class MaterialDAO extends BaseDAO implements Dao<Material>{
             pstmt.setString(9, material.getMaterial_country());
             pstmt.setDouble(10, material.getMaterial_value());
             pstmt.setString(11, material.getMaterial_image());
+            pstmt.setInt(12, material.getMaterial_quantity());
 
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -145,6 +392,7 @@ public class MaterialDAO extends BaseDAO implements Dao<Material>{
                 material.setMaterial_country(rs.getString("material_country"));
                 material.setMaterial_value(rs.getDouble("material_value"));
                 material.setMaterial_image(rs.getString("material_image"));
+                material.setMaterial_quantity(rs.getInt("material_quantity"));
 
                 materials.add(material); // Thêm vật tư vào danh sách
             }
@@ -164,7 +412,7 @@ public class MaterialDAO extends BaseDAO implements Dao<Material>{
 
 	    try {
 	        conn = getConnection();
-	        String sql = "UPDATE tblmaterial SET material_name = ?, material_describe = ?, material_unit = ?, material_date = ?, material_expiry = ?, material_use = ?, material_supplier = ?, material_country = ?, material_value = ?, material_image = ? WHERE material_id = ?";
+	        String sql = "UPDATE tblmaterial SET material_name = ?, material_describe = ?, material_unit = ?, material_date = ?, material_expiry = ?, material_use = ?, material_supplier = ?, material_country = ?, material_value = ?, material_image = ?, material_quantity = ? WHERE material_id = ?";
 	        pstmt = conn.prepareStatement(sql);
 
 	        pstmt.setString(1, material.getMaterial_name());
@@ -177,7 +425,8 @@ public class MaterialDAO extends BaseDAO implements Dao<Material>{
 	        pstmt.setString(8, material.getMaterial_country());
 	        pstmt.setDouble(9, material.getMaterial_value());
 	        pstmt.setString(10, material.getMaterial_image());
-	        pstmt.setInt(11, material.getMaterial_id());
+	        pstmt.setInt(11, material.getMaterial_quantity());
+	        pstmt.setInt(12, material.getMaterial_id());
 
 	        int rowsUpdated = pstmt.executeUpdate();
 	        return rowsUpdated > 0;

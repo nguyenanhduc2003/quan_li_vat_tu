@@ -15,5 +15,10 @@ public class Material {
 	    private String material_country; 
 	    private double material_value; 
 	    private String material_image;
+	    private int material_quantity;
+	    private int stock_quantity;
+	    private int total_imported;
+	    private int total_exported;
+	    private String unit;
 	
 }
