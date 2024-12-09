@@ -19,17 +19,17 @@ signInButton.addEventListener('click', () => {
         // Nếu có tham số error hoặc success, hiển thị thông báo
         if (error) {
             if (error == '1') {
-                alert("Mật khẩu không khớp!");
+                alert("Mật khẩu không đúng!");
             } else if (error == '2') {
                 alert("Email đã tồn tại!");
             } else if (error == '3') {
                 alert("Có lỗi xảy ra. Vui lòng thử lại!");
             }
             else if (error == '4') {
-                alert("Mật khẩu không đúng");
+                alert("Mật khẩu chưa chính xác");
             }
             else if (error == '5') {
-                alert("Địa chỉ Email đã tồn tại!");
+                alert("Địa chỉ Email không hợp lệ!");
             }
         }
         
