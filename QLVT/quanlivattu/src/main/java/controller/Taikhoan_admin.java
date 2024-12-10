@@ -85,9 +85,9 @@ public class Taikhoan_admin extends HttpServlet {
      // Xử lý kết quả
         response.setContentType("text/html;charset=UTF-8");
         if (isAdded) {
-            response.getWriter().println("<script>alert('Cập nhật thành công!'); window.location.href = 'Taikhoan_admin';</script>");
+            response.getWriter().println("<script>alert('Thêm tài khoản thành công!'); window.location.href = 'Taikhoan_admin';</script>");
         } else {
-            response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
+            response.getWriter().println("<script>alert('Thêm thất bại, vui lòng thử lại.'); history.back();</script>");
         }
 		} catch (NumberFormatException | IOException e) {
             e.printStackTrace();

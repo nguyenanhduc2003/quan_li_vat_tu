@@ -11,16 +11,16 @@ import DAO.MaterialDAO;
 import DAO.TransactionDAO;
 
 /**
- * Servlet implementation class ExportServlet
+ * Servlet implementation class ImportServlet
  */
-@WebServlet("/ExportServlet")
-public class ExportServlet extends HttpServlet {
+@WebServlet("/ImportServlet")
+public class ImportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ExportServlet() {
+    public ImportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,14 +41,13 @@ public class ExportServlet extends HttpServlet {
 
         // Lấy dữ liệu từ form
         String materialName = request.getParameter("material_name");
-        String exportName = request.getParameter("export_name");
-        String exportDate = request.getParameter("export_date");
-        String exportReceiver = request.getParameter("export_receiver");
-        String exportPhone = request.getParameter("export_phone");
-        String exportDepartment = request.getParameter("export_department");
-        int exportQuantity = Integer.parseInt(request.getParameter("export_quantity"));
-
-        // Tạo đối tượng MaterialDAO để tương tác với cơ sở dữ liệu
+        String importName = request.getParameter("import_name");
+        String importDate = request.getParameter("import_date");
+        String importReceiver = request.getParameter("import_receiver");
+        String importPhone = request.getParameter("import_phone");
+        String importDepartment = request.getParameter("import_department");
+        int importQuantity = Integer.parseInt(request.getParameter("import_quantity"));
+        
         MaterialDAO materialDAO = new MaterialDAO();
 
         // Lấy material_id từ tên vật tư
@@ -58,35 +57,19 @@ public class ExportServlet extends HttpServlet {
             response.getWriter().println("<script>alert('Vật tư không tồn tại.'); history.back();</script>");
             return;
         }
-        response.setContentType("text/html;charset=UTF-8");
-        // Lấy số lượng tồn kho hiện tại
-        int currentStock = materialDAO.getStockByMaterialName(materialName);
-        
 
-        // Kiểm tra nếu số lượng xuất vượt quá tồn kho
-        if (exportQuantity > currentStock) {
-        	response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().println("<script>alert('Số lượng xuất vượt quá tồn kho. Số lượng tồn hiện tại là " + currentStock + ".'); history.back();</script>");
-            return;
-        }
+        // Nhập kho
+        boolean success = materialDAO.importMaterial(materialId, importName, importDate, importReceiver, importPhone, importDepartment, importQuantity);
 
-        // Thực hiện xuất kho
-        boolean success = materialDAO.exportMaterial(materialId, exportName, exportDate, exportReceiver, exportPhone, exportDepartment, exportQuantity);
+        // Thêm giao dịch vào bảng transactions
         TransactionDAO transactionDAO = new TransactionDAO();
-        if (transactionDAO.addTransaction("Xuất", exportDate, exportQuantity, materialId)) {
+        if (transactionDAO.addTransaction("Nhập", importDate, importQuantity, materialId)) {
             System.out.println("Transaction logged successfully.");
         }
-
-
-        // Cập nhật số lượng tồn kho
-        if (success) {
-            materialDAO.updateStock(materialName, currentStock - exportQuantity);
-        }
-
-        // Kiểm tra kết quả
+        // Kiểm tra kết quả và trả về thông báo
         response.setContentType("text/html;charset=UTF-8");
         if (success) {
-            response.getWriter().println("<script>alert('Xuất khỏi kho thành công!'); window.location.href = 'Kho_admin';</script>");
+            response.getWriter().println("<script>alert('Nhập vào kho thành công!'); window.location.href = 'Kho_admin';</script>");
         } else {
             response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
         }

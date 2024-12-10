@@ -324,7 +324,7 @@
 								            <i class="bi bi-dash-square"></i>
 								        </button>
 								    </form>
-                            </td>
+                            </td>                      
                         </tr> 
                         </c:forEach>                                      
                     </tbody>

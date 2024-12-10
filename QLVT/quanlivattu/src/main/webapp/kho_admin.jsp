@@ -211,113 +211,155 @@
                 <button class="btn btn-warning text-white mb-3 mt-3 ms-2" data-bs-toggle="modal" data-bs-target="#AddExport"> <i class="bi bi-plus"></i> Tạo phiếu xuất</button>
             </div>
         </div>
+        <div class="filter-container ms-3 me-3">
+        <div class="row">
+        <div class="col-6 col-sm-3">
+        	 <label for="fromDate">Từ ngày:</label>
+		    <input type="date" id="fromDate" class="form-control">
+        </div>
+        <div class="col-6 col-sm-3">
+        	 <label for="toDate">Đến ngày:</label>
+		    <input type="date" id="toDate" class="form-control">
+        </div>
+         <div class="col-6 col-sm-2 pt-2">
+        	 <button class="btn btn-primary mt-3" onclick="filterTransactions()">Lọc dữ liệu</button>
+        </div>
+        </div>
+		</div>
         
-         <div class="row">
-         	<div class="col bg-primary text-center ms-3 me-3 rounded text-white p-3 mt-4" style="font-size: 20px;">Quản lí phiếu nhập</div>
-         </div>
-
-        <div class="btn-file ms-3 me-3 mt-3">
-            <button class="btn btn-success" onclick="exportToExcel1()">
-                Tải xuống
-                <i class="bi bi-box-arrow-in-down ms-2"></i>
-            </button>
+        
+         <div class="container mt-4">
+    <!-- Quản lí phiếu nhập Section -->
+    <div class="row">
+        <div class="col bg-primary text-center rounded text-white p-3 mb-3 shadow-sm">
+            <h4>Quản lí phiếu nhập</h4>
         </div>
+    </div>
 
-        <div class="content-here ms-3 me-3">
-            <div class="table-content table-responsive">
-                 <table id="myTable1" class="table table-bordered" style="font-size: 14px;">
-					    <thead class="table-primary">
-					        <tr>
-					            <th>Mã phiếu nhập</th>
-					            <th>Tên phiếu nhập</th>
-					            <th>Ngày nhập</th>
-					            <th>Tên người nhập</th>
-					            <th>Số điện thoại</th>
-					            <th>Mã phòng ban</th>
-					            <th>Số lượng</th>
-					            <th>Thao tác</th>
-					        </tr>
-					    </thead>
-					    <tbody>
-					        <c:forEach var="importt" items="${importts}">
-					            <tr>
-					                <td>${importt.import_id}</td>
-					                <td>${importt.import_name}</td>
-					                <td>${importt.import_date}</td>
-					                <td>${importt.import_receiver}</td>
-					                <td>${importt.import_phone}</td>
-					                <td>${importt.import_department}</td>
-					                <td>${importt.import_quantity}</td>
-					                <td class="d-flex gap-2">
-					                    <form action="DeleteImport" method="post" style="display: inline;">
-					                        <input type="hidden" name="importId" value="${importt.import_id}">
-					                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
-					                            <i class="bi bi-dash-square"></i>
-					                        </button>
-					                    </form>
-					                </td>
-					            </tr>
-					        </c:forEach>
-					    </tbody>
-					</table>
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-success" onclick="exportToExcel1()">
+            Tải xuống
+            <i class="bi bi-box-arrow-in-down ms-2"></i>
+        </button>
+    </div>
 
-		        </div>
-		        </div>
-		        
-		        <div class="row">
-         	<div class="col bg-warning text-center ms-3 me-3 rounded text-white p-3 mt-4" style="font-size: 20px;">Quản lí phiếu xuất</div>
-         </div>
+    <div class="table-responsive shadow-sm">
+        <table id="myTable1" class="table table-striped table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <th>Mã phiếu nhập</th>
+                    <th>Tên phiếu nhập</th>
+                    <th>Ngày nhập</th>
+                    <th>Tên người nhập</th>
+                    <th>Số điện thoại</th>
+                    <th>Mã phòng ban</th>
+                    <th>Số lượng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="importt" items="${importts}">
+                    <tr>
+                        <td>${importt.import_id}</td>
+                        <td>${importt.import_name}</td>
+                        <td>${importt.import_date}</td>
+                        <td>${importt.import_receiver}</td>
+                        <td>${importt.import_phone}</td>
+                        <td>${importt.import_department}</td>
+                        <td>${importt.import_quantity}</td>
+                        <td class="text-center">
+                            <form action="DeleteImport" method="post" style="display: inline;">
+                                <input type="hidden" name="importId" value="${importt.import_id}">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+                                    <i class="bi bi-dash-square"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
-        <div class="btn-file ms-3 me-3 mt-3">
-            <button class="btn btn-success" onclick="exportToExcel2()">
-                Tải xuống
-                <i class="bi bi-box-arrow-in-down ms-2"></i>
-            </button>
+    <!-- Quản lí phiếu xuất Section -->
+    <div class="row mt-5">
+        <div class="col bg-warning text-center rounded text-white p-3 mb-3 shadow-sm">
+            <h4>Quản lí phiếu xuất</h4>
         </div>
+    </div>
 
-        <div class="content-here ms-3 me-3">
-            <div class="table-content table-responsive">
-                 <table id="myTable2" class="table table-bordered" style="font-size: 14px;">
-    <thead class="table-primary">
-        <tr>
-            <th>Mã phiếu xuất</th>
-            <th>Tên phiếu xuất</th>
-            <th>Ngày xuất</th>
-            <th>Tên người xuất</th>
-            <th>Số điện thoại</th>
-            <th>Mã phòng ban</th>
-            <th>Số lượng</th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="exportt" items="${exportts}">
-            <tr>
-                <td>${exportt.export_id}</td>
-                <td>${exportt.export_name}</td> 
-                <td>${exportt.export_date}</td> 
-                <td>${exportt.export_receiver}</td> 
-                <td>${exportt.export_phone}</td> 
-                <td>${exportt.export_department}</td> 
-                <td>${exportt.export_quantity}</td> 
-                <td class="d-flex gap-2">
-                    <form action="DeleteExport" method="post" style="display: inline;">
-                        <input type="hidden" name="exportId" value="${exportt.export_id}">
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
-                            <i class="bi bi-dash-square"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-success" onclick="exportToExcel2()">
+            Tải xuống
+            <i class="bi bi-box-arrow-in-down ms-2"></i>
+        </button>
+    </div>
 
-		        </div>
-		        </div>
-		        	        
+    <div class="table-responsive shadow-sm">
+        <table id="myTable2" class="table table-striped table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <th>Mã phiếu xuất</th>
+                    <th>Tên phiếu xuất</th>
+                    <th>Ngày xuất</th>
+                    <th>Tên người nhận</th>
+                    <th>Số điện thoại</th>
+                    <th>Mã phòng ban</th>
+                    <th>Số lượng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="exportt" items="${exportts}">
+                    <tr>
+                        <td>${exportt.export_id}</td>
+                        <td>${exportt.export_name}</td>
+                        <td>${exportt.export_date}</td>
+                        <td>${exportt.export_receiver}</td>
+                        <td>${exportt.export_phone}</td>
+                        <td>${exportt.export_department}</td>
+                        <td>${exportt.export_quantity}</td>
+                        <td class="text-center">
+                            <form action="DeleteExport" method="post" style="display: inline;">
+                                <input type="hidden" name="exportId" value="${exportt.export_id}">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+                                    <i class="bi bi-dash-square"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+		        <!-- Modal -->
 		        
-	
+		        <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="transactionModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-lg">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <h5 class="modal-title" id="transactionModalLabel">Thông tin giao dịch</h5>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+				            <div class="modal-body">
+				                <table class="table table-bordered">
+				                    <thead class="table-primary">
+				                        <tr>
+				                            <th>Ngày giao dịch</th>
+				                            <th>Loại giao dịch</th>
+				                            <th>Tên vật tư</th>
+				                            <th>Số lượng</th>
+				                        </tr>
+				                    </thead>
+				                    <tbody id="transactionTableBody">
+				                       
+				                    </tbody>
+				                </table>
+				            </div>
+				        </div>
+				    </div>
+				</div>
 			<!-- Modal -->
 			<div class="modal fade" id="AddImport" tabindex="-1" aria-labelledby="AddImportExportLabel" aria-hidden="true">
 			    <div class="modal-dialog modal-lg">
@@ -328,7 +370,7 @@
 			            </div>
 			            <div class="modal-body">
 			                <!-- Form để chỉnh sửa thông tin -->
-			                <form action="Kho_admin" method="POST">
+			                <form action="ImportServlet" method="POST">
 			                    <div class="row mb-3">
 			                        <div class="col-md-6">
 			                            <label for="material_name" class="form-label">Tên vật tư:</label>

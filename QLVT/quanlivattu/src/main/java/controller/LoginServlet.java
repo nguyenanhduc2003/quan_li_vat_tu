@@ -81,25 +81,41 @@ public class LoginServlet extends HttpServlet {
 
                     // Kiểm tra vai trò và chuyển hướng tương ứng
                     String role = rs.getString("account_role");
+                    response.setContentType("text/html;charset=UTF-8");
                     if ("admin".equals(role)) {
                         // Nếu là admin, chuyển hướng đến trang quản trị
-                        response.sendRedirect("trangchu_admin.jsp");
+                    	response.getWriter().println("<script>alert('🎉 Chào mừng đăng nhập thành công!'); window.location.href = 'trangchu_admin.jsp';</script>");
+                    	
                     } else {
                         // Nếu là user, chuyển hướng đến trang người dùng
-                        response.sendRedirect("trangchu_user.jsp");
+                        response.getWriter().println("<script>alert('🎉 Chào mừng đăng nhập thành công!'); window.location.href = 'trangchu_user.jsp';</script>");
                     }
                 } else {
-                    // Mật khẩu sai
-                    response.sendRedirect("dangnhap.jsp?error=4");
+                	// Mật khẩu sai
+                	response.setContentType("text/html;charset=UTF-8");
+                	response.getWriter().println("<script>"
+                	    + "alert('⚠️ Mật khẩu không đúng. Vui lòng thử lại!');"
+                	    + "history.back();"
+                	    + "</script>");
                 }
             } else {
-                // Email không tồn tại trong cơ sở dữ liệu
-                response.sendRedirect("dangnhap.jsp?error=5");
+            	// Email không tồn tại
+            	response.setContentType("text/html;charset=UTF-8");
+            	response.getWriter().println("<script>"
+            	    + "alert('❌ Tài khoản không tồn tại. Vui lòng kiểm tra email của bạn!');"
+            	    + "history.back();"
+            	    + "</script>");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("dangnhap.jsp?error=3"); // Lỗi hệ thống
-        } finally {
+         // Lỗi hệ thống
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().println("<script>"
+                + "alert('🚨 Đã có lỗi xảy ra, xin vui lòng thử lại sau!');"
+                + "history.back();"
+                + "</script>");
+        } 
+        finally {
             try {
                 if (rs != null) rs.close();
                 if (pstmt != null) pstmt.close();

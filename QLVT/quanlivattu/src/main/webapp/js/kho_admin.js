@@ -116,5 +116,46 @@ $(table2).DataTable({
 });
 
 
+// 
+function filterTransactions() {
+    const fromDate = document.getElementById("fromDate").value;
+    const toDate = document.getElementById("toDate").value;
     
- // option
+    if (!fromDate || !toDate) {
+        alert("Vui lòng chọn cả hai ngày!");
+        return;
+    }
+
+
+   fetch(`FilterTransactionServlet?fromDate=${fromDate}&toDate=${toDate}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); 
+        if (data.length === 0) {
+            alert("Không có giao dịch trong khoảng thời gian này!");
+        } else {
+			console.log("Data received from server:", data);
+            showTransactionsModal(data);
+        }
+    })
+    .catch(error => console.error("Lỗi khi lấy dữ liệu:", error));
+
+}
+
+function showTransactionsModal(data) {
+    const tableBody = document.getElementById("transactionTableBody");
+    tableBody.innerHTML = "";
+
+    data.forEach(transaction => {
+        const row = `<tr>
+            <td>${transaction.date}</td>
+            <td>${transaction.type}</td>
+            <td>${transaction.materialName}</td>
+            <td>${transaction.quantity}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
+
+    const modal = new bootstrap.Modal(document.getElementById("transactionModal"));
+    modal.show();
+}

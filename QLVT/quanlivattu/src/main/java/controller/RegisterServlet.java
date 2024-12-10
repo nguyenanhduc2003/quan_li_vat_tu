@@ -105,15 +105,18 @@ public class RegisterServlet extends HttpServlet {
 
             if (rowsAffected > 0) {
                 // Đăng ký thành công, chuyển đến trang đăng nhập
-                response.sendRedirect("dangnhap.jsp?success=1");
+            	response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().println("<script>alert('🎉 Đăng kí tài khoản thành công!'); window.location.href = 'dangnhap.jsp';</script>");
             } else {
                 // Lỗi khi thêm tài khoản
-                response.sendRedirect("dangnhap.jsp?error=3");  // Lỗi hệ thống
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().println("<script>alert('⚠️ Có lỗi xảy ra!'); window.location.href = 'dangnhap.jsp';</script>");// Lỗi hệ thống
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("dangnhap.jsp?error=3");  // Lỗi hệ thống
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().println("<script>alert('⚠️ Có lỗi xảy ra, hãy thử lại!'); window.location.href = 'dangnhap.jsp';</script>");// Lỗi hệ thống
         } finally {
             try {
                 if (rs != null) rs.close();

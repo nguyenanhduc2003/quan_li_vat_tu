@@ -111,3 +111,26 @@ editButtons.forEach(button => {
 });
 
 
+//
+ function forecastMaterial(materialId, type) {
+        if (!materialId || !type) {
+            console.error("Missing parameters for forecastMaterial");
+            return;
+        }
+
+        fetch(`ForecastServlet?materialId=${materialId}&type=${type}`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`Dự báo ${type === 'import' ? 'Nhập' : 'Xuất'} thành công! Kết quả: ${data.forecast}`);
+            } else {
+                alert('Dự báo thất bại!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Có lỗi xảy ra khi dự báo!');
+        });
+    }

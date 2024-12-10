@@ -192,3 +192,26 @@ body.fade-out {
     .btn-custom:active {
         transform: translateY(1px);
     }
+    
+ .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+    .shadow-sm {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+        font-size: 14px;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
+    .btn {
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .btn:hover {
+        background-color: #006400;
+        transform: scale(1.05);
+    }

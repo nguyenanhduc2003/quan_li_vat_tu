@@ -86,39 +86,31 @@ public class ImportDAO extends BaseDAO implements Dao<Import> {
 
 
 	@Override
-	public List<Import> getAll() {
-		List<Import> importts = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+	 public List<Import> getAll() {
+        List<Import> importList = new ArrayList<>();
+        String query = "SELECT * FROM tblimport";
 
-        try {
-            conn = getConnection();  
-            String sql = "SELECT * FROM tblimport";
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            System.out.println("Query executed successfully!");
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
 
-            // Duyệt qua tất cả các bản ghi và thêm vào danh sách imports
             while (rs.next()) {
-                Import importItem = new Import();
-                importItem.setImport_id(rs.getInt("import_id"));
-                importItem.setImport_name(rs.getString("import_name"));
-                importItem.setImport_date(rs.getString("import_date"));
-                importItem.setImport_receiver(rs.getString("import_receiver"));
-                importItem.setImport_phone(rs.getString("import_phone"));
-                importItem.setImport_department(rs.getString("import_department"));
-                importItem.setImport_quantity(rs.getInt("import_quantity"));
-                importts.add(importItem);
+                Import importt = new Import();
+                importt.setImport_id(rs.getInt("import_id"));
+                importt.setImport_name(rs.getString("import_name"));
+                importt.setImport_date(rs.getString("import_date"));
+                importt.setImport_receiver(rs.getString("import_receiver"));
+                importt.setImport_phone(rs.getString("import_phone"));
+                importt.setImport_department(rs.getString("import_department"));
+                importt.setImport_quantity(rs.getInt("import_quantity"));
+                importList.add(importt);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeResources(conn, pstmt, rs);  // Hàm đóng tài nguyên
         }
 
-        return importts;
-	}
+        return importList;
+    }
 
 	@Override
 	public Optional<Import> get(int id) {

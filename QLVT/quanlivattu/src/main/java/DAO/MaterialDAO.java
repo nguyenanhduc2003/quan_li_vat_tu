@@ -154,58 +154,37 @@ public class MaterialDAO extends BaseDAO implements Dao<Material>{
 	// Thực hiện nhập kho vào tblimport và cập nhật số lượng vật tư trong tblmaterial
 		public boolean importMaterial(int materialId, String importName, String importDate, String importReceiver, String importPhone, String importDepartment, int importQuantity) {
 		    Connection conn = null;
-		    PreparedStatement pstmtImport = null;
-		    PreparedStatement pstmtUpdate = null;
-		    boolean success = false;
-
+		    PreparedStatement pstmt = null;
 		    try {
 		        conn = getConnection();
-		        conn.setAutoCommit(false); // Bắt đầu giao dịch
+		        String sql = "INSERT INTO tblimport (import_name, import_date, import_receiver, import_phone, import_department, import_quantity, material_id) " +
+		                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		        pstmt = conn.prepareStatement(sql);
+		        pstmt.setString(1, importName);
+		        pstmt.setString(2, importDate);
+		        pstmt.setString(3, importReceiver);
+		        pstmt.setString(4, importPhone);
+		        pstmt.setString(5, importDepartment);
+		        pstmt.setInt(6, importQuantity);
+		        pstmt.setInt(7, materialId);
 
-		        // Chèn phiếu nhập kho vào tblimport
-		        String sqlImport = "INSERT INTO tblimport (import_name, import_date, import_receiver, import_phone, import_department, import_quantity, material_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		        pstmtImport = conn.prepareStatement(sqlImport);
-		        pstmtImport.setString(1, importName);
-		        pstmtImport.setString(2, importDate);
-		        pstmtImport.setString(3, importReceiver);
-		        pstmtImport.setString(4, importPhone);
-		        pstmtImport.setString(5, importDepartment);
-		        pstmtImport.setInt(6, importQuantity);
-		        pstmtImport.setInt(7, materialId);
-		        pstmtImport.executeUpdate();
-
-		        // Cập nhật số lượng vật tư trong tblmaterial
-		        String sqlUpdate = "UPDATE tblmaterial SET material_quantity = material_quantity + ? WHERE material_id = ?";
-		        pstmtUpdate = conn.prepareStatement(sqlUpdate);
-		        pstmtUpdate.setInt(1, importQuantity);
-		        pstmtUpdate.setInt(2, materialId);
-		        pstmtUpdate.executeUpdate();
-
-		        conn.commit(); // Xác nhận giao dịch
-		        success = true; // Thành công
+		        int rowsAffected = pstmt.executeUpdate();
+		        return rowsAffected > 0;
 		    } catch (SQLException e) {
-		        try {
-		            if (conn != null) {
-		                conn.rollback(); // Nếu có lỗi, hoàn tác giao dịch
-		            }
-		        } catch (SQLException ex) {
-		            ex.printStackTrace();
-		        }
+		        System.out.println("SQL Error: " + e.getMessage());
 		        e.printStackTrace();
+		        return false;
 		    } finally {
 		        try {
-		            if (conn != null) {
-		                conn.setAutoCommit(true); // Quay lại chế độ commit tự động
-		            }
+		            if (pstmt != null) pstmt.close();
+		            if (conn != null) conn.close();
 		        } catch (SQLException e) {
 		            e.printStackTrace();
 		        }
-		        closeResources(conn, pstmtImport, null);
-		        closeResources(null, pstmtUpdate, null);
 		    }
-
-		    return success;
 		}
+
+
 	// Lấy material_id từ tên vật tư
 	public int getMaterialIdByName(String materialName) {
 	    Connection conn = null;
