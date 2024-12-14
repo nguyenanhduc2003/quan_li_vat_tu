@@ -13,7 +13,6 @@ public class BaseDAO {
 
 	    // Lấy kết nối đến cơ sở dữ liệu từ pool
 	    protected Connection getConnection() throws SQLException {
-	        System.out.println("Đang kết nối đến cơ sở dữ liệu...");
 	        return pool.getConnection("BaseDAO");
 	    }
 

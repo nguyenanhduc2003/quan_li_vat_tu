@@ -57,6 +57,7 @@ public class ImportServlet extends HttpServlet {
             response.getWriter().println("<script>alert('Vật tư không tồn tại.'); history.back();</script>");
             return;
         }
+        int currentStock = materialDAO.getStockByMaterialName(materialName);
 
         // Nhập kho
         boolean success = materialDAO.importMaterial(materialId, importName, importDate, importReceiver, importPhone, importDepartment, importQuantity);
@@ -65,6 +66,11 @@ public class ImportServlet extends HttpServlet {
         TransactionDAO transactionDAO = new TransactionDAO();
         if (transactionDAO.addTransaction("Nhập", importDate, importQuantity, materialId)) {
             System.out.println("Transaction logged successfully.");
+        }
+        
+        // Cập nhật số lượng tồn kho
+        if (success) {
+            materialDAO.updateStock(materialName, currentStock + importQuantity);
         }
         // Kiểm tra kết quả và trả về thông báo
         response.setContentType("text/html;charset=UTF-8");
