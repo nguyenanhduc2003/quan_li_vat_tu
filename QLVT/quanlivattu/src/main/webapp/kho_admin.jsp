@@ -25,6 +25,11 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!--xuatfile-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    
+     <!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<!-- SweetAlert2 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body style="font-family: 'Noto Serif', serif;">
@@ -110,7 +115,7 @@
 				    </button>
 				</div>
                 
-                 <!-- Modal -->
+                <!-- Modal -->
 				<div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
 				    <div class="modal-dialog">
 				        <div class="modal-content shadow-lg border-0 rounded-3">
@@ -119,22 +124,22 @@
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 				            <div class="modal-body">
-				                <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+				                <form id="UpdateInfoServlet" action="UpdateInfoServlet" method="post">
 				                    <div class="mb-4">
 				                        <label for="fullName" class="form-label">Họ và tên</label>
-				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName" required>
+				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
-				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber" required>
+				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="birthDate" class="form-label">Ngày sinh</label>
-				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate" required>
+				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="address" class="form-label">Địa chỉ</label>
-				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3" required></textarea>
+				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3"></textarea>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Cập nhật</button>
 				                </form>
@@ -230,12 +235,17 @@
         
          <div class="container mt-4">
     <!-- Quản lí phiếu nhập Section -->
+<div class="container my-5">
+    <!-- Title Section -->
     <div class="row">
-        <div class="col bg-primary text-center rounded text-white p-3 mb-3 shadow-sm">
-            <h4>Quản lí phiếu nhập</h4>
+        <div class="col text-center mb-4">
+            <div class="title-box">
+                <h4 class="title-text">Quản lý phiếu nhập</h4>
+            </div>
         </div>
     </div>
 
+    <!-- Button to download -->
     <div class="d-flex justify-content-end mb-3">
         <button class="btn btn-success" onclick="exportToExcel1()">
             Tải xuống
@@ -243,9 +253,10 @@
         </button>
     </div>
 
-    <div class="table-responsive shadow-sm">
-        <table id="myTable1" class="table table-striped table-bordered">
-            <thead class="table-primary">
+    <!-- Table Section -->
+    <div class="table-responsive shadow-lg">
+        <table id="myTable1" class="table table-hover table-bordered">
+            <thead class="thead-light">
                 <tr>
                     <th>Mã phiếu nhập</th>
                     <th>Tên phiếu nhập</th>
@@ -270,8 +281,8 @@
                         <td class="text-center">
                             <form action="DeleteImport" method="post" style="display: inline;">
                                 <input type="hidden" name="importId" value="${importt.import_id}">
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
-                                    <i class="bi bi-dash-square"></i>
+                                <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+                                    <i class="bi bi-dash-square text-danger"></i>
                                 </button>
                             </form>
                         </td>
@@ -280,14 +291,20 @@
             </tbody>
         </table>
     </div>
+</div>
 
-    <!-- Quản lí phiếu xuất Section -->
-    <div class="row mt-5">
-        <div class="col bg-warning text-center rounded text-white p-3 mb-3 shadow-sm">
-            <h4>Quản lí phiếu xuất</h4>
+   <!-- Quản lí phiếu xuất Section -->
+<div class="container my-5">
+    <!-- Title Section -->
+    <div class="row">
+        <div class="col text-center mb-4">
+            <div class="title-box">
+                <h4 class="title-text">Quản lý phiếu xuất</h4>
+            </div>
         </div>
     </div>
 
+    <!-- Button to download -->
     <div class="d-flex justify-content-end mb-3">
         <button class="btn btn-success" onclick="exportToExcel2()">
             Tải xuống
@@ -295,9 +312,10 @@
         </button>
     </div>
 
-    <div class="table-responsive shadow-sm">
-        <table id="myTable2" class="table table-striped table-bordered">
-            <thead class="table-primary">
+    <!-- Table Section -->
+    <div class="table-responsive shadow-lg">
+        <table id="myTable2" class="table table-hover table-bordered">
+            <thead class="thead-light">
                 <tr>
                     <th>Mã phiếu xuất</th>
                     <th>Tên phiếu xuất</th>
@@ -322,8 +340,8 @@
                         <td class="text-center">
                             <form action="DeleteExport" method="post" style="display: inline;">
                                 <input type="hidden" name="exportId" value="${exportt.export_id}">
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
-                                    <i class="bi bi-dash-square"></i>
+                                <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">
+                                    <i class="bi bi-dash-square text-danger"></i>
                                 </button>
                             </form>
                         </td>
@@ -332,6 +350,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 		        <!-- Modal -->
 		        
@@ -374,7 +393,7 @@
 			                    <div class="row mb-3">
 			                        <div class="col-md-6">
 			                            <label for="material_name" class="form-label">Tên vật tư:</label>
-			                            <select id="material_name" name="material_name" class="form-select" required>
+			                            <select id="material_name" name="material_name" class="form-select">
 			                                <option value="">--Chọn vật tư--</option>
 			                                <c:forEach var="material" items="${materialList}">
 			                                    <option value="${material.material_name}">${material.material_name}</option>
@@ -383,29 +402,29 @@
 			                        </div>
 			                        <div class="col-md-6">
 			                            <label for="import_name" class="form-label">Tên phiếu nhập:</label>
-			                            <input type="text" id="import_name" name="import_name" class="form-control" required>
+			                            <input type="text" id="import_name" name="import_name" class="form-control">
 			                        </div>
 			                    </div>
 			
 			                    <div class="row mb-3">
 			                        <div class="col-md-6">
 			                            <label for="import_date" class="form-label">Ngày nhập:</label>
-			                            <input type="date" id="import_date" name="import_date" class="form-control" required>
+			                            <input type="date" id="import_date" name="import_date" class="form-control">
 			                        </div>
 			                        <div class="col-md-6">
 			                            <label for="import_receiver" class="form-label">Tên người nhập:</label>
-			                            <input type="text" id="import_receiver" name="import_receiver" class="form-control" required>
+			                            <input type="text" id="import_receiver" name="import_receiver" class="form-control">
 			                        </div>
 			                    </div>
 			
 			                    <div class="row mb-3">
 			                        <div class="col-md-6">
 			                            <label for="import_phone" class="form-label">Số điện thoại:</label>
-			                            <input type="number" id="import_phone" name="import_phone" class="form-control" required>
+			                            <input type="number" id="import_phone" name="import_phone" class="form-control">
 			                        </div>
 			                        <div class="col-md-6">
 			                            <label for="import_department" class="form-label">Phòng ban:</label>
-			                            <select id="import_department" name="import_department" class="form-select" required>
+			                            <select id="import_department" name="import_department" class="form-select">
 			                                <option value="">--Chọn phòng ban--</option>
 			                                <c:forEach var="department" items="${departments}">
 			                                    <option value="${department.department_id}">${department.department_name}</option>
@@ -417,7 +436,7 @@
 			                    <div class="row mb-3">
 			                        <div class="col-md-6">
 			                            <label for="import_quantity" class="form-label">Số lượng nhập:</label>
-			                            <input type="number" id="import_quantity" name="import_quantity" class="form-control" required>
+			                            <input type="number" id="import_quantity" name="import_quantity" class="form-control">
 			                        </div>
 			                    </div>
 			
@@ -444,7 +463,7 @@
 				                    <div class="row mb-3">
 				                        <div class="col-md-6">
 				                            <label for="material_name" class="form-label">Tên vật tư:</label>
-				                            <select id="material_name" name="material_name" class="form-select" required>
+				                            <select id="material_name" name="material_name" class="form-select">
 				                                <option value="">--Chọn vật tư--</option>
 				                                <c:forEach var="material" items="${materialList}">
 				                                    <option value="${material.material_name}">${material.material_name}</option>
@@ -453,29 +472,29 @@
 				                        </div>
 				                        <div class="col-md-6">
 				                            <label for="export_name" class="form-label">Tên phiếu xuất:</label>
-				                            <input type="text" id="export_name" name="export_name" class="form-control" required>
+				                            <input type="text" id="export_name" name="export_name" class="form-control">
 				                        </div>
 				                    </div>
 				
 				                    <div class="row mb-3">
 				                        <div class="col-md-6">
 				                            <label for="export_date" class="form-label">Ngày xuất:</label>
-				                            <input type="date" id="export_date" name="export_date" class="form-control" required>
+				                            <input type="date" id="export_date" name="export_date" class="form-control">
 				                        </div>
 				                        <div class="col-md-6">
 				                            <label for="export_receiver" class="form-label">Tên người xuất:</label>
-				                            <input type="text" id="export_receiver" name="export_receiver" class="form-control" required>
+				                            <input type="text" id="export_receiver" name="export_receiver" class="form-control">
 				                        </div>
 				                    </div>
 				
 				                    <div class="row mb-3">
 				                        <div class="col-md-6">
 				                            <label for="export_phone" class="form-label">Số điện thoại:</label>
-				                            <input type="number" id="export_phone" name="export_phone" class="form-control" required>
+				                            <input type="number" id="export_phone" name="export_phone" class="form-control">
 				                        </div>
 				                        <div class="col-md-6">
 				                            <label for="export_department" class="form-label">Phòng ban:</label>
-				                            <select id="export_department" name="export_department" class="form-select" required>
+				                            <select id="export_department" name="export_department" class="form-select">
 				                                <option value="">--Chọn phòng ban--</option>
 				                                <c:forEach var="department" items="${departments}">
 				                                    <option value="${department.department_id}">${department.department_name}</option>
@@ -487,7 +506,7 @@
 				                    <div class="row mb-3">
 				                        <div class="col-md-6">
 				                            <label for="export_quantity" class="form-label">Số lượng xuất:</label>
-				                            <input type="number" id="export_quantity" name="export_quantity" class="form-control" required>
+				                            <input type="number" id="export_quantity" name="export_quantity" class="form-control">
 				                        </div>
 				                    </div>
 				

@@ -24,6 +24,11 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!--xuatfile-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    
+     <!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<!-- SweetAlert2 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body style="font-family: 'Noto Serif', serif;">
@@ -118,22 +123,22 @@
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 				            <div class="modal-body">
-				                <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+				                <form id="UpdateInfoServlet" action="UpdateInfoServlet" method="post">
 				                    <div class="mb-4">
 				                        <label for="fullName" class="form-label">Họ và tên</label>
-				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName" required>
+				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
-				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber" required>
+				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="birthDate" class="form-label">Ngày sinh</label>
-				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate" required>
+				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="address" class="form-label">Địa chỉ</label>
-				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3" required></textarea>
+				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3"></textarea>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Cập nhật</button>
 				                </form>
@@ -198,8 +203,8 @@
                 </button>
             </div>
             <div class="table-content mt-4">
-                <table id="myTable" class="table table-bordered table-striped" style="font-size: 14px;">
-                    <thead class="table-primary">
+                <table id="myTable" class="table table-hover" style="font-size: 14px;">
+                    <thead>
                     <tr>
                     	<th>Mã</th>
                         <th>Họ và Tên</th>
@@ -232,7 +237,7 @@
 							</td>
 
                             <td class="action-cell">
-                                <button class="btn btn-primary btn-sm btn-edit" data-bs-toggle="modal" data-bs-target="#Duyet"><i class="bi bi-pencil-square"></i></button>                              
+                                <button class="btn btn-sm btn-edit" data-bs-toggle="modal" data-bs-target="#Duyet"><i class="bi bi-pencil-square text-primary"></i></button>                              
                             </td>
                         </tr>
                     </c:forEach>

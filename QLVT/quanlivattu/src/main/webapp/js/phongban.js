@@ -176,3 +176,353 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// Xử lý form "Thêm phòng ban mới"
+document.getElementById("addDepartmentForm").addEventListener("submit", function (event) {
+    // Lấy giá trị từ các trường
+    const departmentId = document.getElementById("department_id").value.trim();
+    const departmentName = document.getElementById("department_name").value.trim();
+    const departmentUnit = document.getElementById("department_unit").value.trim();
+    const departmentSpecialized = document.getElementById("department_specialized").value.trim();
+
+    let isValid = true;
+    let errorMessages = [];
+
+    // Kiểm tra mã phòng ban
+    if (!departmentId) {
+        isValid = false;
+        errorMessages.push("Mã phòng ban không được để trống.");
+    } else if (departmentId.length > 10) {
+        isValid = false;
+        errorMessages.push("Mã phòng ban không được dài quá 10 ký tự.");
+    }
+
+    // Kiểm tra tên phòng ban
+    if (!departmentName) {
+        isValid = false;
+        errorMessages.push("Tên phòng ban không được để trống.");
+    } else if (departmentName.length > 50) {
+        isValid = false;
+        errorMessages.push("Tên phòng ban không được dài quá 50 ký tự.");
+    }
+
+    // Kiểm tra đơn vị trực thuộc
+    if (!departmentUnit) {
+        isValid = false;
+        errorMessages.push("Đơn vị trực thuộc không được để trống.");
+    }
+
+    // Kiểm tra chuyên ngành
+    if (!departmentSpecialized) {
+        isValid = false;
+        errorMessages.push("Chuyên ngành không được để trống.");
+    }
+
+    // Nếu có lỗi, hiển thị bằng SweetAlert2
+    if (!isValid) {
+        event.preventDefault(); // Ngăn form submit
+
+        Swal.fire({
+            title: "Lỗi nhập liệu",
+            html: errorMessages.map(msg => `<p>${msg}</p>`).join(""),
+            icon: "error",
+            confirmButtonText: "Đã hiểu",
+            customClass: {
+                popup: "rounded-3",
+                title: "text-danger",
+                confirmButton: "btn btn-primary rounded-pill"
+            },
+            buttonsStyling: false
+        });
+    }
+});
+
+document.getElementById("addPersonnelForm").addEventListener("submit", function (event) {
+    try {
+        // Lấy giá trị từ form
+        const personnelId = document.getElementById("personnel_id").value.trim();
+        const personnelName = document.getElementById("personnel_name").value.trim();
+        const personnelGender = document.getElementById("personnel_gender").value;
+        const personnelBirthday = document.getElementById("personnel_birthday").value;
+        const personnelPhone = document.getElementById("personnel_phone").value.trim();
+        const departmentId = document.getElementById("department_id").value.trim();
+        const personnelAddress = document.getElementById("personnel_address").value.trim();
+
+        let isValid = true;
+        let errorMessages = [];
+
+        // Kiểm tra Mã nhân sự
+        if (!personnelId) {
+            isValid = false;
+            errorMessages.push("Mã nhân sự không được để trống.");
+        }
+
+        // Kiểm tra Tên nhân sự
+        if (!personnelName) {
+            isValid = false;
+            errorMessages.push("Tên nhân sự không được để trống.");
+        }
+
+        // Kiểm tra Giới tính
+        if (!personnelGender) {
+            isValid = false;
+            errorMessages.push("Vui lòng chọn giới tính.");
+        }
+
+        // Kiểm tra Ngày sinh
+        if (!personnelBirthday) {
+            isValid = false;
+            errorMessages.push("Ngày sinh không được để trống.");
+        }
+
+        // Kiểm tra Số điện thoại
+        if (!personnelPhone) {
+            isValid = false;
+            errorMessages.push("Số điện thoại không được để trống.");
+        } else if (!/^\d{10}$/.test(personnelPhone)) {
+            isValid = false;
+            errorMessages.push("Số điện thoại phải có đúng 10 chữ số.");
+        }
+
+        // Kiểm tra Mã phòng ban
+        if (!departmentId) {
+            isValid = false;
+            errorMessages.push("Mã phòng ban không được để trống.");
+        }
+
+        // Kiểm tra Địa chỉ
+        if (!personnelAddress) {
+            isValid = false;
+            errorMessages.push("Địa chỉ không được để trống.");
+        }
+
+        // Hiển thị thông báo lỗi nếu dữ liệu không hợp lệ
+        if (!isValid) {
+            event.preventDefault(); // Ngăn chặn form submit
+
+            Swal.fire({
+                title: "Lỗi nhập liệu",
+                html: errorMessages.map(msg => `<p>${msg}</p>`).join(""),
+                icon: "error",
+                confirmButtonText: "Đã hiểu",
+                customClass: {
+                    popup: "rounded-3",
+                    title: "text-danger",
+                    confirmButton: "btn btn-primary rounded-pill"
+                },
+                buttonsStyling: false
+            });
+        }
+    } catch (error) {
+        // Xử lý ngoại lệ không mong muốn
+        event.preventDefault();
+        Swal.fire({
+            title: "Đã xảy ra lỗi!",
+            text: `Chi tiết: ${error.message}`,
+            icon: "error",
+            confirmButtonText: "Đóng",
+            customClass: {
+                popup: "rounded-3",
+                title: "text-danger",
+                confirmButton: "btn btn-primary rounded-pill"
+            },
+            buttonsStyling: false
+        });
+    }
+});
+
+// KIỂM TRA SỬA PHÒNG BAN
+document.addEventListener("DOMContentLoaded", function () {
+    const modalId = "#UpdateDepartment";
+    const formId = "#updateInfoForm";
+
+    try {
+        // Kiểm tra modal tồn tại
+        const modal = document.querySelector(modalId);
+        if (!modal) {
+            throw new Error("Modal không tồn tại trên trang.");
+        }
+
+        // Lắng nghe sự kiện submit của form
+        const form = document.querySelector(formId);
+        if (!form) {
+            throw new Error("Form không tồn tại trong modal.");
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Ngăn form gửi dữ liệu mặc định
+
+            try {
+                // Lấy dữ liệu từ các input
+                const departmentName = document.querySelector("#department_name1").value;
+                const departmentUnit = document.querySelector("#department_unit1").value;
+                const departmentSpecialized = document.querySelector("#department_specialized1").value;
+
+                // Kiểm tra các trường dữ liệu hợp lệ
+                if (!departmentName.trim()) {
+                    throw new Error("Tên phòng ban không được để trống.");
+                }
+                if (!departmentUnit.trim()) {
+                    throw new Error("Đơn vị trực thuộc không được để trống.");
+                }
+                if (!departmentSpecialized.trim()) {
+                    throw new Error("Chuyên ngành không được để trống.");
+                }
+
+                // Nếu không có lỗi, cho phép gửi form
+                form.submit();
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: error.message
+                });
+            }
+        });
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi nghiêm trọng",
+            text: error.message
+        });
+    }
+});
+// KIỂM TRA SỬA NHÂN SỰ
+document.addEventListener("DOMContentLoaded", function () {
+    const modalId = "#UpdatePersonnel";
+    const formId = "#updateInfoForm1";
+
+    try {
+        // Kiểm tra modal tồn tại
+        const modal = document.querySelector(modalId);
+        if (!modal) {
+            throw new Error("Modal không tồn tại trên trang.");
+        }
+
+        // Lắng nghe sự kiện submit của form
+        const form = document.querySelector(formId);
+        if (!form) {
+            throw new Error("Form không tồn tại trong modal.");
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Ngăn form gửi dữ liệu mặc định
+
+            try {
+                // Lấy dữ liệu từ các input
+                const personnelName = document.querySelector("#personnel_name1").value.trim();
+                const personnelGender = document.querySelector("#personnel_gender1").value;
+                const personnelBirthday = document.querySelector("#personnel_birthday1").value;
+                const personnelPhone = document.querySelector("#personnel_phone1").value.trim();
+                const personnelAddress = document.querySelector("#personnel_address1").value.trim();
+                const departmentId = document.querySelector("#department_id11").value.trim();
+
+                // Kiểm tra các trường dữ liệu hợp lệ
+                if (!personnelName) {
+                    throw new Error("Tên nhân sự không được để trống.");
+                }
+                if (!personnelGender) {
+                    throw new Error("Giới tính không được để trống.");
+                }
+                if (!personnelBirthday) {
+                    throw new Error("Ngày sinh không được để trống.");
+                }
+                if (!personnelPhone || !/^\d{10,11}$/.test(personnelPhone)) {
+                    throw new Error("Số điện thoại không hợp lệ. Hãy nhập từ 10 đến 11 chữ số.");
+                }
+                if (!personnelAddress) {
+                    throw new Error("Địa chỉ không được để trống.");
+                }
+                if (!departmentId || isNaN(departmentId)) {
+                    throw new Error("Mã phòng ban phải là một số hợp lệ.");
+                }
+
+                // Nếu không có lỗi, cho phép gửi form
+                form.submit();
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: error.message
+                });
+            }
+        });
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi nghiêm trọng",
+            text: error.message
+        });
+    }
+});
+
+
+// Xử lý form cập nhật thông tin cá nhân
+document.getElementById("UpdateInfoServlet").addEventListener("submit", function (event) {
+    // Lấy giá trị từ các trường
+    const fullName = document.getElementById("fullName").value.trim();
+    const phoneNumber = document.getElementById("phoneNumber").value.trim();
+    const birthDate = document.getElementById("birthDate").value;
+    const address = document.getElementById("address").value.trim();
+
+    let isValid = true;
+    let errorMessages = [];
+
+    // Kiểm tra họ và tên
+    if (!fullName) {
+        isValid = false;
+        errorMessages.push("Họ và tên không được để trống.");
+    } else if (fullName.length > 100) {
+        isValid = false;
+        errorMessages.push("Họ và tên không được dài quá 100 ký tự.");
+    }
+
+    // Kiểm tra số điện thoại
+    if (!phoneNumber) {
+        isValid = false;
+        errorMessages.push("Số điện thoại không được để trống.");
+    } else if (!/^\d{10,15}$/.test(phoneNumber)) {
+        isValid = false;
+        errorMessages.push("Số điện thoại phải là số có từ 10 đến 15 chữ số.");
+    }
+
+    // Kiểm tra ngày sinh
+    if (!birthDate) {
+        isValid = false;
+        errorMessages.push("Ngày sinh không được để trống.");
+    } else {
+        const today = new Date();
+        const selectedDate = new Date(birthDate);
+        if (selectedDate >= today) {
+            isValid = false;
+            errorMessages.push("Ngày sinh phải nhỏ hơn ngày hiện tại.");
+        }
+    }
+
+    // Kiểm tra địa chỉ
+    if (!address) {
+        isValid = false;
+        errorMessages.push("Địa chỉ không được để trống.");
+    } else if (address.length > 200) {
+        isValid = false;
+        errorMessages.push("Địa chỉ không được dài quá 200 ký tự.");
+    }
+
+    if (!isValid) {
+        event.preventDefault(); // Ngăn form submit
+
+        Swal.fire({
+            title: "Lỗi nhập liệu",
+            html: errorMessages.map(msg => `<p>${msg}</p>`).join(""),
+            icon: "error",
+            confirmButtonText: "Đã hiểu",
+            customClass: {
+			    popup: "rounded-3 bg-light",
+			    title: "text-danger",
+			    confirmButton: "btn btn-danger rounded-pill"
+			},
+            buttonsStyling: false
+        });
+    }
+});
+

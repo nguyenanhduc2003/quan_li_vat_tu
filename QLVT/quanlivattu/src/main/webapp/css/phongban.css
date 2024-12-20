@@ -143,7 +143,6 @@ body.fade-out {
     }
 }
 .table tbody tr:hover{
-    background-color: rgb(248, 236, 236);
     transition: 0.3s;
 }
 .add-data{
@@ -166,21 +165,38 @@ body.fade-out {
     margin-top: 10px;
     margin-bottom: 20px;
 }
-.thongke1{
+.thongke1 {
     text-align: center;
-    align-items: center;
-    font-size: 18px;
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: 4px 4px 3px rgb(181, 183, 181);
+    padding: 20px;
+    border-radius: 12px; /* Bo góc lớn hơn để tạo sự mềm mại */
+    background-color: #ffffff; /* Màu nền trắng */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng hover */
 }
-.thongke1 i{
-    color: #21dbcf;
+
+.thongke1:hover {
+    transform: translateY(-5px); /* Nổi lên khi hover */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Đổ bóng đậm khi hover */
 }
-.thongke1 p{
+
+.thongke-title {
+    font-size: 20px;
+    font-weight: bold; /* Chữ đậm hơn */
+    color: #333; /* Màu chữ tối cho tiêu đề */
+}
+
+.thongke1 i {
+    color: #21dbcf; /* Màu icon */
+    font-size: 40px; /* Kích thước icon lớn hơn */
+}
+
+.thongke1 p {
     font-size: 30px;
-    margin-top: 5px;
+    margin-top: 10px; /* Khoảng cách giữa icon và số */
+    font-weight: 600; /* Chữ đậm */
+    color: #555; /* Màu chữ số */
 }
+
 
 /*thiet ke lai button */
   .btn-custom {
@@ -231,3 +247,193 @@ body.fade-out {
     .btn-custom:active {
         transform: translateY(1px);
     }
+    
+.title-box {
+    color: transparent; 
+    font-size: 30px; 
+    font-weight: bold; /* Chữ đậm */
+    background-image: linear-gradient(45deg, #28a745, #21dbcf); /* Màu gradient xanh lá và xanh dương */
+    -webkit-background-clip: text; /* Áp dụng gradient cho chữ */
+    background-clip: text; /* Áp dụng gradient cho chữ */
+    padding: 10px 20px; /* Khoảng cách bên trong */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng khi hover */
+}
+
+.title-box:hover {
+    transform: translateY(-5px); /* Di chuyển lên một chút khi hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng đậm hơn khi hover */
+}
+
+
+.btn-add {
+    background-color: #21dbcf; 
+    color: white; 
+    border: none; 
+    border-radius: 30px; 
+    font-size: 16px; 
+    font-weight: 600; 
+    padding: 12px 24px; 
+    display: flex; 
+    align-items: center; 
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-add i {
+    margin-right: 8px; 
+    font-size: 18px; 
+}
+
+.btn-add:hover {
+    background-color: #17b6a7; 
+    color: white;
+    transform: scale(1.05); 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.btn-custom:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(33, 219, 207, 0.5);
+}
+.container-content {
+    background-color: #f7f9fc; 
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05); 
+}
+
+
+
+#myTable1 {
+    width: 100%;
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif; /* Font chữ hiện đại */
+    background-color: #fff; /* Nền trắng */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+    border-radius: 10px; /* Bo góc */
+    overflow: hidden;
+}
+
+
+#myTable1 thead tr {
+    background-color: #4CAF50; /* Màu nền tiêu đề */
+    color: #fff; /* Màu chữ trắng */
+    text-align: left;
+    font-weight: bold;
+}
+
+
+#myTable1 th {
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+
+#myTable1 tbody tr {
+    border-bottom: 1px solid #ddd; /* Đường viền giữa các hàng */
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+}
+
+
+#myTable1 td {
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #333; /* Màu chữ tối */
+}
+
+
+#myTable1 tbody tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+
+#myTable1 .btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px;
+}
+
+
+#myTable1 .bi-pencil-square {
+    font-size: 18px;
+}
+
+
+#myTable1 .bi-dash-square {
+    font-size: 18px;
+}
+
+
+#myTable1 .btn:hover {
+    opacity: 0.8; 
+}
+
+
+#myTable {
+    width: 100%;
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif; /* Font chữ hiện đại */
+    background-color: #fff; /* Nền trắng */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+    border-radius: 10px; /* Bo góc */
+    overflow: hidden;
+}
+
+
+#myTable thead tr {
+    background-color: #4CAF50; /* Màu nền tiêu đề */
+    color: #fff; /* Màu chữ trắng */
+    text-align: left;
+    font-weight: bold;
+}
+
+
+#myTable th {
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+
+#myTable tbody tr {
+    border-bottom: 1px solid #ddd; /* Đường viền giữa các hàng */
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+}
+
+
+#myTable td {
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #333; /* Màu chữ tối */
+}
+
+
+#myTable tbody tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+
+#myTable .btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px;
+}
+
+
+#myTable .bi-pencil-square {
+    font-size: 18px;
+}
+
+
+#myTable .bi-dash-square {
+    font-size: 18px;
+}
+
+
+#myTable .btn:hover {
+    opacity: 0.8; 
+}
+

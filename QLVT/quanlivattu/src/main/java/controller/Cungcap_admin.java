@@ -90,6 +90,7 @@ public class Cungcap_admin extends HttpServlet {
 	                response.getWriter().println("<script>alert('Cập nhật thất bại, vui lòng thử lại.'); history.back();</script>");
 	            }
 	        } catch (Exception e) {
+	        	 response.setContentType("text/html;charset=UTF-8");
 	            e.printStackTrace();
 	            response.getWriter().println("<script>alert('Có lỗi xảy ra trong quá trình xử lý dữ liệu. Vui lòng thử lại sau.'); history.back();</script>");
 	        }

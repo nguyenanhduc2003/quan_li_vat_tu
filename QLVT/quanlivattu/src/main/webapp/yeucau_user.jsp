@@ -18,7 +18,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
-
+	
+	<!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<!-- SweetAlert2 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
 </head>
 <body style="font-family: 'Noto Serif', serif;">
     <!--sidebar-->
@@ -94,22 +99,22 @@
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 				            <div class="modal-body">
-				                <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+				                <form id="UpdateInfoServlet" action="UpdateInfoServlet" method="post">
 				                    <div class="mb-4">
 				                        <label for="fullName" class="form-label">Họ và tên</label>
-				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName" required>
+				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
-				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber" required>
+				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="birthDate" class="form-label">Ngày sinh</label>
-				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate" required>
+				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="address" class="form-label">Địa chỉ</label>
-				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3" required></textarea>
+				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3"></textarea>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Cập nhật</button>
 				                </form>
@@ -204,6 +209,6 @@
 
     </main>
     <!--end main content-->
-    <script src="${pageContext.request.contextPath}/js/vattu_user.js"></script>
+    <script src="${pageContext.request.contextPath}/js/yeucau_user.js"></script>
 </body>
 </html>

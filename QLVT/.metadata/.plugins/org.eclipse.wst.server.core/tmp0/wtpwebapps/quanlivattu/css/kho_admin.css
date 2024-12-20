@@ -139,10 +139,6 @@ body.fade-out {
 .table-content{
     margin-top: 20px;
 }
-.form-control:focus {
-    border-color: #28a745; /* Màu viền khi focus */
-    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.5); /* Hiệu ứng glow xanh lá */
-}
 /*thiet ke lai button */
   .btn-custom {
         background-color: #007bff;  /* Màu nền xanh đậm */
@@ -212,6 +208,224 @@ body.fade-out {
         transition: background-color 0.3s, transform 0.3s;
     }
     .btn:hover {
-        background-color: #006400;
+        background-color: #0056b3;
         transform: scale(1.05);
+    }
+    
+    
+#myTable1 {
+    width: 100%;
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif; /* Font chữ hiện đại */
+    background-color: #fff; /* Nền trắng */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+    border-radius: 10px; /* Bo góc */
+    overflow: hidden;
+}
+
+
+#myTable1 thead tr {
+    background-color: #4CAF50; /* Màu nền tiêu đề */
+    color: #fff; /* Màu chữ trắng */
+    text-align: left;
+    font-weight: bold;
+}
+
+
+#myTable1 th {
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+
+#myTable1 tbody tr {
+    border-bottom: 1px solid #ddd; /* Đường viền giữa các hàng */
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+}
+
+
+#myTable1 td {
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #333; /* Màu chữ tối */
+}
+
+
+#myTable1 tbody tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+
+#myTable1 .btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px;
+}
+
+
+#myTable1 .bi-pencil-square {
+    font-size: 18px;
+}
+
+
+#myTable1 .bi-dash-square {
+    font-size: 18px;
+}
+
+
+#myTable1 .btn:hover {
+    opacity: 0.8; 
+}
+    
+    
+    
+#myTable2 {
+    width: 100%;
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif; /* Font chữ hiện đại */
+    background-color: #fff; /* Nền trắng */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+    border-radius: 10px; /* Bo góc */
+    overflow: hidden;
+}
+
+
+#myTable2 thead tr {
+    background-color: #4CAF50; /* Màu nền tiêu đề */
+    color: #fff; /* Màu chữ trắng */
+    text-align: left;
+    font-weight: bold;
+}
+
+
+#myTable2 th {
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+
+#myTable2 tbody tr {
+    border-bottom: 1px solid #ddd; /* Đường viền giữa các hàng */
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+}
+
+
+#myTable2 td {
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #333; /* Màu chữ tối */
+}
+
+
+#myTable2 tbody tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+
+#myTable2 .btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px;
+}
+
+
+#myTable2 .bi-pencil-square {
+    font-size: 18px;
+}
+
+
+#myTable2 .bi-dash-square {
+    font-size: 18px;
+}
+
+
+#myTable2 .btn:hover {
+    opacity: 0.8; 
+}
+   
+   .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .title-box {
+        background-color: #f0f8ff; /* light background for title box */
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+    }
+
+    .title-text {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: #007bff;
+        margin-bottom: 0;
+    }
+
+    .table-responsive {
+        margin-top: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        text-align: center;
+    }
+
+    td {
+        padding: 10px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    tbody tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+    .btn-danger {
+        background-color: #e63946;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #d32f2f;
+    }
+
+    .thead-light th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa;
     }

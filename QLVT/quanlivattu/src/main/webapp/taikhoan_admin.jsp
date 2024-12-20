@@ -24,6 +24,11 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!--xuatfile-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    
+    <!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<!-- SweetAlert2 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     
 
@@ -111,7 +116,7 @@
 				    </button>
 				</div>
                 
-               <!-- Modal -->
+              <!-- Modal -->
 				<div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
 				    <div class="modal-dialog">
 				        <div class="modal-content shadow-lg border-0 rounded-3">
@@ -120,22 +125,22 @@
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 				            <div class="modal-body">
-				                <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+				                <form id="UpdateInfoServlet" action="UpdateInfoServlet" method="post">
 				                    <div class="mb-4">
 				                        <label for="fullName" class="form-label">Họ và tên</label>
-				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName" required>
+				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
-				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber" required>
+				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="birthDate" class="form-label">Ngày sinh</label>
-				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate" required>
+				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="address" class="form-label">Địa chỉ</label>
-				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3" required></textarea>
+				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3"></textarea>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Cập nhật</button>
 				                </form>
@@ -164,9 +169,9 @@
             </div>
 
         </div>
-        <div class="row">
+        <div class="row thongke">
         
-        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
+        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3 range">
         	<div class="thongke1">
         	 Tổng số tài khoản
         	 <p>
@@ -175,9 +180,8 @@
              </p>
         	</div>     	     
         	</div>
-        	
-        	
-        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
+        	       	
+        	<div class="mt-3 mb-2 col-6 col-sm-3 range">
         	<div class="thongke1">
         	Tổng số Admin
         	 <p>
@@ -188,7 +192,7 @@
         	
         	</div>
         	  	
-        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
+        	<div class="mt-3 mb-2 col-6 col-sm-3 range">
      	     <div class="thongke1">
      	     	 Tổng số User
         	 <p>
@@ -202,20 +206,20 @@
         </div>
          
 
-        <div class="btn-file ms-3 me-3">
+        <div class="btn-file ms-5 me-5">
             <button class="btn btn-success" onclick="exportToExcel()">
                 Tải xuống
                 <i class="bi bi-box-arrow-in-down ms-2"></i>
             </button>
-             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAccount">
+             <button class="btn btn-add border" data-bs-toggle="modal" data-bs-target="#AddAccount">
                      <i class="bi bi-plus"></i> Thêm tài khoản mới
              </button>
         </div>
 
-        <div class="content-here ms-3 me-3">
+        <div class="content-here ms-5 me-5">
             <div class="table-content table-responsive">
-                 <table id="myTable" class="table table-bordered" style="font-size: 14px;">
-		            <thead class="table-primary">
+                 <table id="myTable" class="table table-hover" style="font-size: 13px;">
+		            <thead>
 		                <tr>
 		                    <th>Mã người dùng</th>
 		                    <th>Tên người dùng</th>
@@ -241,14 +245,14 @@
 		                        <td>${account.account_birthday}</td>
 		                        <td>${account.account_created_date}</td>
 		                        <td>${account.account_role}</td>
-		                        <td class="d-flex gap-2">
-		                            <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateAccount">
-		                                <i class="bi bi-pencil-square"></i>
+		                        <td>
+		                            <button class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateAccount">
+		                                <i class="bi bi-pencil-square text-primary"></i>
 		                            </button>
 		                            <form action="DeleteAccount" method="post" style="display: inline;">
 								        <input type="hidden" name="accountId" value="${account.account_id}">
-								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?')">
-								            <i class="bi bi-dash-square"></i>
+								        <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?')">
+								            <i class="bi bi-dash-square text-danger"></i>
 								        </button>
 								    </form>
 		                        </td>
@@ -262,7 +266,7 @@
 				    <div class="modal-dialog modal-lg">
 				        <div class="modal-content rounded-4 shadow-lg">
 				            <div class="modal-header border-0 d-flex justify-content-between align-items-center">
-				                <h5 class="modal-title text-primary" id="UpdateAccountLabel">Chỉnh sửa tài khoản</h5>
+				                <h5 class="modal-title text-white" id="UpdateAccountLabel">Chỉnh sửa tài khoản</h5>
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 				            <div class="modal-body">
@@ -273,11 +277,11 @@
 				                    <div class="row mb-4">
 				                        <div class="col-12 col-sm-6">
 				                            <label for="fullName1" class="form-label">Họ và tên</label>
-				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="fullName1" name="fullName1" required>
+				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="fullName1" name="fullName1">
 				                        </div>
 				                        <div class="col-12 col-sm-6">
 				                            <label for="email1" class="form-label">Email</label>
-				                            <input type="email" class="form-control form-control-lg border-2 rounded-3 p-2" id="email1" name="email1" required>
+				                            <input type="email" class="form-control form-control-lg border-2 rounded-3 p-2" id="email1" name="email1">
 				                        </div>
 				                    </div>
 				
@@ -285,11 +289,11 @@
 				                    <div class="row mb-4">
 				                        <div class="col-12 col-sm-6">
 				                            <label for="pass1" class="form-label">Mật khẩu</label>
-				                            <input type="password" class="form-control form-control-lg border-2 rounded-3 p-2" id="pass1" name="pass1" required>
+				                            <input type="password" class="form-control form-control-lg border-2 rounded-3 p-2" id="pass1" name="pass1">
 				                        </div>
 				                        <div class="col-12 col-sm-6">
 				                            <label for="phoneNumber1" class="form-label">Số điện thoại</label>
-				                            <input type="tel" class="form-control form-control-lg border-2 rounded-3 p-2" id="phoneNumber1" name="phoneNumber1" required>
+				                            <input type="tel" class="form-control form-control-lg border-2 rounded-3 p-2" id="phoneNumber1" name="phoneNumber1">
 				                        </div>
 				                    </div>
 				
@@ -297,11 +301,11 @@
 				                    <div class="row mb-4">
 				                        <div class="col-12 col-sm-6">
 				                            <label for="birthDate1" class="form-label">Ngày sinh</label>
-				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="birthDate1" name="birthDate1" required>
+				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="birthDate1" name="birthDate1">
 				                        </div>
 				                        <div class="col-12 col-sm-6">
 				                            <label for="role1" class="form-label">Vai trò</label>
-				                            <select id="role1" name="role1" class="form-select form-select-lg border-2 rounded-3 p-2" required>
+				                            <select id="role1" name="role1" class="form-select form-select-lg border-2 rounded-3 p-2">
 				                                <option value="">Chọn vai trò</option>
 				                                <option value="admin">admin</option>
 				                                <option value="user">user</option>
@@ -312,7 +316,7 @@
 				                    <!-- Địa chỉ liên hệ -->
 				                    <div class="mb-4">
 				                        <label for="address1" class="form-label">Địa chỉ liên hệ</label>
-				                        <textarea class="form-control form-control-lg border-2 rounded-3 p-2" id="address1" name="address1" rows="3" required></textarea>
+				                        <textarea class="form-control form-control-lg border-2 rounded-3 p-2" id="address1" name="address1" rows="3"></textarea>
 				                    </div>
 				
 				                    <!-- Nút Xác nhận -->
@@ -332,84 +336,87 @@
         <!--them du lieu-->
         <div class="add-data ms-3 me-3">
            
-          <!-- Modal -->
-			<div class="modal fade" id="AddAccount" tabindex="-1" aria-labelledby="AddAccountLabel" aria-hidden="true">
-			    <div class="modal-dialog modal-dialog-centered modal-lg">
-			        <div class="modal-content border-0 shadow-lg rounded-3">
-			            <div class="modal-header">
-			                <h5 class="modal-title" id="AddAccountLabel">Thêm tài khoản mới</h5>
-			                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			            </div>
-			            <div class="modal-body">
-			                <!-- Form -->
-			                <form id="addRowForm" action="Taikhoan_admin" method="POST" onsubmit="return confirmSubmit()">
-			                    <div class="row g-3">
-			                        <div class="col-12 col-sm-4">
-			                            <label for="user-id" class="form-label">Mã người dùng</label>
-			                            <input id="user-id" name="user-id" type="text" class="form-control rounded-pill border-primary p-2" required>
-			                        </div>
-			
-			                        <div class="col-12 col-sm-8">
-			                            <label for="user-name" class="form-label">Tên người dùng</label>
-			                            <input id="user-name" name="user-name" type="text" class="form-control rounded-pill border-primary p-2" required>
-			                        </div>
-			                    </div>
-			
-			                    <div class="row g-3">
-			                        <div class="col-12 col-sm-7">
-			                            <label for="email" class="form-label">Email</label>
-			                            <input id="email" name="email" type="email" class="form-control rounded-pill border-primary p-2" required>
-			                        </div>
-			
-			                        <div class="col-12 col-sm-5">
-			                            <label for="password" class="form-label">Mật khẩu</label>
-			                            <input id="password" name="password" type="password" class="form-control rounded-pill border-primary p-2" required>
-			                        </div>
-			                    </div>
-			
-			                    <div class="row g-3">
-			                        <div class="col-12 col-sm-6">
-			                            <label for="phonenumber" class="form-label">Số điện thoại</label>
-			                            <input id="phonenumber" name="phonenumber" type="tel" class="form-control rounded-pill border-primary p-2" required>
-			                        </div>
-			                        <div class="col-12 col-sm-6">
-			                            <label for="birthday" class="form-label">Ngày sinh</label>
-			                            <input id="birthday" name="birthday" type="date" class="form-control rounded-pill border-primary p-2" required>
-			                        </div>
-			                    </div>
-			
-			                    <div class="row g-3">
-			                        <div class="col-12">
-			                            <label for="address" class="form-label">Địa chỉ</label>
-			                            <textarea name="address" id="address" class="form-control rounded-3 border-primary p-2" rows="3" required></textarea>
-			                        </div>
-			                    </div>
-			
-			                    <div class="row g-3">
-			                        <div class="col-12 col-sm-6">
-			                            <label for="date-create" class="form-label">Ngày tạo tài khoản</label>
-			                            <input id="date-create" name="date-create" type="date" class="form-control rounded-pill border-primary p-2" required>
-			                        </div>
-			                        <div class="col-12 col-sm-6">
-			                            <label for="role" class="form-label">Vai trò</label>
-			                            <select id="role" name="role" class="form-select rounded-pill border-primary p-2" required>
-			                                <option value="">Chọn vai trò</option>
-			                                <option value="admin">admin</option>
-			                                <option value="user">user</option>
-			                            </select>
-			                        </div>
-			                    </div>
-			
-			                    <div class="mt-4">
-			                        <button type="submit" id="addRowBtn" class="btn btn-primary w-100 py-2 rounded-pill">Thêm dữ liệu</button>
-			                    </div>
-			                </form>
-			                <!-- End Form -->
-			            </div>
-			        </div>
-			    </div>
-			</div>
-			<!-- End Modal -->
+        <!-- Modal -->
+<div class="modal fade" id="AddAccount" tabindex="-1" aria-labelledby="AddAccountLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg rounded-3">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="AddAccountLabel">Thêm tài khoản mới</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form -->
+                <form id="addRowForm" action="Taikhoan_admin" method="POST" onsubmit="return confirmSubmit()">
+                    <div class="row g-4">
+                        <div class="col-12 col-sm-6">
+                            <label for="user-id" class="form-label">Mã người dùng</label>
+                            <input id="user-id" name="user-id" type="text" class="form-control form-control-lg rounded-3 shadow-sm">
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label for="user-name" class="form-label">Tên người dùng</label>
+                            <input id="user-name" name="user-name" type="text" class="form-control form-control-lg rounded-3 shadow-sm">
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-12 col-sm-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input id="email" name="email" type="email" class="form-control form-control-lg rounded-3 shadow-sm">
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input id="password" name="password" type="password" class="form-control form-control-lg rounded-3 shadow-sm">
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-12 col-sm-6">
+                            <label for="phonenumber" class="form-label">Số điện thoại</label>
+                            <input id="phonenumber" name="phonenumber" type="tel" class="form-control form-control-lg rounded-3 shadow-sm">
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label for="birthday" class="form-label">Ngày sinh</label>
+                            <input id="birthday" name="birthday" type="date" class="form-control form-control-lg rounded-3 shadow-sm">
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <label for="address" class="form-label">Địa chỉ</label>
+                            <textarea name="address" id="address" class="form-control form-control-lg rounded-3 shadow-sm" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-12 col-sm-6">
+                            <label for="date-create" class="form-label">Ngày tạo tài khoản</label>
+                            <input id="date-create" name="date-create" type="date" class="form-control form-control-lg rounded-3 shadow-sm">
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <label for="role" class="form-label">Vai trò</label>
+                            <select id="role" name="role" class="form-select form-select-lg rounded-3 shadow-sm">
+                                <option value="">Chọn vai trò</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" id="addRowBtn" class="btn btn-primary w-100 py-3 rounded-3">Thêm dữ liệu</button>
+                    </div>
+                </form>
+                <!-- End Form -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
           
            
             <!--end form title-->

@@ -195,3 +195,72 @@ body.fade-out {
     .btn-custom:active {
         transform: translateY(1px);
     }
+    
+    
+#myTable {
+    width: 100%;
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif; /* Font chữ hiện đại */
+    background-color: #fff; /* Nền trắng */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+    border-radius: 10px; /* Bo góc */
+    overflow: hidden;
+}
+
+
+#myTable thead tr {
+    background-color: #4CAF50; /* Màu nền tiêu đề */
+    color: #fff; /* Màu chữ trắng */
+    text-align: left;
+    font-weight: bold;
+}
+
+
+#myTable th {
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+
+#myTable tbody tr {
+    border-bottom: 1px solid #ddd; /* Đường viền giữa các hàng */
+    transition: background-color 0.3s ease; /* Hiệu ứng hover */
+}
+
+
+#myTable td {
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #333; /* Màu chữ tối */
+}
+
+
+#myTable tbody tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+
+#myTable .btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px;
+}
+
+
+#myTable .bi-pencil-square {
+    font-size: 18px;
+}
+
+
+#myTable .bi-dash-square {
+    font-size: 18px;
+}
+
+
+#myTable .btn:hover {
+    opacity: 0.8; 
+}
+    

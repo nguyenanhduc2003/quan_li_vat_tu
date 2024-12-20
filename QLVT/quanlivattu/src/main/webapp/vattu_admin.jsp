@@ -24,6 +24,12 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!--xuatfile-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    
+     <!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<!-- SweetAlert2 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
 </head>
 <body style="font-family: 'Noto Serif', serif;">
@@ -109,7 +115,7 @@
 				    </button>
 				</div>
                 
-                 <!-- Modal -->
+                <!-- Modal -->
 				<div class="modal fade" id="updateInfoModal" tabindex="-1" aria-labelledby="updateInfoModalLabel" aria-hidden="true">
 				    <div class="modal-dialog">
 				        <div class="modal-content shadow-lg border-0 rounded-3">
@@ -118,22 +124,22 @@
 				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				            </div>
 				            <div class="modal-body">
-				                <form id="updateInfoForm" action="UpdateInfoServlet" method="post">
+				                <form id="UpdateInfoServlet" action="UpdateInfoServlet" method="post">
 				                    <div class="mb-4">
 				                        <label for="fullName" class="form-label">Họ và tên</label>
-				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName" required>
+				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
-				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber" required>
+				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="birthDate" class="form-label">Ngày sinh</label>
-				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate" required>
+				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="address" class="form-label">Địa chỉ</label>
-				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3" required></textarea>
+				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3"></textarea>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Cập nhật</button>
 				                </form>
@@ -204,54 +210,54 @@
 			                    <div class="row g-3 mb-3">
 			                        <div class="col-12 col-sm-3">
 			                            <label for="material_id" class="form-label">Mã vật tư</label>
-			                            <input id="material_id" name="material_id" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="material_id" name="material_id" type="text" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                        <div class="col-12 col-sm-6">
 			                            <label for="material_name" class="form-label">Tên vật tư</label>
-			                            <input id="material_name" name="material_name" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="material_name" name="material_name" type="text" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                        <div class="col-12 col-sm-3">
 			                            <label for="material_unit" class="form-label">Đơn vị tính</label>
-			                            <input id="material_unit" name="material_unit" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="material_unit" name="material_unit" type="text" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                    </div>
 			
 			                    <div class="mb-3">
 			                        <label for="material_describe" class="form-label">Mô tả</label>
-			                        <textarea name="material_describe" id="material_describe" class="form-control rounded-3 border-primary p-2" rows="2" required></textarea>
+			                        <textarea name="material_describe" id="material_describe" class="form-control rounded-3 border-primary p-2" rows="2"></textarea>
 			                    </div>
 			
 			                    <div class="row g-3 mb-3">
 			                        <div class="col-12 col-sm-6">
 			                            <label for="material_date" class="form-label">Ngày sản xuất</label>
-			                            <input id="material_date" name="material_date" type="date" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="material_date" name="material_date" type="date" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                        <div class="col-12 col-sm-6">
 			                            <label for="material_expiry" class="form-label">Hạn sử dụng</label>
-			                            <input id="material_expiry" name="material_expiry" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="material_expiry" name="material_expiry" type="text" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                    </div>
 			
 			                    <div class="mb-3">
 			                        <label for="material_use" class="form-label">Cách sử dụng</label>
-			                        <textarea name="material_use" id="material_use" class="form-control rounded-3 border-primary p-2" rows="2" required></textarea>
+			                        <textarea name="material_use" id="material_use" class="form-control rounded-3 border-primary p-2" rows="2"></textarea>
 			                    </div>
 			
 			                    <div class="row g-3 mb-3">
 			                        <div class="col-12 col-sm-9">
 			                            <label for="material_supplier" class="form-label">Nhà cung cấp</label>
-			                            <input id="material_supplier" name="material_supplier" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="material_supplier" name="material_supplier" type="text" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                        <div class="col-12 col-sm-3">
 			                            <label for="material_country" class="form-label">Quốc gia sản xuất</label>
-			                            <input id="material_country" name="material_country" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="material_country" name="material_country" type="text" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                    </div>
 			
 			                    <div class="row g-3 mb-4">
 			                        <div class="col-12 col-sm-4">
 			                            <label for="material_value" class="form-label">Giá tiền</label>
-			                            <input id="material_value" name="material_value" type="number" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="material_value" name="material_value" type="number" class="form-control rounded-pill border-primary p-2">
 			                        </div>
 			                        <div class="col-12 col-sm-6">
 			                            <label for="material_image" class="form-label">Link ảnh</label>
@@ -277,9 +283,9 @@
 
         <div class="content-here ms-3 me-3">
             <div class="table-content table-responsive">
-                <table id="myTable" class="table table-bordered table-striped table-hover" style="font-size: 14px;">
+                <table id="myTable" class="table table-hover" style="font-size: 14px;">
                     <thead>
-                        <tr class="table-primary">                      
+                        <tr>                      
                             <th>Mã vật tư</th>
                             <th>Tên vật tư</th>
                             <th>Mô tả</th>
@@ -315,13 +321,13 @@
                             <td><img src="${material.material_image}" alt="image"></td>
                             <td>${material.material_quantity}</td>
                             <td>
-                                <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateMaterial">
-		                                <i class="bi bi-pencil-square"></i>
+                                <button class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateMaterial">
+		                                <i class="bi bi-pencil-square text-primary"></i>
 		                            </button>
 		                            <form action="DeleteMaterial" method="post" style="display: inline;">
 								        <input type="hidden" name="materialId" value="${material.material_id}">
-								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa vật tư này không?')">
-								            <i class="bi bi-dash-square"></i>
+								        <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa vật tư này không?')">
+								            <i class="bi bi-dash-square text-danger"></i>
 								        </button>
 								    </form>
                             </td>                      
@@ -334,7 +340,7 @@
         
       <!-- Modal -->
 		<div class="modal fade" id="UpdateMaterial" tabindex="-1" aria-labelledby="UpdateMaterialLabel" aria-hidden="true">
-		    <div class="modal-dialog modal-lg">
+		    <div class="modal-dialog modal-xl">
 		        <div class="modal-content rounded-4 shadow-lg">
 		            <div class="modal-header">
 		                <h5 class="modal-title" id="UpdateMaterialLabel">Chỉnh sửa vật tư</h5>
@@ -348,47 +354,47 @@
 		                    <div class="row g-3 mb-3">
 		                        <div class="col-12 col-sm-6">
 		                            <label for="material_name1" class="form-label">Tên vật tư</label>
-		                            <input id="material_name1" name="material_name1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                            <input id="material_name1" name="material_name1" type="text" class="form-control border-2 rounded-3 p-2">
 		                        </div>
 		                        <div class="col-12 col-sm-3">
 		                            <label for="material_unit1" class="form-label">Đơn vị tính</label>
-		                            <input id="material_unit1" name="material_unit1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                            <input id="material_unit1" name="material_unit1" type="text" class="form-control border-2 rounded-3 p-2">
 		                        </div>
 		                    </div>
 		
 		                    <!-- Material Description -->
 		                    <div class="mb-3">
 		                        <label for="material_describe1" class="form-label">Mô tả</label>
-		                        <textarea name="material_describe1" id="material_describe1" class="form-control border-2 rounded-3 p-2" rows="4" required></textarea>
+		                        <textarea name="material_describe1" id="material_describe1" class="form-control border-2 rounded-3 p-2" rows="4"></textarea>
 		                    </div>
 		
 		                    <!-- Production Date & Expiry -->
 		                    <div class="row g-3 mb-3">
 		                        <div class="col-12 col-sm-6">
 		                            <label for="material_date1" class="form-label">Ngày sản xuất</label>
-		                            <input id="material_date1" name="material_date1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                            <input id="material_date1" name="material_date1" type="text" class="form-control border-2 rounded-3 p-2">
 		                        </div>
 		                        <div class="col-12 col-sm-6">
 		                            <label for="material_expiry1" class="form-label">Hạn sử dụng</label>
-		                            <input id="material_expiry1" name="material_expiry1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                            <input id="material_expiry1" name="material_expiry1" type="text" class="form-control border-2 rounded-3 p-2">
 		                        </div>
 		                    </div>
 		
 		                    <!-- Usage Instructions -->
 		                    <div class="mb-3">
 		                        <label for="material_use1" class="form-label">Cách sử dụng</label>
-		                        <textarea name="material_use1" id="material_use1" class="form-control border-2 rounded-3 p-2" rows="4" required></textarea>
+		                        <textarea name="material_use1" id="material_use1" class="form-control border-2 rounded-3 p-2" rows="4"></textarea>
 		                    </div>
 		
 		                    <!-- Supplier & Country -->
 		                    <div class="row g-3 mb-3">
 		                        <div class="col-12 col-sm-9">
 		                            <label for="material_supplier1" class="form-label">Nhà cung cấp</label>
-		                            <input id="material_supplier1" name="material_supplier1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                            <input id="material_supplier1" name="material_supplier1" type="text" class="form-control border-2 rounded-3 p-2">
 		                        </div>
 		                        <div class="col-12 col-sm-3">
 		                            <label for="material_country1" class="form-label">Quốc gia sản xuất</label>
-		                            <input id="material_country1" name="material_country1" type="text" class="form-control border-2 rounded-3 p-2" required>
+		                            <input id="material_country1" name="material_country1" type="text" class="form-control border-2 rounded-3 p-2">
 		                        </div>
 		                    </div>
 		
@@ -396,7 +402,7 @@
 		                    <div class="row g-3 mb-4">
 		                        <div class="col-12 col-sm-4">
 		                            <label for="material_value1" class="form-label">Giá tiền</label>
-		                            <input id="material_value1" name="material_value1" type="number" class="form-control border-2 rounded-3 p-2" required>
+		                            <input id="material_value1" name="material_value1" type="number" class="form-control border-2 rounded-3 p-2">
 		                        </div>
 		                        <div class="col-12 col-sm-6">
 		                            <label for="material_image1" class="form-label">Link ảnh</label>

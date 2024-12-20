@@ -159,3 +159,197 @@ function showTransactionsModal(data) {
     const modal = new bootstrap.Modal(document.getElementById("transactionModal"));
     modal.show();
 }
+// Xử lý form cập nhật thông tin cá nhân
+document.getElementById("UpdateInfoServlet").addEventListener("submit", function (event) {
+    // Lấy giá trị từ các trường
+    const fullName = document.getElementById("fullName").value.trim();
+    const phoneNumber = document.getElementById("phoneNumber").value.trim();
+    const birthDate = document.getElementById("birthDate").value;
+    const address = document.getElementById("address").value.trim();
+
+    let isValid = true;
+    let errorMessages = [];
+
+    // Kiểm tra họ và tên
+    if (!fullName) {
+        isValid = false;
+        errorMessages.push("Họ và tên không được để trống.");
+    } else if (fullName.length > 100) {
+        isValid = false;
+        errorMessages.push("Họ và tên không được dài quá 100 ký tự.");
+    }
+
+    // Kiểm tra số điện thoại
+    if (!phoneNumber) {
+        isValid = false;
+        errorMessages.push("Số điện thoại không được để trống.");
+    } else if (!/^\d{10,15}$/.test(phoneNumber)) {
+        isValid = false;
+        errorMessages.push("Số điện thoại phải là số có từ 10 đến 15 chữ số.");
+    }
+
+    // Kiểm tra ngày sinh
+    if (!birthDate) {
+        isValid = false;
+        errorMessages.push("Ngày sinh không được để trống.");
+    } else {
+        const today = new Date();
+        const selectedDate = new Date(birthDate);
+        if (selectedDate >= today) {
+            isValid = false;
+            errorMessages.push("Ngày sinh phải nhỏ hơn ngày hiện tại.");
+        }
+    }
+
+    // Kiểm tra địa chỉ
+    if (!address) {
+        isValid = false;
+        errorMessages.push("Địa chỉ không được để trống.");
+    } else if (address.length > 200) {
+        isValid = false;
+        errorMessages.push("Địa chỉ không được dài quá 200 ký tự.");
+    }
+
+    if (!isValid) {
+        event.preventDefault(); // Ngăn form submit
+
+        Swal.fire({
+            title: "Lỗi nhập liệu",
+            html: errorMessages.map(msg => `<p>${msg}</p>`).join(""),
+            icon: "error",
+            confirmButtonText: "Đã hiểu",
+            customClass: {
+			    popup: "rounded-3 bg-light",
+			    title: "text-danger",
+			    confirmButton: "btn btn-danger rounded-pill"
+			},
+            buttonsStyling: false
+        });
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const formId = "form[action='ImportServlet']"; // Định danh form
+
+    try {
+        // Lấy form
+        const form = document.querySelector(formId);
+        if (!form) {
+            throw new Error("Không tìm thấy form tạo phiếu nhập.");
+        }
+
+        // Lắng nghe sự kiện submit
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Ngăn gửi form mặc định
+
+            try {
+                // Lấy giá trị từ các trường
+                const materialName = document.querySelector("#material_name").value.trim();
+                const importName = document.querySelector("#import_name").value.trim();
+                const importDate = document.querySelector("#import_date").value.trim();
+                const importReceiver = document.querySelector("#import_receiver").value.trim();
+                const importPhone = document.querySelector("#import_phone").value.trim();
+                const importDepartment = document.querySelector("#import_department").value.trim();
+                const importQuantity = document.querySelector("#import_quantity").value.trim();
+
+                // Kiểm tra từng trường nhập
+                if (!materialName) throw new Error("Vui lòng chọn vật tư.");
+                if (!importName) throw new Error("Tên phiếu nhập không được để trống.");
+                if (!importDate) throw new Error("Ngày nhập không được để trống.");
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(importDate)) {
+                    throw new Error("Ngày nhập phải có định dạng YYYY-MM-DD.");
+                }
+                if (!importReceiver) throw new Error("Tên người nhập không được để trống.");
+                if (!importPhone || !/^\d{10,11}$/.test(importPhone)) {
+                    throw new Error("Số điện thoại phải là số hợp lệ (10-11 chữ số).");
+                }
+                if (!importDepartment) throw new Error("Vui lòng chọn phòng ban.");
+                if (!importQuantity || isNaN(importQuantity) || importQuantity <= 0) {
+                    throw new Error("Số lượng nhập phải là số dương.");
+                }
+
+                // Nếu tất cả hợp lệ, gửi form
+                form.submit();
+            } catch (error) {
+                // Hiển thị thông báo lỗi
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: error.message,
+                    confirmButtonText: "Đã hiểu",
+                });
+            }
+        });
+    } catch (error) {
+        // Lỗi nghiêm trọng: Form không tồn tại
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi nghiêm trọng",
+            text: error.message,
+            confirmButtonText: "Đã hiểu",
+        });
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const formId = "form[action='ExportServlet']"; // Định danh form
+
+    try {
+        // Lấy form
+        const form = document.querySelector(formId);
+        if (!form) {
+            throw new Error("Không tìm thấy form tạo phiếu xuất.");
+        }
+
+        // Lắng nghe sự kiện submit
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Ngăn gửi form mặc định
+
+            try {
+                // Lấy giá trị từ các trường
+                const exportName = document.querySelector("#export_name").value.trim();
+                const exportDate = document.querySelector("#export_date").value.trim();
+                const exportReceiver = document.querySelector("#export_receiver").value.trim();
+                const exportPhone = document.querySelector("#export_phone").value.trim();
+                const exportDepartment = document.querySelector("#export_department").value.trim();
+                const exportQuantity = document.querySelector("#export_quantity").value.trim();
+
+                // Kiểm tra từng trường nhập
+                if (!exportName) throw new Error("Tên phiếu xuất không được để trống.");
+                if (!exportDate) throw new Error("Ngày xuất không được để trống.");
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(exportDate)) {
+                    throw new Error("Ngày xuất phải có định dạng YYYY-MM-DD.");
+                }
+                if (!exportReceiver) throw new Error("Tên người xuất không được để trống.");
+                if (!exportPhone || !/^\d{10,11}$/.test(exportPhone)) {
+                    throw new Error("Số điện thoại phải là số hợp lệ (10-11 chữ số).");
+                }
+                if (!exportDepartment) throw new Error("Vui lòng chọn phòng ban.");
+                if (!exportQuantity || isNaN(exportQuantity) || exportQuantity <= 0) {
+                    throw new Error("Số lượng xuất phải là số dương.");
+                }
+
+                // Nếu tất cả hợp lệ, gửi form
+                form.submit();
+            } catch (error) {
+                // Hiển thị thông báo lỗi
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi",
+                    text: error.message,
+                    confirmButtonText: "Đã hiểu",
+                });
+            }
+        });
+    } catch (error) {
+        // Lỗi nghiêm trọng: Form không tồn tại
+        Swal.fire({
+            icon: "error",
+            title: "Lỗi nghiêm trọng",
+            text: error.message,
+            confirmButtonText: "Đã hiểu",
+        });
+    }
+});

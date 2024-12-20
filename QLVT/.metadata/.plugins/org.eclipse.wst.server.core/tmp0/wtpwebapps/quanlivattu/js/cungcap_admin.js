@@ -104,3 +104,162 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector("#updateInfoForm input[name='supplier_date_created']").value = supplierDateCreated;
         });
     });
+
+// Xử lý form cập nhật thông tin cá nhân
+document.getElementById("UpdateInfoServlet").addEventListener("submit", function (event) {
+    // Lấy giá trị từ các trường
+    const fullName = document.getElementById("fullName").value.trim();
+    const phoneNumber = document.getElementById("phoneNumber").value.trim();
+    const birthDate = document.getElementById("birthDate").value;
+    const address = document.getElementById("address").value.trim();
+
+    let isValid = true;
+    let errorMessages = [];
+
+    // Kiểm tra họ và tên
+    if (!fullName) {
+        isValid = false;
+        errorMessages.push("Họ và tên không được để trống.");
+    } else if (fullName.length > 100) {
+        isValid = false;
+        errorMessages.push("Họ và tên không được dài quá 100 ký tự.");
+    }
+
+    // Kiểm tra số điện thoại
+    if (!phoneNumber) {
+        isValid = false;
+        errorMessages.push("Số điện thoại không được để trống.");
+    } else if (!/^\d{10,15}$/.test(phoneNumber)) {
+        isValid = false;
+        errorMessages.push("Số điện thoại phải là số có từ 10 đến 15 chữ số.");
+    }
+
+    // Kiểm tra ngày sinh
+    if (!birthDate) {
+        isValid = false;
+        errorMessages.push("Ngày sinh không được để trống.");
+    } else {
+        const today = new Date();
+        const selectedDate = new Date(birthDate);
+        if (selectedDate >= today) {
+            isValid = false;
+            errorMessages.push("Ngày sinh phải nhỏ hơn ngày hiện tại.");
+        }
+    }
+
+    // Kiểm tra địa chỉ
+    if (!address) {
+        isValid = false;
+        errorMessages.push("Địa chỉ không được để trống.");
+    } else if (address.length > 200) {
+        isValid = false;
+        errorMessages.push("Địa chỉ không được dài quá 200 ký tự.");
+    }
+
+    if (!isValid) {
+        event.preventDefault(); // Ngăn form submit
+
+        Swal.fire({
+            title: "Lỗi nhập liệu",
+            html: errorMessages.map(msg => `<p>${msg}</p>`).join(""),
+            icon: "error",
+            confirmButtonText: "Đã hiểu",
+            customClass: {
+			    popup: "rounded-3 bg-light",
+			    title: "text-danger",
+			    confirmButton: "btn btn-danger rounded-pill"
+			},
+            buttonsStyling: false
+        });
+    }
+});
+
+
+// Xử lý form thêm nhà cung cấp
+    document.getElementById("addRowForm").addEventListener("submit", function (event) {
+        // Lấy giá trị từ các trường trong form
+        const supplierId = document.getElementById("supplier_id").value.trim();
+        const supplierName = document.getElementById("supplier_name").value.trim();
+        const supplierEmail = document.getElementById("supplier_email").value.trim();
+        const supplierPhone = document.getElementById("supplier_phone").value.trim();
+        const supplierAddress = document.getElementById("supplier_address").value.trim();
+        const supplierDateCreated = document.getElementById("supplier_date_created").value;
+        const supplierDescribe = document.getElementById("supplier_describe").value.trim();
+
+        let isValid = true;
+        let errorMessages = [];
+
+        // Kiểm tra mã nhà cung cấp
+        if (!supplierId) {
+            isValid = false;
+            errorMessages.push("Mã nhà cung cấp không được để trống.");
+        }
+
+        // Kiểm tra tên nhà cung cấp
+        if (!supplierName) {
+            isValid = false;
+            errorMessages.push("Tên nhà cung cấp không được để trống.");
+        } else if (supplierName.length > 100) {
+            isValid = false;
+            errorMessages.push("Tên nhà cung cấp không được dài quá 100 ký tự.");
+        }
+
+        // Kiểm tra email
+        if (!supplierEmail) {
+            isValid = false;
+            errorMessages.push("Email không được để trống.");
+        } else if (!/\S+@\S+\.\S+/.test(supplierEmail)) {
+            isValid = false;
+            errorMessages.push("Email không hợp lệ.");
+        }
+
+        // Kiểm tra số điện thoại
+        if (!supplierPhone) {
+            isValid = false;
+            errorMessages.push("Số điện thoại không được để trống.");
+        } else if (!/^\d{10,11}$/.test(supplierPhone)) {
+            isValid = false;
+            errorMessages.push("Số điện thoại phải là số có từ 10 đến 11 chữ số.");
+        }
+
+        // Kiểm tra địa chỉ
+        if (!supplierAddress) {
+            isValid = false;
+            errorMessages.push("Địa chỉ không được để trống.");
+        } else if (supplierAddress.length > 200) {
+            isValid = false;
+            errorMessages.push("Địa chỉ không được dài quá 200 ký tự.");
+        }
+
+        // Kiểm tra ngày tạo
+        if (!supplierDateCreated) {
+            isValid = false;
+            errorMessages.push("Ngày tạo không được để trống.");
+        }
+
+        // Kiểm tra mô tả
+        if (!supplierDescribe) {
+            isValid = false;
+            errorMessages.push("Mô tả không được để trống.");
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // Ngừng gửi form
+
+            // Hiển thị thông báo lỗi bằng SweetAlert2
+            Swal.fire({
+                title: "Lỗi nhập liệu",
+                html: errorMessages.map(msg => `<p>${msg}</p>`).join(""),
+                icon: "error",
+                confirmButtonText: "Đã hiểu",
+                customClass: {
+                    popup: "rounded-3 bg-light",
+                    title: "text-danger",
+                    confirmButton: "btn btn-danger rounded-pill"
+                },
+                buttonsStyling: false
+            });
+        }
+    });
+
+    

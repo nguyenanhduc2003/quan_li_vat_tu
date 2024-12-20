@@ -65,7 +65,7 @@ public class Department_admin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
 		 try {
 		        // Lấy dữ liệu từ form
 		        int departmentId = Integer.parseInt(request.getParameter("department_id"));

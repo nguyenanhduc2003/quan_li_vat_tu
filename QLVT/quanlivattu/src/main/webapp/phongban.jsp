@@ -25,7 +25,11 @@
     <!--xuatfile-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
-    
+    <!-- SweetAlert2 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<!-- SweetAlert2 JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	    
 
 </head>
 <body style="font-family: 'Noto Serif', serif;">
@@ -123,19 +127,19 @@
 				                <form id="UpdateInfoServlet" action="UpdateInfoServlet" method="post">
 				                    <div class="mb-4">
 				                        <label for="fullName" class="form-label">Họ và tên</label>
-				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName" required>
+				                        <input type="text" class="form-control form-control-lg border-primary rounded-pill" id="fullName" name="fullName">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="phoneNumber" class="form-label">Số điện thoại</label>
-				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber" required>
+				                        <input type="number" class="form-control form-control-lg border-primary rounded-pill" id="phoneNumber" name="phoneNumber">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="birthDate" class="form-label">Ngày sinh</label>
-				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate" required>
+				                        <input type="date" class="form-control form-control-lg border-primary rounded-pill" id="birthDate" name="birthDate">
 				                    </div>
 				                    <div class="mb-4">
 				                        <label for="address" class="form-label">Địa chỉ</label>
-				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3" required></textarea>
+				                        <textarea class="form-control form-control-lg border-primary rounded-3" id="address" name="address" rows="3"></textarea>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Cập nhật</button>
 				                </form>
@@ -164,57 +168,47 @@
             </div>
 
         </div>
-        <div class="row">
         
-        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
-        	<div class="thongke1">
-        	 Tổng số phòng ban
-        	 <p>
-                 <i class="bi bi-people-fill"></i>
-                 <span>${totalDepartments}</span>
-             </p>
-        	</div>     	     
-        	</div>
-        	
-        	
-        	<div class="ms-3 mt-3 mb-2 col-6 col-sm-3">
-        	<div class="thongke1">
-        	Tổng số Nhân sự
-        	 <p>
-                 <i class="bi bi-person-workspace"></i>
-                 <span>${totalPersonnel}</span>
-             </p>	     
-        	</div>
-        	
-        	</div>
-        	
-        	
-        </div>
-         
-         <div class="row">
-         	<div class="col bg-success text-center ms-3 me-3 rounded text-white p-3 mt-4" style="font-size: 20px;">Quản lí phòng ban</div>
-         </div>
+        <div class="container-content shadow-sm border rounded p-5 mt-4 ms-5 me-5">
+        	<div class="row">
+			    <div class="col-12 col-sm-4 text-center ms-3 me-3 rounded pt-3 mt-4 mb-5 title-box">
+			       QUẢN LÍ PHÒNG BAN
+			    </div>
+			    
+			    <div class="ms-3 mt-4 mb-2 col-12 col-sm-6">
+			    <div class="thongke1">
+			        <div class="thongke-title">
+			            Tổng số phòng ban
+			        </div>
+			        <p>
+			            <i class="bi bi-people-fill"></i>
+			            <span>${totalDepartments}</span>
+			        </p>
+			    </div>     
+			</div>
+			</div>
+		        	
 
-        <div class="btn-file ms-3 me-3">
+        <div class="btn-file ms-5 me-5">
             <button class="btn btn-success" onclick="exportToExcel()">
                 Tải xuống
                 <i class="bi bi-box-arrow-in-down ms-2"></i>
             </button>
-             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDepartment">
+             <button class="btn border btn-add" data-bs-toggle="modal" data-bs-target="#AddDepartment">
                      <i class="bi bi-plus"></i> Thêm phòng ban
              </button>
         </div>
 
-        <div class="content-here ms-3 me-3">
+        <div class="content-here ms-5 me-5">
             <div class="table-content table-responsive">
-                 <table id="myTable" class="table table-bordered" style="font-size: 14px;">
-		            <thead class="table-primary">
+                 <table id="myTable" class="table table-hover" style="font-size: 14px;">
+		            <thead class="">
 		                <tr>
-		                    <th>Mã phòng ban</th>
-		                    <th>Tên phòng ban</th>
-		                    <th>Đơn vị trực thuộc</th>
-		                    <th>Chuyên ngành</th>
-		                    <th>Thao tác</th>
+		                    <th><i class="bi bi-key-fill"></i> Mã phòng ban</th>
+		                    <th><i class="bi bi-house-fill"></i> Tên phòng ban</th>
+		                    <th><i class="bi bi-flag-fill"></i> Đơn vị trực thuộc</th>
+		                    <th><i class="bi bi-folder-fill"></i> Chuyên ngành</th>
+		                    <th><i class="bi bi-hand-index-fill"></i> Thao tác</th>
 		                </tr>
 		            </thead>
 		            <tbody>
@@ -225,13 +219,13 @@
 		                        <td>${department.department_unit}</td>
 		                        <td>${department.department_specialized}</td>
 		                        <td class="d-flex gap-2">
-		                            <button class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateDepartment">
-		                                <i class="bi bi-pencil-square"></i>
+		                            <button class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#UpdateDepartment">
+		                                <i class="bi bi-pencil-square text-primary"></i>
 		                            </button>
 		                            <form action="DeleteDepartment" method="post" style="display: inline;">
 								        <input type="hidden" name="departmentId" value="${department.department_id}">
-								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng ban này không?')">
-								            <i class="bi bi-dash-square"></i>
+								        <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng ban này không?')">
+								            <i class="bi bi-dash-square text-danger"></i>
 								        </button>
 								    </form>
 		                        </td>
@@ -241,27 +235,44 @@
 		        </table>
 		        </div>
 		        </div>
-		        
-		        
-		        <!-- table 2 -->
+        </div>
+                
+                
+                <div class="container-content shadow-sm border rounded p-5 mt-4 ms-5 me-5">
+                	 <!-- table 2 -->
 		         <div class="row">
-         	<div class="col bg-success text-center ms-3 me-3 rounded text-white p-3 mt-4" style="font-size: 20px;">Quản lí nhân sự</div>
-         </div>
+				    <div class="col-12 col-sm-4 text-center ms-3 me-3 rounded pt-3 mt-4 mb-5 title-box">
+				        QUẢN LÍ NHÂN SỰ
+				    </div>
+				    
+				    <div class="ms-3 mt-4 mb-2 col-12 col-sm-6">
+		        	<div class="thongke1">
+		        		<div class="thongke-title">
+					            Tổng số nhân sự
+					        </div>
+		        	 <p>
+		                 <i class="bi bi-person-workspace"></i>
+		                 <span>${totalPersonnel}</span>
+		             </p>	     
+		        	</div>
+		        	
+		        	</div>
+				</div>
 
-        <div class="btn-file ms-3 me-3">
+        <div class="btn-file ms-5 me-5">
             <button class="btn btn-success" onclick="exportToExcel1()">
                 Tải xuống
                 <i class="bi bi-box-arrow-in-down ms-2"></i>
             </button>
-             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddPersonnel">
+             <button class="btn border btn-add" data-bs-toggle="modal" data-bs-target="#AddPersonnel">
                      <i class="bi bi-plus"></i> Thêm nhân sự
              </button>
         </div>
 
-        <div class="content-here ms-3 me-3">
+        <div class="content-here ms-5 me-5">
             <div class="table-content table-responsive">
-                 <table id="myTable1" class="table table-bordered" style="font-size: 14px;">
-		            <thead class="table-primary">
+                 <table id="myTable1" class="table table-hover" style="font-size: 14px;">
+		            <thead>
 		                <tr>
 		                    <th>Mã nhân sự</th>
 		                    <th>Tên nhân sự</th>
@@ -284,13 +295,13 @@
 								<td>${personnel.personnel_address}</td>
 								<td>${personnel.department_id}</td>
 		                        <td class="d-flex gap-2">
-		                            <button class="btn btn-primary btn-edit1" data-bs-toggle="modal" data-bs-target="#UpdatePersonnel">
-		                                <i class="bi bi-pencil-square"></i>
+		                            <button class="btn btn-edit1" data-bs-toggle="modal" data-bs-target="#UpdatePersonnel">
+		                                <i class="bi bi-pencil-square text-primary"></i>
 		                            </button>
 		                            <form action="DeletePersonnel" method="post" style="display: inline;">
 								        <input type="hidden" name="personnelId" value="${personnel.personnel_id}">
-								        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa nhân sự này không?')">
-								            <i class="bi bi-dash-square"></i>
+								        <button type="submit" class="btn" onclick="return confirm('Bạn có chắc chắn muốn xóa nhân sự này không?')">
+								            <i class="bi bi-dash-square text-danger"></i>
 								        </button>
 								    </form>
 		                        </td>
@@ -301,6 +312,8 @@
 		      </div>           
        		</div>
 		        <!-- end table e -->
+                </div>
+		       
 		        
 		        
 		       <!-- Modal -->
@@ -319,7 +332,7 @@
 				                    <div class="row mb-4">
 				                        <div class="col-12">
 				                            <label for="department_name1" class="form-label">Tên phòng ban</label>
-				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="department_name1" name="department_name1" required>
+				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="department_name1" name="department_name1">
 				                        </div>
 				                    </div>
 				
@@ -327,7 +340,7 @@
 				                    <div class="row mb-4">
 				                        <div class="col-12">
 				                            <label for="department_unit1" class="form-label">Đơn vị trực thuộc</label>
-				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="department_unit1" name="department_unit1" required>
+				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="department_unit1" name="department_unit1">
 				                        </div>
 				                    </div>
 				
@@ -335,7 +348,7 @@
 				                    <div class="row mb-4">
 				                        <div class="col-12">
 				                            <label for="department_specialized1" class="form-label">Chuyên ngành</label>
-				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="department_specialized1" name="department_specialized1" required>
+				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="department_specialized1" name="department_specialized1">
 				                        </div>
 				                    </div>								
 				                    <!-- Nút Xác nhận -->
@@ -365,7 +378,7 @@
 				                    <div class="row mb-4">
 				                        <div class="col-12">
 				                            <label for="personnel_name1" class="form-label">Tên nhân sự</label>
-				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="personnel_name1" name="personnel_name1" required>
+				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="personnel_name1" name="personnel_name1">
 				                        </div>
 				                    </div>
 				
@@ -373,7 +386,7 @@
 				                    <div class="row mb-4">
 				                        <div class="col-12 col-sm-6">
 				                            <label for="personnel_gender1" class="form-label">Giới tính</label>
-				                            <select id="personnel_gender1" name="personnel_gender1" class="form-select form-select-lg border-2 rounded-3 p-2" required>
+				                            <select id="personnel_gender1" name="personnel_gender1" class="form-select form-select-lg border-2 rounded-3 p-2">
 				                                <option value="">Chọn giới tính</option>
 				                                <option value="Nam">Nam</option>
 				                                <option value="Nữ">Nữ</option>
@@ -382,28 +395,28 @@
 				                        </div>
 				                         <div class="col-12 col-sm-6">
 				                            <label for="personnel_birthday1" class="form-label">Ngày sinh</label>
-				                            <input type="date" class="form-control form-control-lg border-2 rounded-3 p-2" id="personnel_birthday1" name="personnel_birthday1" required>
+				                            <input type="date" class="form-control form-control-lg border-2 rounded-3 p-2" id="personnel_birthday1" name="personnel_birthday1">
 				                        </div>
 				                    </div>
 				
 				                    <div class="row mb-4">
 				                        <div class="col-12">
 				                            <label for="personnel_phone1" class="form-label">Số điện thoại</label>
-				                            <input type="number" class="form-control form-control-lg border-2 rounded-3 p-2" id="personnel_phone1" name="personnel_phone1" required>
+				                            <input type="number" class="form-control form-control-lg border-2 rounded-3 p-2" id="personnel_phone1" name="personnel_phone1">
 				                        </div>
 				                    </div>	
 				                    
 				                     <div class="row mb-4">
 				                        <div class="col-12">
 				                            <label for="personnel_address1" class="form-label">Địa chỉ</label>
-				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="personnel_address1" name="personnel_address1" required>
+				                            <input type="text" class="form-control form-control-lg border-2 rounded-3 p-2" id="personnel_address1" name="personnel_address1">
 				                        </div>
 				                    </div>		
 				                    
 				                    <div class="row mb-4">
 				                        <div class="col-12">
 				                            <label for="department_id11" class="form-label">Mã phòng ban</label>
-				                            <input type="number" class="form-control form-control-lg border-2 rounded-3 p-2" id="department_id11" name="department_id11" required>
+				                            <input type="number" class="form-control form-control-lg border-2 rounded-3 p-2" id="department_id11" name="department_id11">
 				                        </div>
 				                    </div>					
 
@@ -432,29 +445,29 @@
 			            <div class="modal-body">
 			                <!-- Form -->
 			                <form id="addDepartmentForm" action="Department_admin" method="POST" onsubmit="return confirmSubmit()">
-			                    <div class="row g-3">
+			                    <div class="row">
 			                        <div class="col-12 col-sm-4">
 			                            <label for="department_id" class="form-label">Mã phòng ban</label>
-			                            <input id="department_id" name="department_id" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="department_id" name="department_id" type="text" class="form-control rounded-pill border-primary">
 			                        </div>
 			
 			                        <div class="col-12 col-sm-8">
-			                            <label for="department_name" class="form_label">Tên phòng ban</label>
-			                            <input id="department_name" name="department_name" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <label for="department_name" class="form_label pb-2">Tên phòng ban</label>
+			                            <input id="department_name" name="department_name" type="text" class="form-control rounded-pill border-primary">
 			                        </div>
 			                    </div>
 			
-			                    <div class="row g-3">
+			                    <div class="row">
 			                        <div class="col-12">
 			                            <label for="department_unit" class="form-label">Đơn vị trực thuộc</label>
-			                            <input id="department_unit" name="department_unit" type="text" class="form-control rounded-pill border-primary p-2" required>
+			                            <input id="department_unit" name="department_unit" type="text" class="form-control rounded-pill border-primary">
 			                        </div>
 			                    </div>
 			
-			                    <div class="row g-3">
+			                    <div class="row">
 			                        <div class="col-12">
 			                            <label for="department_specialized" class="form-label">Chuyên ngành</label>
-			                            <textarea id="department_specialized" name="department_specialized" class="form-control rounded-3 border-primary p-2" rows="3" required></textarea>
+			                            <input id="department_specialized" name="department_specialized" type="text" class="form-control rounded-pill border-primary"></input>
 			                        </div>
 			                    </div>
 			
@@ -483,19 +496,19 @@
 				                    <div class="row g-3">
 				                        <div class="col-12 col-sm-4">
 				                            <label for="personnel_id" class="form-label">Mã nhân sự</label>
-				                            <input id="personnel_id" name="personnel_id" type="text" class="form-control rounded-pill border-primary p-2" required>
+				                            <input id="personnel_id" name="personnel_id" type="text" class="form-control rounded-pill border-primary p-2">
 				                        </div>
 				
 				                        <div class="col-12 col-sm-8">
 				                            <label for="personnel_name" class="form-label">Tên nhân sự</label>
-				                            <input id="personnel_name" name="personnel_name" type="text" class="form-control rounded-pill border-primary p-2" required>
+				                            <input id="personnel_name" name="personnel_name" type="text" class="form-control rounded-pill border-primary p-2">
 				                        </div>
 				                    </div>
 				
 				                    <div class="row g-3">
 				                        <div class="col-12 col-sm-6">
 				                            <label for="personnel_gender" class="form-label">Giới tính</label>
-				                            <select id="personnel_gender" name="personnel_gender" class="form-select rounded-pill border-primary p-2" required>
+				                            <select id="personnel_gender" name="personnel_gender" class="form-select rounded-pill border-primary p-2">
 				                                <option value="">Chọn giới tính</option>
 				                                <option value="Nam">Nam</option>
 				                                <option value="Nữ">Nữ</option>
@@ -504,18 +517,18 @@
 				                        </div>
 				                        <div class="col-12 col-sm-6">
 				                            <label for="personnel_birthday" class="form-label">Ngày sinh</label>
-				                            <input id="personnel_birthday" name="personnel_birthday" type="date" class="form-control rounded-pill border-primary p-2" required>
+				                            <input id="personnel_birthday" name="personnel_birthday" type="date" class="form-control rounded-pill border-primary p-2">
 				                        </div>
 				                    </div>
 				
 				                    <div class="row g-3">
 				                        <div class="col-12 col-sm-6">
 				                            <label for="personnel_phone" class="form-label">Số điện thoại</label>
-				                            <input id="personnel_phone" name="personnel_phone" type="number" class="form-control rounded-pill border-primary p-2" required>
+				                            <input id="personnel_phone" name="personnel_phone" type="number" class="form-control rounded-pill border-primary p-2">
 				                        </div>
 				                         <div class="col-12 col-sm-6">
 				                            <label for="department_id" class="form-label">Mã phòng ban</label>
-				                            <input id="department_id" name="department_id" type="number" class="form-control rounded-pill border-primary p-2" required>
+				                            <input id="department_id" name="department_id" type="number" class="form-control rounded-pill border-primary p-2">
 				                        </div>
 				                       
 				                    </div>
@@ -523,7 +536,7 @@
 				                    <div class="row g-3">
 				                     	<div class="col-12">
 				                            <label for="personnel_address" class="form-label">Địa chỉ</label>
-				                            <input id="personnel_address" name="personnel_address" type="text" class="form-control rounded-pill border-primary p-2" required>
+				                            <input id="personnel_address" name="personnel_address" type="text" class="form-control rounded-pill border-primary p-2">
 				                        </div>				                  
 				                    </div>			
 				                    <div class="mt-4">
